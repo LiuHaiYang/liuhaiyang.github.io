@@ -208,6 +208,31 @@
 <p>确实想添加该文件，可以用-f强制添加到Git：<br>git add -f App.class</p>
 <p>配置别名<br>敲git st就表示git status那就简单多了，当然这种偷懒的办法我们是极力赞成的。<br>我们只需要敲一行命令，告诉Git，以后st就表示status：<br>git config –global alias.st status</p>
 <p>git lg<br>git config –global alias.lg “log –color –graph –pretty=format:’%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset’ –abbrev-commit”</p>
+<p>一台电脑绑定多个git账号：</p>
+<p>config:</p>
+<pre><code>Host github.com
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa_github
+
+Host git.jd.com
+HostName git.jd.com
+User git
+IdentityFile ~/.ssh/id_rsa_gitlab
+</code></pre><p>在正常生成秘钥，配置config 后：</p>
+<h1 id="取消全局-用户名-邮箱-配置"><a href="#取消全局-用户名-邮箱-配置" class="headerlink" title="取消全局 用户名/邮箱 配置"></a>取消全局 用户名/邮箱 配置</h1><p>git config –global –unset user.name<br>git config –global –unset user.email</p>
+<h1 id="单独设置每个repo-用户名-邮箱"><a href="#单独设置每个repo-用户名-邮箱" class="headerlink" title="单独设置每个repo 用户名/邮箱"></a>单独设置每个repo 用户名/邮箱</h1><p>git config user.email “<a href="mailto:xxxx@xx.com" target="_blank" rel="noopener">xxxx@xx.com</a>”<br>git config user.name “xxxx”</p>
+<p>hexo git设置可以在 _config.yml 中单独设置 name email</p>
+<p>eg ：</p>
+<pre><code>theme: hexo-theme-snippet
+deploy: 
+  type: git
+  repository: http://github.com/LiuHaiYang/liuhaiyang.github.io.git
+  branch: master
+  name: LiuHaiYang
+  email: 843800695@qq.com
+</code></pre><p>如果 <code>.deploy_git</code> 目录已经生成的情况下，需要删掉整个目录，再执行一次hexo d才行。记录一下，以免其他人踩坑</p>
+<p>设置后不能生效，应该 删除 .deploy_git</p>
 
     </div>
 
@@ -268,7 +293,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#取消全局-用户名-邮箱-配置"><span class="toc-text">取消全局 用户名/邮箱 配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#单独设置每个repo-用户名-邮箱"><span class="toc-text">单独设置每个repo 用户名/邮箱</span></a></li></ol>
         
     </div>
 </aside>
