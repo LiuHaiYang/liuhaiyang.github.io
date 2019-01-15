@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>KNN算法 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Ocean">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="KNN算法">
+            
+	            KNN算法
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/算法" title="算法">
+                        算法
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/05/28</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>k-Nearest Neighbors算法（简称KNN算法）<br>核心思想：“近朱者赤近墨者黑”，<br>由你的邻居推断出你的类别。<br>KNN计算步骤：①算距离 ②找邻居 ③做分类<br>什么是k-Nearest Neighbors？<br>   KNN(K Nearest Neighbors,K近邻)是一种基于实例的学习，通过计算新数据与训练数据特征值之间的距离，然后取K(K&gt;=1,k为奇数)个距离最近的邻居进行分类判定（投票法）或者回归。<br>距离种类：欧氏距离，余弦距离，汉明距离，曼哈顿距离。<br>实例：KNN的模型是整个训练数据集。当我们需要预测一个新实例的某个属性A时，KNN算法会搜索训练数据集找到K个最相似的实例。这些相似实例的A属性会被总结归纳，作为新实例A属性的预测。<br>如何判断实例之间的相似程度，这需要具体看数据的类型。对于实数数据，可以使用欧式距离。对于分类或者二进制数据，可以使用汉明距离。<br>KNN算法是如何工作的？<br>KNN算法属于基于实例的、竞争学习与懒惰学习算法。<br>基于实例的算法：算法模型使用数据实例，并依据这些实例做出预测的算法。KNN算法是基于实例算法中的一个极端例子，因为所有的训练数据都成了算法模型的一部分。<br>竞争学习逻辑：它内部使用模型元素（数据实例）之间的竞争来作出预测。数据实例之间的相似性计算导致每一个数据实例都竞争去“赢”，或者说竞争去和需要预测的元素相似，再或者说竞争为预测结果做贡献。<br>懒惰学习算法：因为一直到需要进行预测操作了，它才会建立一个预测模型，它总是最后需要出结果的时候才开始干活。<br>KNN很有用，因为它不对数据做任何的假设，同时使用一致的规则在任意两个数据实例之间计算距离。也因为如此，它被称作非参数，或者非线性算法，因为它没有假设一个模型函数。<br>KNN的优点和缺点：<br>    算法优点：<br>          简单，易于理解，容易实现，通过对K的选择可具备丢噪音数据的健壮性。<br>     算法缺点：<br>          需要大量空间储存所有已知实例，算法复杂度高（需要比较所有已知实例与要分类的实例），当其样本分布不平衡时，比如其中一类样本过大（实例数量过多）占主导的时候，新的未知实例容易被归类为这个主导样本，因为这类样本实例的数量过大，但这个新的未知实例实际并木接近目标样本<br>     改进版本<br>      考虑距离，根据距离加上权重，比如: 1/d (d: 距离）</p>
+<p>如何用Python实现KNN（实现步骤分为如下6步）</p>
+<ol>
+<li>载入数据：①从TXT中读取数据，训练数据集和测试数据集。<br>  def loadDataset(trainfilename, testfilename ,length,trainingSet=[],testSet=[]):<pre><code>with open(trainfilename,&apos;r&apos;) as csvfile:
+    traininglines = csv.reader(csvfile)
+    dataset = list(traininglines)
+    for x in range(len(dataset)):
+        for y in range(length):
+            dataset[x][y] = float(dataset[x][y])
+        trainingSet.append(dataset[x])
+with open(testfilename, &apos;r&apos;) as csvfile:
+    testlines = csv.reader(csvfile)
+    dataset = list(testlines)
+    for x in range(len(dataset)):
+        for y in range(length):
+            dataset[x][y] = float(dataset[x][y])
+        testSet.append(dataset[x])
+</code></pre></li>
+</ol>
+<p>②：从CSV中读取数据，训练数据集和测试数据集。<br>        def loaddata(trainfilename,testfilename,index):#数据载入</p>
+<pre><code>traindata = pd.DataFrame(pd.read_csv(trainfilename,header=0,index_col=index ))
+testdata = pd.DataFrame(pd.read_excel(testfilename,header=0,index_col=index ))
+return traindata,testdata
+</code></pre><ol start="2">
+<li><p>数据清洗：<br>  def dataclean(filename,index,label):</p>
+<pre><code>data = loaddata(filename,index)
+#数据表中的重复值
+repetition=data.duplicated()
+# print(repetition)
+data.drop_duplicates()
+print(&quot;数据中重复值已删除&quot;)
+
+#数据表中的空值
+datanull = data[label].isnull().value_counts()
+# print(datanull)
+data.dropna()
+print(&quot;数据中空值已删除！&quot;)
+</code></pre></li>
+</ol>
+<pre><code>#数据间的空格
+data[label1] = data[label1].map(str.strip)
+
+#大小写转换
+data[label1] = data[label,].map(str.title)
+#检查数据中关键字段 是否统一
+#是否全为字母
+data[label1].apply(lambda x: x.isdigit())
+#是否全为数字
+#data[label].apply(lambda x: x.isalnum())
+return data
+</code></pre><ol start="3">
+<li><p>数据属性可视化：<br>  def plt_all(filename,lable1,lable2):</p>
+<pre><code>font=FontProperties(fname=r&apos;c:\windows\fonts\simsun.ttc&apos;,size=14)
+fontt=FontProperties(fname=r&apos;c:\windows\fonts\simsun.ttc&apos;,size=16)
+plt.title(u&apos;属性展示: &apos;+lable1+u&apos;和 &apos;+lable2,fontproperties=fontt)
+plt.figtext(0.5,0.03,lable1,fontproperties=font)
+plt.figtext(0.03,0.5,lable2,fontproperties=font)
+# data= pd.read_csv(filename,index_col=index)
+inde = filename.index
+ind = []
+for i in inde:
+    ind.append(i)
+news_ids = []
+for id in ind:
+    if id not in news_ids:
+        news_ids.append(id)
+for k in news_ids:
+    # m = data.ix[k]
+    m = filename.ix[k]
+    x = m[lable1]
+    y =  m[lable2]
+    if k == news_ids[0]:
+        l = plt.scatter(x, y,marker=&apos;&gt;&apos;,c=&apos;r&apos;)
+        l.set_label(k)
+    elif  k == news_ids[1]:
+        l = plt.scatter(x, y,marker=&apos;+&apos;, c=&apos;blue&apos;)
+        l.set_label(k)
+    elif k == news_ids[2]:
+        l = plt.scatter(x, y, marker=&apos;&lt;&apos;,c=&apos;g&apos;)
+        l.set_label(k)
+    else:
+        l.set_label(k)
+plt.legend(loc=2)
+plt.grid(color=&apos;#95a5a6&apos;, linestyle=&apos;--&apos;, linewidth=1, axis=&apos;both&apos;, alpha=0.8)
+plt.show()
+</code></pre></li>
+<li><p>相似度：计算两个数据实例之间的距离，欧氏距离。<br>  #如何计算euclideanDistance<br>  def euclideanDistance(instancel, instance2, length):</p>
+<pre><code>distance = 0
+for x in range(length):
+    distance += pow((instancel[x] - instance2[x]),2)
+return math.sqrt(distance)
+</code></pre></li>
+<li><p>临近数据：确定最相近的N个实例。<br>  #返回最近的k个邻居<br>  def getNeighbors(trainingSet,testInstance,k):</p>
+<pre><code>distances = []
+length = len(testInstance) -1
+for x  in  range(len(trainingSet)):
+    dist = euclideanDistance(testInstance,trainingSet[x],length)
+    distances.append((trainingSet[x],dist))
+distances.sort(key=operator.itemgetter(1))
+# plt.scatter(distances)
+
+neighbors = []
+for  x  in range(k):# 取前k 个距离
+    neighbors.append(distances[x][0])
+return  neighbors
+</code></pre></li>
+<li>结果：从这些实力中生成预测结果。<br>  #进行判断  分类  少数服从多数的法则<br>  def getResponse(neighbors):#最近的k个邻居<pre><code>classVotes = {}
+for x in range(len(neighbors)):
+    response = neighbors[x][-1]
+    if response in classVotes:
+        classVotes[response] +=1
+    else:
+        classVotes[response] = 1
+sortedVotes = sorted(classVotes.items(),key=operator.itemgetter(1), reverse = True)
+return sortedVotes[0][0]#返回个数最多的是哪一个
+</code></pre></li>
+</ol>
+<h5 id="参考网站："><a href="#参考网站：" class="headerlink" title="参考网站："></a>参考网站：</h5><p><a href="http://scikit-learn.org/stable/" target="_blank" rel="noopener">http://scikit-learn.org/stable/</a><br><a href="http://www.tuicool.com/articles/aeuAZfV" target="_blank" rel="noopener">http://www.tuicool.com/articles/aeuAZfV</a><br><a href="https://zhuanlan.zhihu.com/p/23191325" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23191325</a><br><a href="http://www.tuicool.com/articles/Zjayiiu" target="_blank" rel="noopener">http://www.tuicool.com/articles/Zjayiiu</a></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/06/22/Linux随记/" class="pre-post btn btn-default" title="Linux随记">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Linux随记</span>
+        </a>
+    
+    
+        <a href="/2017/05/25/ZooKeeper详解/" class="next-post btn btn-default" title="ZooKeeper详解">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">ZooKeeper详解</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: '{{ page.title }}',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"5af17a9d96e17d3828bf",
+          client_secret:"76bb38207b8111c314094c097fc984589daff7eb"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#参考网站："><span class="toc-text">参考网站：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2018
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

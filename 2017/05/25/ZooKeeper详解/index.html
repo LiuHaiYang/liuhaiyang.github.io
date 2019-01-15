@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>ZooKeeper详解 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Ocean">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="ZooKeeper详解">
+            
+	            ZooKeeper详解
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/大数据" title="大数据">
+                        大数据
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/05/25</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><code>ZooKeeper</code>是一个分布式应用所设计的 开源协调服务 。他可以为用户提供同步、配置管理、分组和命名等服务。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="1、ZooKeeper的设计目标"><a href="#1、ZooKeeper的设计目标" class="headerlink" title="1、ZooKeeper的设计目标"></a>1、ZooKeeper的设计目标</h3><ul>
+<li>(1)简单化: 允许分布式的进程通过共享体系的命名空间来进行协调，这个命名空间的组织 与标准的文件体统非常的相似，它是由一些数据寄存器组成的。只能                用在大型的、分布式的系统中。</li>
+<li>(2)健壮性  :  只要大部分的服务器可用，那么<code>ZooKeeper</code>服务就可用。</li>
+<li>(3) 有序性</li>
+<li>(4) 速度优势  : 当读取主要负载尤其快,     当读取工作比写工作更多的时候，它执行的性能会更好。</li>
+</ul>
+<h3 id="2、数据模型和层次命名空间"><a href="#2、数据模型和层次命名空间" class="headerlink" title="2、数据模型和层次命名空间"></a>2、数据模型和层次命名空间</h3><p><code>Zookeeper</code>中的每一个节点是都通过路径来识别的。树形的结构。</p>
+<h3 id="3、ZooKeeper中的节点和临时的节点"><a href="#3、ZooKeeper中的节点和临时的节点" class="headerlink" title="3、ZooKeeper中的节点和临时的节点"></a>3、ZooKeeper中的节点和临时的节点</h3><ul>
+<li>每一个节点 还拥有自身的一些信息</li>
+<li>使用<code>Znode</code>来表示所讨论的<code>ZooKeeper</code>节点</li>
+<li><code>Znode</code>维护者数据、ACL、时间戳等包含 信息的数据结构</li>
+</ul>
+<h3 id="4、ZooKeeper的应用"><a href="#4、ZooKeeper的应用" class="headerlink" title="4、ZooKeeper的应用"></a>4、ZooKeeper的应用</h3><p><code>ZooKeeper</code>应用于大量的工业程序中。可以用于消息代理的协调和故障恢复服务。  可以管理上千的总联机程序和信息控制系统 ;  还可用于获取服务并恢复错误故障。</p>
+<h2 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h2><h3 id="1、集群安装"><a href="#1、集群安装" class="headerlink" title="1、集群安装"></a>1、集群安装</h3><ul>
+<li><p>安装的前提是java的环境;</p>
+</li>
+<li><p>在 /etc/profile文件中进行配置</p>
+<p>  #Set    ZooKeeper  Enviroment</p>
+<p>export    ZOOKEEPER_HOME=/…………</p>
+<p>export    PATH = $$  PATH :                                                    $ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</p>
+</li>
+<li><p>在conf文件夹下创建一个zoo.cnf文件，内容如下:</p>
+<p>tickTime=2000</p>
+<p>dataDir = /var/zookeeper</p>
+<p>clientPort=2181</p>
+</li>
+</ul>
+<h3 id="2、配置ZooKeeper"><a href="#2、配置ZooKeeper" class="headerlink" title="2、配置ZooKeeper"></a>2、配置ZooKeeper</h3><ul>
+<li><p>最低配置</p>
+<p>clientport       dataDir          tickDir</p>
+</li>
+<li><p>高级配置</p>
+<p>dataLogDir     maxClientCnxns   min/maxSession Timeout</p>
+</li>
+<li><p>集群配置  </p>
+<p>initLimit     syncLimit</p>
+</li>
+</ul>
+<h3 id="3、运行ZooKeeper"><a href="#3、运行ZooKeeper" class="headerlink" title="3、运行ZooKeeper"></a>3、运行ZooKeeper</h3><ul>
+<li>单机模式   zkServer.sh   start</li>
+<li>集群/伪集群  重复命令</li>
+</ul>
+<h3 id="4、四字命令-（进行交互）"><a href="#4、四字命令-（进行交互）" class="headerlink" title="4、四字命令 （进行交互）"></a>4、四字命令 （进行交互）</h3><ul>
+<li><code>conf</code>   服务配置的详细信息</li>
+<li><code>cons</code>  列出连接到服务器的所有客户端的详细连接/ 会话信息</li>
+<li><code>dump</code>   列出未经处理的会话和临时节点</li>
+<li><code>envi</code>    输出关于服务环境的详细信息</li>
+<li><code>reqs</code>     列出未经处理的请求</li>
+<li><code>ruok</code>    测试服务是否处于正确的状态</li>
+<li><code>wchs</code>    列出服务器watch的详细信息</li>
+</ul>
+<h3 id="5、ZooKeeper命令行工具"><a href="#5、ZooKeeper命令行工具" class="headerlink" title="5、ZooKeeper命令行工具"></a>5、ZooKeeper命令行工具</h3><ul>
+<li><p>成功启动服务后，输入下述的命令，连接 <code>ZooKeeper</code>服务:</p>
+<p>zkCli.sh   -server  xx.xx.xx.xx:xxxx</p>
+<p>连接成功后屏幕会输出Welcome ZooKeeper  等信息</p>
+</li>
+</ul>
+<h2 id="简单操作"><a href="#简单操作" class="headerlink" title="简单操作"></a>简单操作</h2><h3 id="1、命令的简单操作步骤"><a href="#1、命令的简单操作步骤" class="headerlink" title="1、命令的简单操作步骤"></a>1、命令的简单操作步骤</h3><ul>
+<li><code>ls</code>  查看 <code>ZooKeeper</code>所包含的内容</li>
+<li>创建新的<code>Znde</code>  使用<code>create /zk myData</code> </li>
+<li><code>get  data</code>进行查看</li>
+<li><code>set data</code>对其关联的字符进行设置</li>
+<li><code>delete</code>  对其进行删除</li>
+<li><code>sync</code>  等待要被传送的数据</li>
+<li><code>exists</code>  测试本地是否存在目标节点</li>
+</ul>
+<h3 id="2、API的简单使用"><a href="#2、API的简单使用" class="headerlink" title="2、API的简单使用"></a>2、API的简单使用</h3><ul>
+<li>共包含5个包</li>
+<li>如果要使用<code>ZooKeeper</code>服务，必须创建一个实例</li>
+<li>客户端和ZooKeeper服务建立连接，ZooKeeper系统将此链接回话分配一个ID值，通过发送心跳来维持会话的链接。   客户端可进行调用<code>API</code></li>
+</ul>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="1、数据模型"><a href="#1、数据模型" class="headerlink" title="1、数据模型"></a>1、数据模型</h3><h4 id="1、Znode"><a href="#1、Znode" class="headerlink" title="1、Znode"></a>1、<code>Znode</code></h4><ul>
+<li><p>每一个子节点对应这一个<code>Znode</code>。维护这一个属性结构，包含数据的版本号，时间戳等的状态信息。</p>
+</li>
+<li><p><code>Znode</code>是客户端要访问的主要实体类，其特征:</p>
+<p>watches      数据访问     临时节点   顺时节点</p>
+</li>
+</ul>
+<h4 id="2、ZooKeeper中的时间-有多种记录时间的形式"><a href="#2、ZooKeeper中的时间-有多种记录时间的形式" class="headerlink" title="2、ZooKeeper中的时间(有多种记录时间的形式)"></a>2、ZooKeeper中的时间(有多种记录时间的形式)</h4><ul>
+<li><code>Zxid</code></li>
+<li>版本号</li>
+</ul>
+<h4 id="3、节点属性结构"><a href="#3、节点属性结构" class="headerlink" title="3、节点属性结构"></a>3、节点属性结构</h4><h3 id="2、会话及状态"><a href="#2、会话及状态" class="headerlink" title="2、会话及状态"></a>2、会话及状态</h3><ul>
+<li>客户端会通过句柄为<code>ZooKeeper</code> 服务建立一个会话，客户端将尝试连接一个服务器，如果成功，他的状态改变为<code>connected</code></li>
+</ul>
+<h3 id="3、ZooKeeper-Watches"><a href="#3、ZooKeeper-Watches" class="headerlink" title="3、ZooKeeper Watches"></a>3、ZooKeeper Watches</h3><ul>
+<li>ZooKeeper可以为所有的读操作设置watch 。这些读操作包括: <code>exists()</code>  <code>getChildren()</code>  <code>getData()</code></li>
+<li><code>watch</code>事件是一次性触发器，并且只有在数据发生改变时，watch时间才能会被发给客户端。</li>
+<li><code>ZooKeeper</code>所管理的<code>watch</code>可以分为两类:一类是数据; 另一类是孩子<code>watch</code>。<code>getData()</code>和<code>exists</code>负责设置数据<code>watch</code> ,  <code>getChildren()</code>负责设置孩子<code>watch</code></li>
+</ul>
+<h3 id="4、ZooKeeper-ACL"><a href="#4、ZooKeeper-ACL" class="headerlink" title="4、ZooKeeper  ACL"></a>4、ZooKeeper  ACL</h3><ul>
+<li>ZooKeeper使用ACL来对Znode进行访问控制。ACL的实现和UNIX文件访问许可非常相似：他使用许可位来对一个节点的不同操作进行允许或禁止的权限控制。   和标准的UNIX许可不同的是<code>ZooKeeper</code>节点有user(文件拥有者)，group,world三种标准模式，并且没有节点所有者的概念。</li>
+</ul>
+<ul>
+<li><p>一个ACL和一个ZooKeeper几点相对应，父节点的ACL和孩子节点的ACL是相互独立的。ACL不能被孩子ACL所继承。  两个所用的权限没有任何的关系。</p>
+</li>
+<li><p>ZooKeeper  ACL 的使用依赖于验证，支持以下的几种验证模式：</p>
+<p>world  :代表某一个特定的用户</p>
+<p> auth :  代表已经通过验证的用户</p>
+<p>digest : 通过用户名密码进行验证</p>
+<p> ip  : 通过客户端IP 进行验证</p>
+</li>
+</ul>
+<h3 id="5、一致性保证"><a href="#5、一致性保证" class="headerlink" title="5、一致性保证"></a>5、一致性保证</h3><p>ZooKeeper是一种高性能、可扩展的服务。  读写的速度特别的快，并且读的速度比写的更快，在读的操作的时候，ZooKeeper依然能够为旧的数据提供服务。</p>
+<p>提供的一致性保证:</p>
+<ul>
+<li>顺序一致性</li>
+<li>原子性</li>
+<li>单系统镜像</li>
+<li>可靠性</li>
+<li>实时性</li>
+</ul>
+<h2 id="Leader选举"><a href="#Leader选举" class="headerlink" title="Leader选举"></a>Leader选举</h2><p>所有的服务(可以理解为服务器)中选举出一个Leader， 然后让这个Leader来负责管理集群。当Leader出现故障是，ZooKeeper能够快速的在其他的中选出下一个Leader。</p>
+<h2 id="ZooKeeper锁服务"><a href="#ZooKeeper锁服务" class="headerlink" title="ZooKeeper锁服务"></a>ZooKeeper锁服务</h2><p>完全分部的锁是全局同步的。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>是<code>Hadoop</code>集群管理中一个必不可少的模块，他主要用来控制集群中的数据，如管理<code>Hadoop</code>集群中<code>NameNode</code>，以及<code>HBase</code>中的<code>Master Election</code> 、 <code>Server</code>之间的状态同步。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/05/28/KNN算法/" class="pre-post btn btn-default" title="KNN算法">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">KNN算法</span>
+        </a>
+    
+    
+        <a href="/2017/05/15/RabbitMQ介绍/" class="next-post btn btn-default" title="RabbitMQ介绍">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">RabbitMQ介绍</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<script type="text/javascript" src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: '{{ page.title }}',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"5af17a9d96e17d3828bf",
+          client_secret:"76bb38207b8111c314094c097fc984589daff7eb"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、ZooKeeper的设计目标"><span class="toc-text">1、ZooKeeper的设计目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、数据模型和层次命名空间"><span class="toc-text">2、数据模型和层次命名空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ZooKeeper中的节点和临时的节点"><span class="toc-text">3、ZooKeeper中的节点和临时的节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、ZooKeeper的应用"><span class="toc-text">4、ZooKeeper的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装和配置"><span class="toc-text">安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、集群安装"><span class="toc-text">1、集群安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、配置ZooKeeper"><span class="toc-text">2、配置ZooKeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、运行ZooKeeper"><span class="toc-text">3、运行ZooKeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、四字命令-（进行交互）"><span class="toc-text">4、四字命令 （进行交互）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、ZooKeeper命令行工具"><span class="toc-text">5、ZooKeeper命令行工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单操作"><span class="toc-text">简单操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、命令的简单操作步骤"><span class="toc-text">1、命令的简单操作步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、API的简单使用"><span class="toc-text">2、API的简单使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-text">特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数据模型"><span class="toc-text">1、数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、Znode"><span class="toc-text">1、Znode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、ZooKeeper中的时间-有多种记录时间的形式"><span class="toc-text">2、ZooKeeper中的时间(有多种记录时间的形式)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、节点属性结构"><span class="toc-text">3、节点属性结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、会话及状态"><span class="toc-text">2、会话及状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ZooKeeper-Watches"><span class="toc-text">3、ZooKeeper Watches</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、ZooKeeper-ACL"><span class="toc-text">4、ZooKeeper  ACL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、一致性保证"><span class="toc-text">5、一致性保证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Leader选举"><span class="toc-text">Leader选举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooKeeper锁服务"><span class="toc-text">ZooKeeper锁服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2018
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
