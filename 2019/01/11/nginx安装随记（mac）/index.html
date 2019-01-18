@@ -185,7 +185,11 @@
 <p>brew 升级<br>sudo brew update</p>
 <p>查看安装信息(经常用到, 比如查看安装目录等)<br>sudo brew info nginx</p>
 <p>查看已经安装的软件<br>brew list</p>
-<h3 id="3-brew安装nginx"><a href="#3-brew安装nginx" class="headerlink" title="3. brew安装nginx"></a>3. brew安装nginx</h3><p>安装nginx<br>可以用brew很方便地安装nginx.<br>sudo brew install nginx<br>启动nginx服务<br>sudo brew services start nginx<br>利用<a href="http://localhost:8080进行访问" target="_blank" rel="noopener">http://localhost:8080进行访问</a>,</p>
+<p>安装完以后，可以在终端输出的信息里看到一些配置路径：</p>
+<pre><code>/usr/local/etc/nginx/nginx.conf （配置文件路径）
+/usr/local/var/www （服务器默认路径）
+/usr/local/Cellar/nginx/1.6.2 （貌似是安装路径）
+</code></pre><h3 id="3-brew安装nginx"><a href="#3-brew安装nginx" class="headerlink" title="3. brew安装nginx"></a>3. brew安装nginx</h3><p>安装nginx<br>可以用brew很方便地安装nginx.<br>sudo brew install nginx<br>启动nginx服务<br>sudo brew services start nginx<br>利用<a href="http://localhost:8080进行访问" target="_blank" rel="noopener">http://localhost:8080进行访问</a>,</p>
 <h3 id="4-操作"><a href="#4-操作" class="headerlink" title="4. 操作"></a>4. 操作</h3><p>查看nginx版本<br>nginx -v<br>关闭nginx服务<br>sudo brew services stop nginx<br>另外几个比较方便的指令</p>
 <p>重新加载nginx<br>nginx -s reload<br>停止nginx<br>nginx -s stop</p>
 <hr>
