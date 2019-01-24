@@ -330,14 +330,14 @@
 
 <script>
     var gitment = new Gitment({
-        id: '{{ page.title }}',
+        id: '',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
           client_id:"5af17a9d96e17d3828bf",
           client_secret:"76bb38207b8111c314094c097fc984589daff7eb"
         },
-
+        perPage:"10",
     });
     gitment.render('comments');
 </script>
