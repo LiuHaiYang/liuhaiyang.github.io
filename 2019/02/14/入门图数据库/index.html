@@ -182,6 +182,19 @@
 <p><img src="https://pic1.zhimg.com/v2-277e8f7e9000be05ee0e166f3a5c8cf8_b.gif" alt="image"></p>
 <h4 id="关系将图各个部分组织起来"><a href="#关系将图各个部分组织起来" class="headerlink" title="关系将图各个部分组织起来"></a>关系将图各个部分组织起来</h4><p>“节点 — 被组织 → 关系 — 可以有 → 属性” 关系可以将节点组织成任意的结构，允许一张图被组织成一个列表，一棵树，一张地图，或者一个复杂的实体 – 这个实体本身也是由复杂的，关系高度关联的结构组成。</p>
 <h4 id="用-Traversal-进行数据库查询"><a href="#用-Traversal-进行数据库查询" class="headerlink" title="用 Traversal 进行数据库查询"></a>用 Traversal 进行数据库查询</h4><h4 id="为节点和关系建立索引"><a href="#为节点和关系建立索引" class="headerlink" title="为节点和关系建立索引"></a>为节点和关系建立索引</h4><h3 id="Neo4j"><a href="#Neo4j" class="headerlink" title="Neo4j"></a>Neo4j</h3><h4 id="Neo4j是一个图数据库"><a href="#Neo4j是一个图数据库" class="headerlink" title="Neo4j是一个图数据库"></a>Neo4j是一个图数据库</h4><p>“一个图数据库 — 管理 → 一张图 和与图相关的 → 索引” Neo4j是一个有商业支持的开源图数据库。他被设计来用于拿下数据不断高速成长的数据存储，用高效的图数据结构代替传统的表设计。用Neo4j工作，您的应用将得到图的所有优越表现，以及您期望的高可靠性。</p>
+<h4 id="Neo4j模型和行为的更多细节"><a href="#Neo4j模型和行为的更多细节" class="headerlink" title="Neo4j模型和行为的更多细节"></a>Neo4j模型和行为的更多细节</h4><h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h5><p>构成一张图的基本元素是节点和关系。在Neo4j中，节点和关系都可以包含属性。 节点经常被用于表示一些实体，但依赖关系也一样可以表示实体。</p>
+<h5 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h5><p>节点之间的关系是图数据库很重要的一部分。通过关系可以找到很多关联的数据，比如节点集合，关系集合以及他们的属性集合。</p>
+<p>一个关系连接两个节点，必须有一个开始节点和结束节点。</p>
+<p>因为关系总是直接相连的，所以对于一个节点来说，与他关联的关系看起来有输入/输出两个方向，这个特性对于我们遍历图非常有帮助</p>
+<p>关系在任一方向都会被遍历访问。这意味着我们并不需要在不同方向都新增关系。</p>
+<p>而关系总是会有一个方向，所以当这个方向对你的应用没有意义时你可以忽略方向。</p>
+<p>特别注意一个节点可以有一个关系是指向自己的。</p>
+<p>为了将来增强遍历图中所有的关系，我们需要为关系设置类型。注意 关键字 type 在这可能会被误解，你其实可以把他简单的理解为一个标签而已。</p>
+<h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><p>节点和关系都可以设置自己的属性。 属性是由Key-Value键值对组成，键名是字符串。属性值是要么是原始值，要么是原始值类型的一个数组。比如+String+，+int+和i+int[]+都是合法的。</p>
+<p>注意：null不是一个合法的属性值。 Nulls能代替模仿一个不存在的Key。</p>
+<h5 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h5><p>路径由至少一个节点，通过各种关系连接组成，经常是作为一个查询或者遍历的结果。</p>
+<h5 id="遍历（Traversal）"><a href="#遍历（Traversal）" class="headerlink" title="遍历（Traversal）"></a>遍历（Traversal）</h5><p>遍历一张图就是按照一定的规则，跟随他们的关系，访问关联的的节点集合。最多的情况是只有一部分子图被访问到，因为你知道你对那一部分节点或者关系感兴趣。</p>
+<p>Neo4j提供了遍历的API，可以让你指定遍历规则。最简单的设置就是设置遍历是宽度优先还是深度优先。</p>
 
     </div>
 
@@ -239,7 +252,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#图数据库"><span class="toc-text">图数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是图数据库？"><span class="toc-text">什么是图数据库？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一个图由无数的节点和关系组成"><span class="toc-text">一个图由无数的节点和关系组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关系将图各个部分组织起来"><span class="toc-text">关系将图各个部分组织起来</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用-Traversal-进行数据库查询"><span class="toc-text">用 Traversal 进行数据库查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为节点和关系建立索引"><span class="toc-text">为节点和关系建立索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Neo4j"><span class="toc-text">Neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Neo4j是一个图数据库"><span class="toc-text">Neo4j是一个图数据库</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#图数据库"><span class="toc-text">图数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是图数据库？"><span class="toc-text">什么是图数据库？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一个图由无数的节点和关系组成"><span class="toc-text">一个图由无数的节点和关系组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关系将图各个部分组织起来"><span class="toc-text">关系将图各个部分组织起来</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用-Traversal-进行数据库查询"><span class="toc-text">用 Traversal 进行数据库查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为节点和关系建立索引"><span class="toc-text">为节点和关系建立索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Neo4j"><span class="toc-text">Neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Neo4j是一个图数据库"><span class="toc-text">Neo4j是一个图数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Neo4j模型和行为的更多细节"><span class="toc-text">Neo4j模型和行为的更多细节</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#节点"><span class="toc-text">节点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关系"><span class="toc-text">关系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#属性"><span class="toc-text">属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#路径"><span class="toc-text">路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#遍历（Traversal）"><span class="toc-text">遍历（Traversal）</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
