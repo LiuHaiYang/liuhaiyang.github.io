@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>转-MySQL | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Ocean">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="转-MySQL">
+            
+	            转-MySQL
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title="数据库">
+                        数据库
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/03</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="MYSQL要点"><a href="#MYSQL要点" class="headerlink" title="MYSQL要点"></a>MYSQL要点</h2><h3 id="登陆Mysql"><a href="#登陆Mysql" class="headerlink" title="登陆Mysql"></a>登陆Mysql</h3><p>‘’’<br>mysql -D 选择数据库<br>mysql &gt; exit quit \q  都是退出<br>mysql &gt; status;  select version() 当前mysql的version的信息<br>mysql&gt; show global variables like ‘port’; # 查看MySQL端口号<br>‘’’</p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>‘’’<br>– 创建一个名为 samp_db 的数据库，数据库字符编码指定为 gbk<br>create database samp_db character set gbk;<br>drop database samp_db; – 删除 库名为samp_db的库<br>delete from 表名; – 清空表中记录<br>‘’’</p>
+<h4 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h4><p>使用 create table 语句可完成对表的创建, create table 的常见形式: 语法：create table 表名称(列声明);</p>
+<p>‘’’<br>– 如果数据库中存在user_accounts表，就把它从数据库中drop掉<br>DROP TABLE IF EXISTS <code>user_accounts</code>;<br>CREATE TABLE <code>user_accounts</code> (<br>  <code>id</code>             int(100) unsigned NOT NULL AUTO_INCREMENT primary key,<br>  <code>password</code>       varchar(32)       NOT NULL DEFAULT ‘’ COMMENT ‘用户密码’,<br>  <code>reset_password</code> tinyint(32)       NOT NULL DEFAULT 0 COMMENT ‘用户类型：0－不需要重置密码；1-需要重置密码’,<br>  <code>mobile</code>         varchar(20)       NOT NULL DEFAULT ‘’ COMMENT ‘手机’,<br>  <code>create_at</code>      timestamp(6)      NOT NULL DEFAULT CURRENT_TIMESTAMP(6),<br>  <code>update_at</code>      timestamp(6)      NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),<br>  – 创建唯一索引，不允许重复<br>  UNIQUE INDEX idx_user_mobile(<code>mobile</code>)<br>)ENGINE=InnoDB DEFAULT CHARSET=utf8<br>COMMENT=’用户表信息’;<br>‘’’</p>
+<p>数据类型的属性解释</p>
+<ul>
+<li>NULL：数据列可包含NULL值；</li>
+<li>NOT NULL：数据列不允许包含NULL值；</li>
+<li>DEFAULT：默认值；</li>
+<li>PRIMARY：KEY 主键；</li>
+<li>AUTO_INCREMENT：自动递增，适用于整数类型；</li>
+<li>UNSIGNED：是指数值类型只能为正数；</li>
+<li>CHARACTER SET name：指定一个字符集；</li>
+<li>COMMENT：对表或者字段说明；</li>
+</ul>
+<h4 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h4><p>‘’’<br>– 结果集中会自动去重复数据<br>SELECT DISTINCT Company FROM Orders </p>
+<p>– 表 Persons 字段 Id_P 等于 Orders 字段 Id_P 的值，<br>– 结果集显示 Persons表的 LastName、FirstName字段，Orders表的OrderNo字段<br>SELECT p.LastName, p.FirstName, o.OrderNo FROM Persons p, Orders o WHERE p.Id_P = o.Id_P </p>
+<p>– gbk 和 utf8 中英文混合排序最简单的办法<br>– ci是 case insensitive, 即 “大小写不敏感”<br>SELECT tag, COUNT(tag) from news GROUP BY tag order by convert(tag using gbk) collate gbk_chinese_ci;<br>SELECT tag, COUNT(tag) from news GROUP BY tag order by convert(tag using utf8) collate utf8_unicode_ci;</p>
+<p>‘’’</p>
+<ul>
+<li>UPDATE</li>
+</ul>
+<p>Update 语句用于修改表中的数据。<br>语法：UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值<br>‘’’<br>– update语句设置字段值为另一个结果取出来的字段<br>update user set name = (select name from user1 where user1 .id = 1 )<br>where id = (select id from user2 where user2 .name=’小苏’);</p>
+<p>– 更新表 orders 中 id=1 的那一行数据更新它的 title 字段<br>UPDATE <code>orders</code> set title=’这里是标题’ WHERE id=1;<br>‘’’</p>
+<ul>
+<li>DELETE</li>
+</ul>
+<p>DELETE 语句用于删除表中的行。<br>语法：DELETE FROM 表名称 WHERE 列名称 = 值<br>‘’’<br>– 在不删除table_name表的情况下删除所有的行，清空表。<br>DELETE FROM table_name<br>– 或者<br>DELETE * FROM table_name<br>– 删除 Person表字段 LastName = ‘JSLite’<br>DELETE FROM Person WHERE LastName = ‘JSLite’<br>– 删除 表meeting id 为2和3的两条数据<br>DELETE from meeting where id in (2,3);<br>‘’’</p>
+<ul>
+<li>ORDER BY</li>
+</ul>
+<p>语句默认按照升序对记录进行排序。<br>ORDER BY - 语句用于根据指定的列对结果集进行排序。<br>DESC - 按照降序对记录进行排序。<br>ASC - 按照顺序对记录进行排序。<br>‘’’<br>– Company在表Orders中为字母，则会以字母顺序显示公司名称<br>SELECT Company, OrderNumber FROM Orders ORDER BY Company</p>
+<p>– 后面跟上 DESC 则为降序显示<br>SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC</p>
+<p>– Company以降序显示公司名称，并OrderNumber以顺序显示<br>SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC, OrderNumber ASC<br>‘’’</p>
+<ul>
+<li><p>IN<br>IN - 操作符允许我们在 WHERE 子句中规定多个值。<br>IN - 操作符用来指定范围，范围中的每一条，都进行匹配。IN取值规律，由逗号分割，全部放置括号中。 语法：SELECT “字段名”FROM “表格名”WHERE “字段名” IN (‘值一’, ‘值二’, …);<br>‘’’<br>– 从表 Persons 选取 字段 LastName 等于 Adams、Carter<br>SELECT * FROM Persons WHERE LastName IN (‘Adams’,’Carter’)<br>‘’’</p>
+</li>
+<li><p>NOT<br>NOT - 操作符总是与其他操作符一起使用，用在要过滤的前面。<br>‘’’<br>SELECT vend_id, prod_name FROM Products WHERE NOT vend_id = ‘DLL01’ ORDER BY prod_name;<br>‘’’</p>
+</li>
+<li><p>UNION<br>UNION - 操作符用于合并两个或多个 SELECT 语句的结果集。<br>‘’’<br>– 列出所有在中国表（Employees_China）和美国（Employees_USA）的不同的雇员名<br>SELECT E_Name FROM Employees_China UNION SELECT E_Name FROM Employees_USA</p>
+</li>
+</ul>
+<p>– 列出 meeting 表中的 pic_url，<br>– station 表中的 number_station 别名设置成 pic_url 避免字段不一样报错<br>– 按更新时间排序<br>SELECT id,pic_url FROM meeting UNION ALL SELECT id,number_station AS pic_url FROM station  ORDER BY update_at;<br>– 通过 UNION 语法同时查询了 products 表 和 comments 表的总记录数，并且按照 count 排序<br>SELECT ‘product’ AS type, count(<em>) as count FROM <code>products</code> union select ‘comment’ as type, count(</em>) as count FROM <code>comments</code> order by count;<br>‘’’</p>
+<ul>
+<li>JOIN</li>
+</ul>
+<p>用于根据两个或多个表中的列之间的关系，从这些表中查询数据。</p>
+<ul>
+<li>JOIN: 如果表中有至少一个匹配，则返回行</li>
+<li>INNER JOIN:在表中存在至少一个匹配时，INNER JOIN 关键字返回行。</li>
+<li>LEFT JOIN: 即使右表中没有匹配，也从左表返回所有的行</li>
+<li>RIGHT JOIN: 即使左表中没有匹配，也从右表返回所有的行</li>
+<li>FULL JOIN: 只要其中一个表中存在匹配，就返回行(MySQL 是不支持的，通过 LEFT JOIN + UNION + RIGHT JOIN 的方式 来实现)<br>‘’’<br>SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo<br>FROM Persons<br>INNER JOIN Orders<br>ON Persons.Id_P = Orders.Id_P<br>ORDER BY Persons.LastName;<br>‘’’<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3></li>
+</ul>
+<ul>
+<li><p>普通索引(INDEX)<br>语法：ALTER TABLE 表名字 ADD INDEX 索引名字 ( 字段名字 )<br>‘’’<br>– –直接创建索引<br>CREATE INDEX index_user ON user(title)<br>– –修改表结构的方式添加索引<br>ALTER TABLE table_name ADD INDEX index_name ON (column(length))<br>– 给 user 表中的 name 字段 添加普通索引(INDEX)<br>ALTER TABLE <code>user</code> ADD INDEX index_name (name)<br>– –创建表的时候同时创建索引<br>CREATE TABLE <code>user</code> (<br>  <code>id</code> int(11) NOT NULL AUTO_INCREMENT ,<br>  <code>title</code> char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,<br>  <code>content</code> text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,<br>  <code>time</code> int(10) NULL DEFAULT NULL ,<br>  PRIMARY KEY (<code>id</code>),<br>  INDEX index_name (title(length))<br>)<br>– –删除索引<br>DROP INDEX index_name ON table<br>‘’’</p>
+</li>
+<li><p>主键索引(PRIMARY key)<br>语法：ALTER TABLE 表名字 ADD PRIMARY KEY ( 字段名字 )</p>
+</li>
+</ul>
+<p>‘’’<br>– 给 user 表中的 id字段 添加主键索引(PRIMARY key)<br>ALTER TABLE <code>user</code> ADD PRIMARY key (id);<br>‘’’</p>
+<ul>
+<li>唯一索引(UNIQUE)<br>语法：ALTER TABLE 表名字 ADD UNIQUE (字段名字)<br>‘’’<br>– 给 user 表中的 creattime 字段添加唯一索引(UNIQUE)<br>ALTER TABLE <code>user</code> ADD UNIQUE (creattime);<br>‘’’</li>
+</ul>
+<ul>
+<li><p>全文索引(FULLTEXT)<br>语法：ALTER TABLE 表名字 ADD FULLTEXT (字段名字)<br>‘’’<br>– 给 user 表中的 description 字段添加全文索引(FULLTEXT)<br>ALTER TABLE <code>user</code> ADD FULLTEXT (description);<br>‘’’</p>
+</li>
+<li><p>添加多列索引<br>语法： ALTER TABLE table_name ADD INDEX index_name ( column1, column2, column3)<br>‘’’<br>– 给 user 表中的 name、city、age 字段添加名字为name_city_age的普通索引(INDEX)<br>ALTER TABLE user ADD INDEX name_city_age (name(10),city,age);<br>‘’’</p>
+</li>
+</ul>
+<h4 id="建立索引的时机"><a href="#建立索引的时机" class="headerlink" title="建立索引的时机"></a>建立索引的时机</h4><p>在WHERE和JOIN中出现的列需要建立索引，但也不完全如此：</p>
+<ul>
+<li>MySQL只对&lt;，&lt;=，=，&gt;，&gt;=，BETWEEN，IN使用索引</li>
+<li>某些时候的LIKE也会使用索引。</li>
+<li>在LIKE以通配符%和_开头作查询时，MySQL不会使用索引<br>‘’’<br>– 此时就需要对city和age建立索引，<br>– 由于mytable表的userame也出现在了JOIN子句中，也有对它建立索引的必要。<br>SELECT t.Name<br>FROM mytable t LEFT JOIN mytable m ON t.Name=m.username<br>WHERE m.age=20 AND m.city=’上海’;</li>
+</ul>
+<p>SELECT <em> FROM mytable WHERE username like’admin%’; – 而下句就不会使用：<br>SELECT </em> FROM mytable WHERE Name like’%admin’; – 因此，在使用LIKE时应注意以上的区别。<br>‘’’</p>
+<p>索引的注意事项</p>
+<ul>
+<li>索引不会包含有NULL值的列</li>
+<li>使用短索引</li>
+<li>不要在列上进行运算 索引会失效</li>
+</ul>
+<h3 id="创建后表的修改"><a href="#创建后表的修改" class="headerlink" title="创建后表的修改"></a>创建后表的修改</h3><h4 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h4><p>语法：alter table 表名 add 列名 列数据类型 [after 插入位置];</p>
+<p>示例:<br>‘’’<br>– 在表students的最后追加列 address:<br>alter table students add address char(60);<br>– 在名为 age 的列后插入列 birthday:<br>alter table students add birthday date after age;<br>– 在名为 number_people 的列后插入列 weeks:<br>alter table students add column <code>weeks</code> varchar(5) not null default “” after <code>number_people</code>;<br>‘’’</p>
+<h4 id="修改列"><a href="#修改列" class="headerlink" title="修改列"></a>修改列</h4><p>语法：alter table 表名 change 列名称 列新名称 新数据类型;<br>‘’’<br>– 将表 tel 列改名为 telphone:<br>alter table students change tel telphone char(13) default “-“;<br>– 将 name 列的数据类型改为 char(16):<br>alter table students change name name char(16) not null;<br>– 修改 COMMENT 前面必须得有类型属性<br>alter table students change name name char(16) COMMENT ‘这里是名字’;<br>– 修改列属性的时候 建议使用modify,不需要重建表<br>– change用于修改列名字，这个需要重建表<br>alter table meeting modify <code>weeks</code> varchar(20) NOT NULL DEFAULT ‘’ COMMENT ‘开放日期 周一到周日：0~6，间隔用英文逗号隔开’;<br>– <code>user</code>表的<code>id</code>列，修改成字符串类型长度50，不能为空，<code>FIRST</code>放在第一列的位置<br>alter table <code>user</code> modify COLUMN <code>id</code> varchar(50) NOT NULL FIRST ;<br>‘’’</p>
+<h4 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h4><p>语法：alter table 表名 drop 列名称;<br>‘’’<br>– 删除表students中的 birthday 列:<br>alter table students drop birthday;<br>‘’’</p>
+<h4 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h4><p>语法：alter table 表名 rename 新表名;<br>‘’’<br>– 重命名 students 表为 workmates:<br>alter table students rename workmates;<br>‘’’</p>
+<h4 id="清空表数据"><a href="#清空表数据" class="headerlink" title="清空表数据"></a>清空表数据</h4><p>方法一：delete from 表名; 方法二：truncate from “表名”;<br>‘’’<br>DELETE:1. DML语言;2. 可以回退;3. 可以有条件的删除;<br>TRUNCATE:1. DDL语言;2. 无法回退;3. 默认所有的表内容都删除;4. 删除速度比delete快。<br>– 清空表为 workmates 里面的数据，不删除表。<br>delete from workmates;<br>– 删除workmates表中的所有数据，且无法恢复<br>truncate table workmates;<br>‘’’</p>
+<h4 id="删除整张表"><a href="#删除整张表" class="headerlink" title="删除整张表"></a>删除整张表</h4><p>语法：drop table 表名;<br>‘’’<br>– 删除 workmates 表:<br>drop table workmates;<br>‘’’</p>
+<h4 id="删除整个数据库"><a href="#删除整个数据库" class="headerlink" title="删除整个数据库"></a>删除整个数据库</h4><p>语法：drop database 数据库名;<br>‘’’<br>– 删除 samp_db 数据库:<br>drop database samp_db;<br>‘’’</p>
+<h3 id="SQL删除重复记录"><a href="#SQL删除重复记录" class="headerlink" title="SQL删除重复记录"></a>SQL删除重复记录</h3><p>‘’’<br>– 查找表中多余的重复记录，重复记录是根据单个字段（peopleId）来判断<br>select <em> from people where peopleId in (select peopleId from people group by peopleId having count(peopleId) &gt; 1)<br>– 删除表中多余的重复记录，重复记录是根据单个字段（peopleId）来判断，只留有rowid最小的记录<br>delete from people<br>where peopleId in (select peopleId from people group by peopleId having count(peopleId) &gt; 1)<br>and rowid not in (select min(rowid) from people group by peopleId having count(peopleId )&gt;1)<br>– 查找表中多余的重复记录（多个字段）<br>select </em> from vitae a<br>where (a.peopleId,a.seq) in (select peopleId,seq from vitae group by peopleId,seq having count(<em>) &gt; 1)<br>– 删除表中多余的重复记录（多个字段），只留有rowid最小的记录<br>delete from vitae a<br>where (a.peopleId,a.seq) in (select peopleId,seq from vitae group by peopleId,seq having count(</em>) &gt; 1) and rowid not in (select min(rowid) from vitae group by peopleId,seq having count(<em>)&gt;1)<br>– 查找表中多余的重复记录（多个字段），不包含rowid最小的记录<br>select </em> from vitae a<br>where (a.peopleId,a.seq) in (select peopleId,seq from vitae group by peopleId,seq having count(<em>) &gt; 1) and rowid not in (select min(rowid) from vitae group by peopleId,seq having count(</em>)&gt;1)<br>‘’’</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/04/02/转-Nginx/" class="next-post btn btn-default" title="转-Nginx">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">转-Nginx</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Wed Apr 03 2019 10:06:20 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MYSQL要点"><span class="toc-text">MYSQL要点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#登陆Mysql"><span class="toc-text">登陆Mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作"><span class="toc-text">操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建数据库表"><span class="toc-text">创建数据库表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增删改查"><span class="toc-text">增删改查</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#索引"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建立索引的时机"><span class="toc-text">建立索引的时机</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建后表的修改"><span class="toc-text">创建后表的修改</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#添加列"><span class="toc-text">添加列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改列"><span class="toc-text">修改列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除列"><span class="toc-text">删除列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重命名表"><span class="toc-text">重命名表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#清空表数据"><span class="toc-text">清空表数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除整张表"><span class="toc-text">删除整张表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除整个数据库"><span class="toc-text">删除整个数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL删除重复记录"><span class="toc-text">SQL删除重复记录</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
