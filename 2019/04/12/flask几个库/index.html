@@ -201,7 +201,7 @@
 <p><code>以上转自</code> <a href="https://www.pyfdtic.com/2018/03/16/flaskExt--flask-sse/" target="_blank" rel="noopener">Blog</a></p>
 <h4 id="Flask-SSE"><a href="#Flask-SSE" class="headerlink" title="Flask-SSE"></a>Flask-SSE</h4><ul>
 <li><code>pip install flask_sse</code> 下载 ， <code>from flask_sse import sse</code>使用</li>
-<li>官方实例 <code>https://flask-sse.readthedocs.io/en/latest/quickstart.html</code></li>
+<li><a href="https://flask-sse.readthedocs.io/en/latest/quickstart.html" target="_blank" rel="noopener">官方实例</a></li>
 <li>flask-sse 用法简单，使用前需安装Redis，因为sse使用了redis的发布订阅。</li>
 <li><code>app.register_blueprint(sse, url_prefix=&#39;/stream&#39;)</code> 已经确定了 stream，前端需要他进行收消息。</li>
 <li>实例中的路由hello 模拟了发消息，发消息可以配置不同的type。</li>
