@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>HBase基础 | meet you</title>
+<title>flask几个库 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="HBase基础">
+        <h1 id="flask几个库">
             
-	            HBase基础
+	            flask几个库
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/大数据" title="大数据">
-                        大数据
+                    <a href="/tags/python" title="python">
+                        python
                     </a>
                 
             
@@ -159,61 +159,92 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/06/23</span>
+            <span class="date-meta">2019/04/12</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>658</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h1 id="HBase基础"><a href="#HBase基础" class="headerlink" title="HBase基础"></a>HBase基础</h1><p>HBase是一种构建在HDFS之上的分布式，面向列的存储系统。应用场景：需要实时写入，随机访问超大数据集。</p>
-<p>HBase通过线性方式从上到下增加节点来进行扩展。HBase不是关系型数据库，也不支持SQL，但是他有自己的特长，这是RDBNS不能处理的：HBase巧妙地将大而稀疏的表放在商用服务器集群上。</p>
-<h2 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h2><h3 id="1、数据模型速览"><a href="#1、数据模型速览" class="headerlink" title="1、数据模型速览"></a>1、数据模型速览</h3><ul>
-<li>应用程序将数据存储在带有标签的表中。 表是由行和列组成。</li>
-<li>表的单元格是行和列坐标的交际。他们是有版本号。</li>
-<li>版本号是在单元格插入式有HBase自动分配的时间戳。</li>
-<li>表的行  有 行键，表用行键，即表的主键，对表的行进行排序。</li>
-<li>每行的列被分组，形成列族。所有的列族成员都有相同的前缀。</li>
+        <h3 id="Flask-sse"><a href="#Flask-sse" class="headerlink" title="Flask-sse"></a><code>Flask-sse</code></h3><hr>
+<h4 id="SSE"><a href="#SSE" class="headerlink" title="SSE"></a>SSE</h4><p>Server-Sent Events 让服务器向客户端流式发送文本消息, 如服务器生生成的实时通知或者更新.</p>
+<p>SSE 提供的是一个高效, 跨浏览器的 XHR 流实现, 消息交付只使用一个长 HTTP 连接. </p>
+<p>浏览器会帮我们管理连接, 解析消息, 从而让我们只关注业务逻辑.</p>
+<p>SSE 事件流是以流式 HTTP 响应形式交付的: 客户端发起常规 HTTP 请求, 服务器以自定义的 “text/event-stream” 内容类型响应, 然后交付 UTF-8 编码的事件数据.</p>
+<ul>
+<li>事件载荷就是一个或多个相邻 data 字段的值</li>
+<li>事件可以带 ID 和 event 表示事件类型</li>
+<li>事件边界用换行符标识</li>
 </ul>
-<h4 id="区域"><a href="#区域" class="headerlink" title="区域"></a>区域</h4><ul>
-<li>HBase自动把表横向切分为不同区域，每个区域包含表所有行的一个子集。</li>
-<li>随着表的增大，表拥有的区域也在不断地增加。</li>
-<li>区域分散在HBase集群的单元，对于一个服务器，再大的表都可以由服务器集群来处理。</li>
-<li>通过管理整个区域某部分的节点来管理整个表。</li>
+<p>SSE 连接本质上是 HTTP 流式响应, 因此响应时可以压缩的, 就跟压缩其他 HTTP 响应一样, 而且是动态压缩.</p>
+<p>除了自动解析事件数据, SSE 还内置支持断线重连, 以及恢复客户端因断线而丢失的消息. 默认情况下, 如果连接中断, 浏览器会自动重新连接, SSE 规范建议间隔时间为 2~3 s, 这也是大多数浏览器采用的默认值. </p>
+<h4 id="特点-与局限"><a href="#特点-与局限" class="headerlink" title="特点 与局限"></a>特点 与局限</h4><ol>
+<li><p>特点</p>
+<ul>
+<li>通过一个长连接低延迟交付</li>
+<li>高效的浏览器消息解析, 不会出现无限缓冲</li>
+<li>自动跟踪最后看到的消息及自动重新连接.</li>
+<li>消息通知在客户端以 DOM 事件形式呈现.</li>
 </ul>
-<h4 id="锁定"><a href="#锁定" class="headerlink" title="锁定"></a>锁定</h4><ul>
-<li>无论有多少列组成行级事务，行的更新都是原子的，这使锁定模型比较简单。</li>
-</ul>
-<h3 id="2、实现"><a href="#2、实现" class="headerlink" title="2、实现"></a>2、实现</h3><ul>
-<li>HBase依赖于ZooKeeper且在默认情况下，他使用一个ZooKeeper实例为集群状态提供授权。</li>
-<li>HBase通过Hadoop文件系统的API进行数据维护的。</li>
-</ul>
-<h4 id="运行HBase"><a href="#运行HBase" class="headerlink" title="运行HBase"></a>运行HBase</h4><ul>
-<li>HBase的内部有两个目录表：-ROOT-  和   .META. 。HBase通过这两个表来维护当前列表，状态，最新历史和集群上所有活跃区域的位置。</li>
-<li>当新的客户端连接到ZooKeeper集群时，首先必须知道-ROOT-的地址。  根据-ROOT-分析出.META.地址。   .META.区域覆盖需要查询的行， 找到后，进行确认用户空间区域及其地址。客户端即可直接与主机区域服务器交互。</li>
-<li>-ROOT-    和  .META.     客户端可以缓存已知的所有地址。 </li>
-</ul>
-<h3 id="3、安装-测试驱动程序"><a href="#3、安装-测试驱动程序" class="headerlink" title="3、安装  测试驱动程序"></a>3、安装  测试驱动程序</h3><ul>
-<li>创建    (名为test表，带有唯一的列族   data  )  create    ‘test ‘, ‘data’</li>
-<li>输出所有的表     list</li>
-<li>插入数据：   put    ‘tets’,    ‘row1’,   ‘data:1’,  ‘value1’  </li>
-<li>想要删除表，必须在删除它之前关闭它  disable  ‘test’     删除   drop  ‘test’</li>
-</ul>
-<h3 id="4、客户端"><a href="#4、客户端" class="headerlink" title="4、客户端"></a>4、客户端</h3><ul>
-<li><p>Java</p>
 </li>
-<li><p>REST  和  thrift</p>
-<p>要运行REST     首先使用一下命令：   hbase-daemon.sh    start    rest</p>
-<p>这将启动一个服务器实例，默认的端口是60050,对他进行后台处理，将所有的输出记到HBase日志目录下的日志文件。</p>
-</li>
+<li><p>局限</p>
+<ul>
+<li>只能从服务器向客户端发送数据, 不能满足需要请求流的场景.</li>
+<li>事件流协议设计为只能传输 UTF-8 数据, 即使可以传输二进制数据, 效率也不高.</li>
+<li>SSE 在服务端和客户端都比较容易实现, 但网络中间设备如 代理, 防火墙等不支持 SSE, 因此, 中间设备可能会缓冲事件流数据, 导致额外延迟, 甚至彻底毁掉 SSE 链接, 可以考虑通过 TLS 发送 SSE 事件流.</li>
 </ul>
+</li>
+</ol>
+<p><code>以上转自</code> <a href="https://www.pyfdtic.com/2018/03/16/flaskExt--flask-sse/" target="_blank" rel="noopener">Blog</a></p>
+<h4 id="Flask-SSE"><a href="#Flask-SSE" class="headerlink" title="Flask-SSE"></a>Flask-SSE</h4><ul>
+<li><code>pip install flask_sse</code> 下载 ， <code>from flask_sse import sse</code>使用</li>
+<li>官方实例 <code>https://flask-sse.readthedocs.io/en/latest/quickstart.html</code></li>
+<li>flask-sse 用法简单，使用前需安装Redis，因为sse使用了redis的发布订阅。</li>
+<li><code>app.register_blueprint(sse, url_prefix=&#39;/stream&#39;)</code> 已经确定了 stream，前端需要他进行收消息。</li>
+<li>实例中的路由hello 模拟了发消息，发消息可以配置不同的type。</li>
+<li>sse 也有一些高级配置，channel通道的处理。源码较简单，看下就知道了。</li>
+</ul>
+<p>查看sse源码其实就是对redis的发布订阅的封装，也可以自己实现这个功能。同样的浏览器new 事件 <code>/stream</code></p>
+<pre><code>app = flask.Flask(__name__)
+app.secret_key = &apos;asdf&apos;
+red = redis.StrictRedis()
+
+
+def event_stream():
+    pubsub = red.pubsub()
+    pubsub.subscribe(&apos;chat&apos;)
+    # TODO: handle client disconnection.
+    for message in pubsub.listen():
+        print message
+        yield &apos;data: %s\n\n&apos; % message[&apos;data&apos;]
+
+@app.route(&apos;/stream&apos;)
+def stream():
+    return flask.Response(event_stream(),
+                          mimetype=&quot;text/event-stream&quot;)
+</code></pre><p>至于前端怎么写的，我就不关心了！</p>
+<h3 id="Flask-CORS"><a href="#Flask-CORS" class="headerlink" title="Flask-CORS"></a><code>Flask-CORS</code></h3><hr>
+<pre><code>由于固有的安全机制，js的跨域请求是无法被服务器成功响应的。
+现在前后端分离日益成为web开发主流方式的大趋势下，后台逐渐趋向指提供API服务，为各客户端提供数据及相关操作，
+而网站的开发全部交给前端搞定，网站和API服务很少部署在同一台服务器上并使用相同的端口，
+js的跨域请求时普遍存在的，开发RESTful API时，通常都要考虑到CORS功能的实现，以便js能正常使用API
+</code></pre><p>开发Flask RESTAPI 时使用Flask-CORS可以解决跨域的问题。</p>
+<p>安装 pip install flask-cors</p>
+<p>用法：</p>
+<pre><code>from flask import Flask
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route(&quot;/&quot;)
+def helloWorld():
+  return &quot;Hello, cross-origin-world!&quot;
+</code></pre><p>对指定的资源增加CORS： <code>cors = CORS(app, resources={r&quot;/api/*&quot;: {&quot;origins&quot;: &quot;*&quot;}})</code><br>应用于Blueprint: <code>main = Blueprint(&#39;main&#39;, __name__)   CORS(main)</code></p>
+<p><code>高级用法见</code> <a href="https://flask-cors.readthedocs.io/en/latest/api.html#extension" target="_blank" rel="noopener">官方文档</a></p>
 
     </div>
 
@@ -231,15 +262,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/06/25/MongoDB查询详解/" class="pre-post btn btn-default" title="MongoDB查询详解">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">MongoDB查询详解</span>
-        </a>
     
-    
-        <a href="/2017/06/22/Linux随记/" class="next-post btn btn-default" title="Linux随记">
+        <a href="/2019/04/03/转-MySQL/" class="next-post btn btn-default" title="转-MySQL">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Linux随记</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">转-MySQL</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -252,7 +278,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Fri Jun 23 2017 11:01:44 GMT+0800',
+        id: 'Fri Apr 12 2019 15:56:50 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -276,7 +302,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase基础"><span class="toc-text">HBase基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念"><span class="toc-text">1、概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数据模型速览"><span class="toc-text">1、数据模型速览</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#区域"><span class="toc-text">区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁定"><span class="toc-text">锁定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、实现"><span class="toc-text">2、实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#运行HBase"><span class="toc-text">运行HBase</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、安装-测试驱动程序"><span class="toc-text">3、安装  测试驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、客户端"><span class="toc-text">4、客户端</span></a></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-sse"><span class="toc-text">Flask-sse</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SSE"><span class="toc-text">SSE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特点-与局限"><span class="toc-text">特点 与局限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flask-SSE"><span class="toc-text">Flask-SSE</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-CORS"><span class="toc-text">Flask-CORS</span></a></li></ol>
         
     </div>
 </aside>
