@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Linux随记 | meet you</title>
+<title>python协程 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Linux随记">
+        <h1 id="python协程">
             
-	            Linux随记
+	            python协程
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/linux" title="linux">
-                        linux
+                    <a href="/tags/python" title="python">
+                        python
                     </a>
                 
             
@@ -159,44 +159,18 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/06/22</span>
+            <span class="date-meta">2019/05/27</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>704</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="一-、安装软件的步骤："><a href="#一-、安装软件的步骤：" class="headerlink" title="一 、安装软件的步骤："></a>一 、安装软件的步骤：</h3><ul>
-<li>检查是否安装 rpm -qa |grep jdk</li>
-</ul>
-<ul>
-<li>下载软件包</li>
-<li>安装依赖</li>
-</ul>
-<p>rpm 包， 已经编译之后的应用程序。</p>
-<p>rpm 命令：</p>
-<h3 id="1、安装-rpm文件"><a href="#1、安装-rpm文件" class="headerlink" title="1、安装  rpm文件"></a>1、安装  rpm文件</h3><ul>
-<li>rpm   -i       -h  显示进度   -v   显示详细的过程    -vv   更详细的过程</li>
-<li>rpm  -ivh     –nodeps:忽略依赖关系   –replacepkgs : 重新安装，替换原有的安装   –force : 强行安装，实现重装或降级</li>
-</ul>
-<h3 id="2、查询"><a href="#2、查询" class="headerlink" title="2、查询"></a>2、查询</h3><ul>
-<li>rpm -q  package name: 查询指定的包是否安装</li>
-<li>rpm -qa : 查询已经安装的所有的包</li>
-</ul>
-<h3 id="二、随记"><a href="#二、随记" class="headerlink" title="二、随记"></a>二、随记</h3><ul>
-<li>init 0 关机</li>
-<li>printenv  查看环境变量</li>
-<li>修改MAC地址  vi   /etc/sysconfig/network-scripts/…..      第二行就是mac  地址     删除 mac   和 uuid 两行     dd  命名删除 一行    删除  rm  -rf /etc/udev/rules.d/70-……     后重启    init  6 重启</li>
-<li>修改 ip  vi   /etc/sysconfig/network-scripts/…..     修改IP后  service     network   restart</li>
-<li>网络模式:  NAT   两层路由                  桥接   仅主机  :一层路由</li>
-</ul>
+        <h3 id="实例code"><a href="#实例code" class="headerlink" title="实例code:"></a>实例code:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line">import concurrent.futures</span><br><span class="line">from concurrent.futures import ThreadPoolExecutor</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def cpu_bound(i,j):</span><br><span class="line">    for o in range(10):</span><br><span class="line">        asyncio.sleep(1)</span><br><span class="line">        print(&apos;a-----&gt;&gt;&apos;,o)</span><br><span class="line">    print(i,j)</span><br><span class="line">    return sum((i,j))</span><br><span class="line"></span><br><span class="line">async def main():</span><br><span class="line"></span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    executor = ThreadPoolExecutor(1)</span><br><span class="line"></span><br><span class="line">    i,j = 0,1</span><br><span class="line">    res = loop.run_in_executor(executor, cpu_bound, i, j)</span><br><span class="line"></span><br><span class="line">    n = 0</span><br><span class="line">    for l in range(10):</span><br><span class="line">        print(&apos;m---&gt;&apos;,l)</span><br><span class="line">        time.sleep(1)</span><br><span class="line">        n+=l</span><br><span class="line">        if n &gt;20:</span><br><span class="line">            await_res = await res</span><br><span class="line">            print(n,await_res)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    loop.run_until_complete(main())</span><br><span class="line">    ## 先起一个线程</span><br></pre></td></tr></table></figure>
+<p>其中用到的是 <code>run_in_executor</code> 函数</p>
 
     </div>
 
@@ -214,15 +188,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/06/23/HBase基础/" class="pre-post btn btn-default" title="HBase基础">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">HBase基础</span>
-        </a>
     
-    
-        <a href="/2017/05/28/KNN算法/" class="next-post btn btn-default" title="KNN算法">
+        <a href="/2019/04/16/Tornado部署/" class="next-post btn btn-default" title="Tornado部署">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">KNN算法</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Tornado部署</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -235,7 +204,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Thu Jun 22 2017 11:02:48 GMT+0800',
+        id: 'Mon May 27 2019 12:40:03 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -259,7 +228,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux"><span class="toc-text">Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-、安装软件的步骤："><span class="toc-text">一 、安装软件的步骤：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、安装-rpm文件"><span class="toc-text">1、安装  rpm文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、查询"><span class="toc-text">2、查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、随记"><span class="toc-text">二、随记</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例code"><span class="toc-text">实例code:</span></a></li></ol>
         
     </div>
 </aside>
