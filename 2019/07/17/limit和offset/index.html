@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Django 基础命令篇 | meet you</title>
+<title>limit和offset | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Django 基础命令篇">
+        <h1 id="limit和offset">
             
-	            Django 基础命令篇
+	            limit和offset
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title="python">
-                        python
+                    <a href="/tags/数据库" title="数据库">
+                        数据库
                     </a>
                 
             
@@ -159,86 +159,20 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/03/28</span>
+            <span class="date-meta">2019/07/17</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>841</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>Django 基本命令：<br>新建一个  project</p>
-<pre><code>django-admin.py startproject project_name
-</code></pre><p>特别是在 windows 上，如果报错，尝试用 django-admin 代替 django-admin.py 试试</p>
-<ol start="2">
-<li><p>新建 app<br>要先进入项目目录下，</p>
-<p> cd project_name<br>然后执行下面的命令（下同，已经在项目目录下则不需要 cd project_name）</p>
-<p> python manage.py startapp app_name<br> 或 django-admin.py startapp app_name</p>
-</li>
-</ol>
-<p>一般一个项目有多个app, 当然通用的app也可以在多个项目中使用。</p>
-<ol start="3">
-<li>创建数据库表 或 更改数据库表或字段<br>Django 1.7.1及以上 用以下命令</li>
-</ol>
-<ul>
-<li><ol>
-<li><p>创建更改的文件</p>
-<p>python manage.py makemigrations</p>
-</li>
-</ol>
-</li>
-<li><ol start="2">
-<li><p>将生成的py文件应用到数据库</p>
-<p>python manage.py migrate</p>
-</li>
-</ol>
-<p>这种方法可以在SQL等数据库中创建与models.py代码对应的表，不需要自己手动执行SQL。</p>
-<ol start="4">
-<li><p>使用开发服务器<br>开发服务器，即开发时使用，一般修改代码后会自动重启，方便调试和开发，但是由于性能问题，建议只用来测试，不要用在生产环境。</p>
-<p>python manage.py runserver</p>
-</li>
-</ol>
-</li>
-<li><p>当提示端口被占用的时候，可以用其它端口：</p>
-<p>  python manage.py runserver 8001<br>  python manage.py runserver 9999<br>（当然也可以kill掉占用端口的进程，具体后面有讲，此处想知道的同学可查下 lsof 命令用法）</p>
-</li>
-<li><p>监听机器所有可用 ip （电脑可能有多个内网ip或多个外网ip）<br>python manage.py runserver 0.0.0.0:8000</p>
-</li>
-<li>如果是外网或者局域网电脑上可以用其它电脑查看开发服务器</li>
-<li>访问对应的 ip加端口，比如 <a href="http://172.16.20.2:8000" target="_blank" rel="noopener">http://172.16.20.2:8000</a></li>
-</ul>
-<ol start="5">
-<li><p>清空数据库</p>
-<p> python manage.py flush</p>
-</li>
-<li><p>创建超级管理员</p>
-<p> python manage.py createsuperuser</p>
-</li>
-</ol>
-<ul>
-<li><p>按照提示输入用户名和对应的密码就好了邮箱可以留空，用户名和密码必填</p>
-</li>
-<li><p>修改 用户密码可以用：</p>
-<p>  python manage.py changepassword username</p>
-</li>
-</ul>
-<ol start="7">
-<li><p>导出数据 导入数据 (数据库)</p>
-<p> python manage.py dumpdata appname &gt; appname.json<br> python manage.py loaddata appname.json</p>
-</li>
-<li><p>Django 项目环境终端</p>
-<p> python manage.py shell</p>
-</li>
-<li><p>数据库命令行</p>
-<p> python manage.py dbshell</p>
-</li>
-</ol>
+        <h3 id="Mysql-limit-offset-用法示例"><a href="#Mysql-limit-offset-用法示例" class="headerlink" title="Mysql limit offset 用法示例:"></a>Mysql limit offset 用法示例:</h3><p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语句1 ： select * from users limit 10,4;  </span><br><span class="line"></span><br><span class="line">&gt; limit start, count 返回users 的第 11，12，13，14</span><br><span class="line"></span><br><span class="line">语句2 : select * from users limit 4 offset 10</span><br><span class="line"></span><br><span class="line">&gt; limit count offset start 返回 users 的第 11，12，13，14</span><br></pre></td></tr></table></figure>
+<h3 id="通过limit和offset-或只通过limit可以实现分页功能"><a href="#通过limit和offset-或只通过limit可以实现分页功能" class="headerlink" title="通过limit和offset 或只通过limit可以实现分页功能"></a>通过limit和offset 或只通过limit可以实现分页功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> Per_page_count表示每页要显示的条数，</span><br><span class="line">Page_num表示页码</span><br><span class="line"></span><br><span class="line">那么 返回第Page_num页，每页条数为 Per_page_coun 的sql语句：</span><br><span class="line"></span><br><span class="line">语句3：select * from studnet limit (Page_num-1)*Per_page_coun,Per_page_coun</span><br><span class="line">语句4：select * from student limit Per_page_coun offset (Page_num-1)*Per_page_coun</span><br></pre></td></tr></table></figure>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select * from table limit 2,1;</span><br><span class="line"></span><br><span class="line">跳过2条取出1条数据，limit后面是从第2条开始读，读取1条信息，即读取第3条数据</span><br><span class="line"></span><br><span class="line">select * from table limit 2 offset 1;</span><br><span class="line">从第1条（不包括）数据开始取出2条数据，limit后面跟的是2条数据，offset后面是从第1条开始读取，即读取第2,3条</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -256,15 +190,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/04/02/Git操作/" class="pre-post btn btn-default" title="Git操作">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Git操作</span>
-        </a>
     
-    
-        <a href="/2017/03/21/Django基础/" class="next-post btn btn-default" title="Django基础">
+        <a href="/2019/07/01/转-Servlet总结-md/" class="next-post btn btn-default" title="转_Servlet总结.md">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Django基础</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">转_Servlet总结.md</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -277,7 +206,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Tue Mar 28 2017 13:15:23 GMT+0800',
+        id: 'Wed Jul 17 2019 14:59:19 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -301,7 +230,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mysql-limit-offset-用法示例"><span class="toc-text">Mysql limit offset 用法示例:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过limit和offset-或只通过limit可以实现分页功能"><span class="toc-text">通过limit和offset 或只通过limit可以实现分页功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别"><span class="toc-text">区别</span></a></li></ol>
         
     </div>
 </aside>
