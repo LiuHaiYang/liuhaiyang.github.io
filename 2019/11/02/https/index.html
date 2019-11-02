@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Django基础 | meet you</title>
+<title>https | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Django基础">
+        <h1 id="https">
             
-	            Django基础
+	            https
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title="python">
-                        python
+                    <a href="/tags/网络" title="网络">
+                        网络
                     </a>
                 
             
@@ -159,34 +159,61 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/03/21</span>
+            <span class="date-meta">2019/11/02</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>956</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>Django 是用Python开发的一个免费开源的Web框架，可以用于快速搭建高性能，优雅的网站！</p>
-<p>Django 特点<br>强大的数据库功能<br>用python的类继承，几行代码就可以拥有一个丰富，动态的数据库操作接口（API），如果需要你也能执行SQL语句<br>自带的强大的后台功能<br>几行简单的代码就让你的网站拥有一个强大的后台，轻松管理你的内容！<br>优雅的网址<br>用正则匹配网址，传递到对应函数，随意定义，如你所想！<br>模板系统<br>强大，易扩展的模板系统，设计简易，代码，样式分开设计，更容易管理。<br>缓存系统<br>与memcached或其它的缓存系统联用，更出色的表现，更快的加载速度。<br>国际化<br>完全支持多语言应用，允许你定义翻译的字符，轻松翻译成不同国家的语言。</p>
-<p>一览 Django 全貌<br>urls.py<br>网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。<br>views.py<br>处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。<br>models.py<br>与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。<br>forms.py<br>表单，用户在浏览器上输入数据提交，对数据的验证工作以及输入框的生成等工作，当然你也可以不使用。<br>templates 文件夹<br>views.py 中的函数渲染templates中的Html模板，得到动态内容的网页，当然可以用缓存来提高速度。<br>admin.py<br>后台，可以用很少量的代码就拥有一个强大的后台。<br>settings.py<br>Django 的设置，配置文件，比如 DEBUG 的开关，静态文件的位置等。</p>
-<p>虚拟环境</p>
-<pre><code>mkvirtualenv zqxt：创建运行环境zqxt
-workon zqxt: 工作在 zqxt 环境 或 从其它环境切换到 zqxt 环境
-deactivate: 退出终端环境
-</code></pre><p>其它的：</p>
-<pre><code>rmvirtualenv ENV：删除运行环境ENV
-mkproject mic：创建mic项目和运行环境mic
-mktmpenv：创建临时运行环境
-lsvirtualenv: 列出可用的运行环境
-lssitepackages: 列出当前环境安装了的包
-</code></pre><p>创建的环境是独立的，互不干扰，无需sudo权限即可使用 pip 来进行包的管理。</p>
+        <p>SSL真的安全吗？ https 底层原理揭秘</p>
+<p>SSL：</p>
+<ul>
+<li>公钥，私钥 （保护数据）</li>
+<li>签名 （保护公钥）进行摘要的生成</li>
+</ul>
+<hr>
+<p>http （80） 数据走80端口<br>https (80,443)  数据走80端口，  443 （公钥传输）证书..  (异步，避免阻塞)</p>
+<p>服务器对数据进行加密（非对称加密）。涉及加密算法。</p>
+<p>对称加密：   加密 和 解密 是一套算法。<br>非对称加密： 加密和解密不是一套算法。<br>算法不通。</p>
+<h4 id="RSA（非对称加密算法）："><a href="#RSA（非对称加密算法）：" class="headerlink" title="RSA（非对称加密算法）："></a>RSA（非对称加密算法）：</h4><ul>
+<li>加密端有私钥。 私钥用来加密数据。 私钥可以生成公钥。 （私钥时明文。私钥越长 安全性越高，越难破解，性能越差，数据量会变大）</li>
+<li>由私钥产生 公钥。 公钥（明文） 用来解密数据。</li>
+<li>解密端：需要公钥解密。 </li>
+</ul>
+<h4 id="传输数据："><a href="#传输数据：" class="headerlink" title="传输数据："></a>传输数据：</h4><ul>
+<li>发送端：私钥加密 </li>
+<li>接收端：公钥解密</li>
+</ul>
+<h4 id="加密算法："><a href="#加密算法：" class="headerlink" title="加密算法："></a>加密算法：</h4><p>md5 sha1 sha256 … 生成固定长度的字符串。这些不可逆，不是加密，只是生成摘要，用来校验数据的。</p>
+<p>请求端 （浏览器） 都会实现 HTTP HTTPS 的协议。 请求是HTTPS时会去 80端口拿数据 443 拿证书。</p>
+<p>拦截住：</p>
+<ul>
+<li>socket 数据</li>
+<li>公钥</li>
+<li>签名摘要</li>
+</ul>
+<p>服务端传输数据是存在隐患的，都会经过公网，很多环节 不可控会被拦截。（浏览器-&gt; 操作系统-&gt; 主机硬件-&gt; 路由器 -&gt; ISP 服务提供商）</p>
+<p>数据传输是Socket 包 （谁发的，发给谁的） 会进行数据压缩。 </p>
+<p>443 端口会下发一个公钥给浏览器，这时 传输的数据socket包就会被加密了。 数据就看不懂了。 （若拦截时，把443的公钥也拦截，数据依然会被解密查看）</p>
+<p>查看后能不能改：（破坏数据）</p>
+<ul>
+<li>拦截修改后，浏览器在用原来的公钥去解密时，是解不开的。</li>
+<li>顺便把公钥 也进行改了。（用自己的私钥生成公钥，用自己的私钥加密修改后的数据， 把自己的公钥发给浏览器）。是否可行？ 不行，因为存在签名，保证数据传输不被篡改</li>
+<li>可以给自己的公钥重新生成签名摘要。 上面的问题就解决了。</li>
+</ul>
+<p>解决上面的问题是签名保证不能被修改，所以不能自己进行签名，应该别人进行签名。（第三方签名）  第三方是被双方可信赖的，（浏览器和 服务器）<br>第三方对公钥进行第二次加密。 </p>
+<ol>
+<li>服务器端 把自己的公钥提交给第三方， 拿第三方的私钥 对服务器端的公钥进行加密。公钥被加密，还是一个公钥。</li>
+<li>浏览器接收数据，（CA的公钥是在浏览器内置的）对公钥进行解密（拿第三方的公钥）得到 服务端公钥 —&gt; 在解密数据 ————&gt; 拿到数据，<br>CA.public –&gt; Ser.public –&gt; Ser.Realpublic</li>
+<li>传输过程中，如果被拦截CA 的公钥拦截 ， 数据可以看，但是装不回去了，用自己私钥 加密的话，你自己的公钥没有被第三方认可。</li>
+</ol>
+<p>二次加密的过称叫做签名。 不存在这个过程的话，之前数据是可以改的。</p>
+<p>CA 最大的风险就是私钥丢失</p>
+<h4 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h4><p>Ser.public + CA. 加密 （国家 ，公司 (多)域名 ….） 签名</p>
 
     </div>
 
@@ -204,15 +231,10 @@ lssitepackages: 列出当前环境安装了的包
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/03/28/Django基本命令篇/" class="pre-post btn btn-default" title="Django 基础命令篇">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Django 基础命令篇</span>
-        </a>
     
-    
-        <a href="/2017/03/18/markdown语法详解/" class="next-post btn btn-default" title="markdown">
+        <a href="/2019/11/02/Maven入门/" class="next-post btn btn-default" title="Maven入门">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">markdown</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Maven入门</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -225,7 +247,7 @@ lssitepackages: 列出当前环境安装了的包
 
 <script>
     var gitment = new Gitment({
-        id: 'Tue Mar 21 2017 12:25:16 GMT+0800',
+        id: 'Sat Nov 02 2019 13:53:44 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -249,7 +271,7 @@ lssitepackages: 列出当前环境安装了的包
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#RSA（非对称加密算法）："><span class="toc-text">RSA（非对称加密算法）：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传输数据："><span class="toc-text">传输数据：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#加密算法："><span class="toc-text">加密算法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#证书"><span class="toc-text">证书</span></a></li></ol>
         
     </div>
 </aside>

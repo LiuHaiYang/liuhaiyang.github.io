@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Flume基础入门 | meet you</title>
+<title>Maven入门 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Flume基础入门">
+        <h1 id="Maven入门">
             
-	            Flume基础入门
+	            Maven入门
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/大数据" title="大数据">
-                        大数据
+                    <a href="/tags/waven" title="waven">
+                        waven
                     </a>
                 
             
@@ -159,26 +159,52 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/07/19</span>
+            <span class="date-meta">2019/11/02</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>836</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h4 id="日志收集系统"><a href="#日志收集系统" class="headerlink" title="日志收集系统"></a>日志收集系统</h4><p>flume （日志收集系统）<br>Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume支持在日志系统中定制各类数据发送方，用于收集数据；同时，Flume提供对数据进行简单处理，并写到各种数据接受方（可定制）的能力。</p>
-<h4 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h4><p>Flume-og采用了多Master的方式。为了保证配置数据的一致性，Flume引入了ZooKeeper，用于保存配置数据，ZooKeeper本身可保证配置数据的一致性和高可用，另外，在配置数据发生变化时，ZooKeeper可以通知Flume Master节点。Flume Master间使用gossip协议同步数据。<br>Flume-ng最明显的改动就是取消了集中管理配置的 Master 和 Zookeeper，变为一个纯粹的传输工具。Flume-ng另一个主要的不同点是读入数据和写出数据现在由不同的工作线程处理（称为 Runner）。 在 Flume-og 中，读入线程同样做写出工作（除了故障重试）。如果写出慢的话（不是完全失败），它将阻塞 Flume 接收数据的能力。这种异步的设计使读入线程可以顺畅的工作而无需关注下游的任何问题。<br>对于数据的采集是十分重要的一步，也是不可避免的一步，Flume的架构、Flume的应用(日志采集)<br>flume是分布式的日志收集系统，它将各个服务器中的数据收集起来并送到指定的地方去，比如说本地，HDFS在整个数据的传输的过程中，流动的是event，即事务保证是在event级别进行的。那么什么是event呢？—–event将传输的数据进行封装，是flume传输数据的基本单位，如果是文本文件，通常是一行记录，event也是事务的基本单位。event从source，流向channel，再到sink，本身为一个字节数组，并可携带headers(头信息)信息。event代表着一个数据的最小完整单元，从外部数据源来，向外部的目的地去。<br>一个完整的event包括：event headers、event body、event信息(即文本文件中的单行记录)</p>
-<h4 id="flume架构介绍"><a href="#flume架构介绍" class="headerlink" title="flume架构介绍"></a>flume架构介绍</h4><p>flume之所以这么神奇，是源于它自身的一个设计，这个设计就是agent，agent本身是一个java进程，运行在日志收集节点—所谓日志收集节点就是服务器节点。<br>agent里面包含3个核心的组件：source—-&gt;channel—–&gt;sink,类似生产者、仓库、消费者的架构。<br>source：source组件是专门用来收集数据的，可以处理各种类型、各种格式的日志数据,包括avro、thrift、exec、jms、spooling directory、netcat、sequence generator、syslog、http、legacy、自定义。<br>channel：source组件把数据收集来以后，临时存放在channel中，即channel组件在agent中是专门用来存放临时数据的——对采集到的数据进行简单的缓存，可以存放在memory、jdbc、file等等。<br>sink：sink组件是用于把数据发送到目的地的组件，目的地包括hdfs、logger、avro、thrift、ipc、file、null、hbase、solr、自定义。 </p>
-<h4 id="flume的运行机制"><a href="#flume的运行机制" class="headerlink" title="flume的运行机制"></a>flume的运行机制</h4><p>flume的核心就是一个agent，这个agent对外有两个进行交互的地方，一个是接受数据的输入——source，一个是数据的输出sink，sink负责将数据发送到外部指定的目的地。source接收到数据之后，将数据发送给channel，chanel作为一个数据缓冲区会临时存放这些数据，随后sink会将channel中的数据发送到指定的地方—-例如HDFS等，注意：只有在sink将channel中的数据成功发送出去之后，channel才会将临时数据进行删除，这种机制保证了数据传输的可靠性与安全性。 </p>
-<h4 id="flume的广义用法"><a href="#flume的广义用法" class="headerlink" title="flume的广义用法"></a>flume的广义用法</h4><p>flume之所以这么神奇—-其原因也在于flume可以支持多级flume的agent，即flume可以前后相继，例如sink可以将数据写到下一个agent的source中，这样的话就可以连成串了，可以整体处理了。flume还支持扇入(fan-in)、扇出(fan-out)。所谓扇入就是source可以接受多个输入，所谓扇出就是sink可以将数据输出多个目的地destination中。 </p>
-<h4 id="flume应用—日志采集"><a href="#flume应用—日志采集" class="headerlink" title="flume应用—日志采集"></a>flume应用—日志采集</h4><p>对于flume的原理其实很容易理解，我们更应该掌握flume的具体使用方法，flume提供了大量内置的Source、Channel和Sink类型。而且不同类型的Source、Channel和Sink可以自由组合—–组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。下面我将用具体的案例详述flume的具体用法。 </p>
+        <h3 id="项目构建-maven可以干的事"><a href="#项目构建-maven可以干的事" class="headerlink" title="项目构建(maven可以干的事)"></a>项目构建(maven可以干的事)</h3><ul>
+<li>编码</li>
+<li>编译</li>
+<li>测试(Junit)</li>
+<li>运行</li>
+<li>打包</li>
+<li>部署</li>
+</ul>
+<h3 id="maven的好处"><a href="#maven的好处" class="headerlink" title="maven的好处"></a>maven的好处</h3><ul>
+<li>依赖的管理(就是对jar包的统一管理，可以节省空间)</li>
+<li>一键构建</li>
+</ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li>run 意见启动</li>
+<li><p>clean 清空编译</p>
+</li>
+<li><p>compile  编译(编译主目录的文件)</p>
+</li>
+<li>test 编译测试Test目录的文件</li>
+<li>package 打包</li>
+<li>install 把项目发布到本地仓库 (运行了 compile，test，package)有一定的顺序</li>
+<li>deploy 发布到私服</li>
+</ul>
+<p>maven 的生命周期，每次执行之前的几个命令。</p>
+<h3 id="三种生命周期。"><a href="#三种生命周期。" class="headerlink" title="三种生命周期。"></a>三种生命周期。</h3><ul>
+<li>clean生命周期</li>
+<li>default 生命周期（compile，test，package，install）</li>
+<li>site 生命周期 site命令 mvn site 出现site文件夹，生成静态页面，项目的说明，</li>
+</ul>
+<h4 id="命令和生命周期的关系-不同的生命周期的命令可以同时执行"><a href="#命令和生命周期的关系-不同的生命周期的命令可以同时执行" class="headerlink" title="命令和生命周期的关系 不同的生命周期的命令可以同时执行"></a>命令和生命周期的关系 不同的生命周期的命令可以同时执行</h4><p>eg： mvn clean package    先执行 clean 在执行 package（也会执行complie和test）</p>
+<h3 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h3><ul>
+<li>complie</li>
+<li>provided 编译时，测试时需要， 运行时不需要，打包时 不需要</li>
+<li>runtime   数据库驱动包 编译时不需要，测试 运行时 需要</li>
+<li>test   编译时不需要，测试时需要，运行时不需要</li>
+</ul>
 
     </div>
 
@@ -196,15 +222,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/07/26/MySQL-explain-了解/" class="pre-post btn btn-default" title="MySQL explain 了解">
+        <a href="/2019/11/02/https/" class="pre-post btn btn-default" title="https">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">MySQL explain 了解</span>
+            <span class="hidden-xs">https</span>
         </a>
     
     
-        <a href="/2017/06/25/MongoDB查询详解/" class="next-post btn btn-default" title="MongoDB查询详解">
+        <a href="/2019/09/19/java中dao和service/" class="next-post btn btn-default" title="java中dao和service">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">MongoDB查询详解</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">java中dao和service</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -217,7 +243,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Wed Jul 19 2017 11:01:18 GMT+0800',
+        id: 'Sat Nov 02 2019 13:50:20 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -241,7 +267,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#日志收集系统"><span class="toc-text">日志收集系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工作方式"><span class="toc-text">工作方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flume架构介绍"><span class="toc-text">flume架构介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flume的运行机制"><span class="toc-text">flume的运行机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flume的广义用法"><span class="toc-text">flume的广义用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flume应用—日志采集"><span class="toc-text">flume应用—日志采集</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#项目构建-maven可以干的事"><span class="toc-text">项目构建(maven可以干的事)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven的好处"><span class="toc-text">maven的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令"><span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三种生命周期。"><span class="toc-text">三种生命周期。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令和生命周期的关系-不同的生命周期的命令可以同时执行"><span class="toc-text">命令和生命周期的关系 不同的生命周期的命令可以同时执行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖范围"><span class="toc-text">依赖范围</span></a></li></ol>
         
     </div>
 </aside>
