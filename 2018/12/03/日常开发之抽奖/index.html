@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>日常开发之抽奖 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="日常开发之抽奖">
+            
+	            日常开发之抽奖
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/python" title='python'>
+                        python
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/12/03</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>今天开发的需求新添加了抽奖！！！</p>
+<hr>
+<p>这好像是第一次比较正式的写这种的需求吧，之前都是用随机函数在写，但是随机函数是不能特别友好地进行随机。<br><code>lottery_num = random.randint(0, 99)</code> 我在使用 1/100的概率进行随机测试，进行1W次测试，只有73次中奖。我拿到需求是必须保证1/100的概率，分布是均匀的，100次是必须有一次中奖的，而且不是后期的处理公布，是必须实时的返回中奖结果且要准确的中奖率。</p>
+<p>在这个过程中我也查了较多的资料，</p>
+<ul>
+<li>部分抽奖是统计完所有用户后台再次抽奖，这种抽奖的操作性较大，毕竟是后期进行公布，很多细节都是可以进行处理的。</li>
+<li><p>饼图处理+权重，带权随机算法思想很简单,就是”把所有物品根据其权重构成一个个区间,权重大的区间大.可以想象成一个饼图.  然后,扔骰子,看落在哪个区间,”</p>
+<p>  示例代码：</p>
+<pre><code>#coding=utf-8
+import random
+def weighted_random(items):
+    total = sum(w for _,w in items)
+    n = random.uniform(0, total)#在饼图扔骰子
+    for x, w in items:#遍历找出骰子所在的区间
+        if n&lt;w:
+            break
+        n -= w
+    return x
+
+print weighted_random([(&apos;iphone&apos;, 10), (&apos;ipad&apos;, 40), (&apos;itouch&apos;, 50)])
+</code></pre></li>
+</ul>
+<ul>
+<li>肯定还有其他的（较多，但不适合我个人的应用业务）</li>
+</ul>
+<hr>
+<p>在思考并尝试了多次后，使用数据进行决定，因为我的业务中每次抽奖会入库，是否中奖也有特殊的字段进行标示，这就有利于我的判断，解决抽奖过程中100次内未中奖，或者100次后多次中奖的不友好结果出现。</p>
+<p>上代码（部分代码）：业务中有两项抽奖同时进行的。<br><code>lottery_kinds</code>0,1,2 表示未中奖，一等奖，二等奖；中奖随机数可随便取值；并加了最高抽奖数判断，在过程也尝试加了前后期的抽奖同概率的分布，此次为用到。</p>
+<pre><code>luck_num = 50
+lottery_num = random.randint(0, 99)
+luck_boy = 599
+luck_boy_num = random.randint(1, 1000)
+if lottery_num == luck_num:
+    #徽章
+    lottery_kinds = 1
+elif luck_boy == luck_boy_num:
+    #盲盒
+    lottery_kinds = 2
+else:
+    lottery_kinds = 0
+
+# 在做一次判断每100次内只有一个 1  1000次内只有一个2
+users_query = &quot;select count(id) from p_lottery&quot;
+cur.execute(users_query)
+uses_c = cur.fetchone()
+if uses_c[0] == 1000:
+    users_query_f = &quot;select count(id) from p_lottery where lottery_kinds =2 &quot;
+    cur.execute(users_query_f)
+    uses_f = cur.fetchone()
+    if uses_f[0] == 0:
+        lottery_kinds == 2
+
+if lottery_kinds ==2 or lottery_kinds ==0:
+    letterys_query = &quot;select count(id) from p_lottery where lottery_kinds =2&quot;
+    cur.execute(letterys_query)
+    letterys_c = cur.fetchone()
+    if letterys_c[0] &lt; 10:
+        if uses_c[0] // 1000 == letterys_c[0]:
+            pass
+        elif uses_c[0] // 1000 &lt; letterys_c[0] and letterys_c[0] - uses_c[0] // 1000 == 1:
+            lottery_kinds = 0
+        else:
+            if uses_c[0] // 1000 - letterys_c[0] == 1:
+                lottery_kinds = 2
+            else:
+                lottery_kinds = 0
+    else:
+        lottery_kinds = 0
+if lottery_kinds ==1 or lottery_kinds ==0:
+    letterys_query = &quot;select count(id) from p_lottery where lottery_kinds =1&quot;
+    cur.execute(letterys_query)
+    letterys_c = cur.fetchone()
+    if letterys_c[0] &lt;90:
+        if uses_c[0]//100 ==letterys_c[0]:
+            pass
+        elif uses_c[0]//100&lt;letterys_c[0] and letterys_c[0]-uses_c[0]//100 ==1:
+            lottery_kinds = 0
+        else:
+            if uses_c[0]//100  - letterys_c[0] == 1:
+                lottery_kinds =1
+            else:
+                lottery_kinds = 0
+    else:
+        lottery_kinds = 0
+</code></pre><hr>
+<p>今天加班较晚啊！<br><img src="https://images.pexels.com/photos/1654489/pexels-photo-1654489.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=350" alt="image"></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/12/04/初识拉链表/" class="pre-post btn btn-default" title='初识拉链表'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">初识拉链表</span>
+        </a>
+    
+    
+        <a href="/2018/11/28/（转）python读properties/" class="next-post btn btn-default" title='（转）python读properties'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">（转）python读properties</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon Dec 03 2018 22:10:08 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

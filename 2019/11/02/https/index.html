@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>https | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="https">
+            
+	            https
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/网络" title='网络'>
+                        网络
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/11/02</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>SSL真的安全吗？ https 底层原理揭秘</p>
+<p>SSL：</p>
+<ul>
+<li>公钥，私钥 （保护数据）</li>
+<li>签名 （保护公钥）进行摘要的生成</li>
+</ul>
+<hr>
+<p>http （80） 数据走80端口<br>https (80,443)  数据走80端口，  443 （公钥传输）证书..  (异步，避免阻塞)</p>
+<p>服务器对数据进行加密（非对称加密）。涉及加密算法。</p>
+<p>对称加密：   加密 和 解密 是一套算法。<br>非对称加密： 加密和解密不是一套算法。<br>算法不通。</p>
+<h4 id="RSA（非对称加密算法）："><a href="#RSA（非对称加密算法）：" class="headerlink" title="RSA（非对称加密算法）："></a>RSA（非对称加密算法）：</h4><ul>
+<li>加密端有私钥。 私钥用来加密数据。 私钥可以生成公钥。 （私钥时明文。私钥越长 安全性越高，越难破解，性能越差，数据量会变大）</li>
+<li>由私钥产生 公钥。 公钥（明文） 用来解密数据。</li>
+<li>解密端：需要公钥解密。 </li>
+</ul>
+<h4 id="传输数据："><a href="#传输数据：" class="headerlink" title="传输数据："></a>传输数据：</h4><ul>
+<li>发送端：私钥加密 </li>
+<li>接收端：公钥解密</li>
+</ul>
+<h4 id="加密算法："><a href="#加密算法：" class="headerlink" title="加密算法："></a>加密算法：</h4><p>md5 sha1 sha256 … 生成固定长度的字符串。这些不可逆，不是加密，只是生成摘要，用来校验数据的。</p>
+<p>请求端 （浏览器） 都会实现 HTTP HTTPS 的协议。 请求是HTTPS时会去 80端口拿数据 443 拿证书。</p>
+<p>拦截住：</p>
+<ul>
+<li>socket 数据</li>
+<li>公钥</li>
+<li>签名摘要</li>
+</ul>
+<p>服务端传输数据是存在隐患的，都会经过公网，很多环节 不可控会被拦截。（浏览器-&gt; 操作系统-&gt; 主机硬件-&gt; 路由器 -&gt; ISP 服务提供商）</p>
+<p>数据传输是Socket 包 （谁发的，发给谁的） 会进行数据压缩。 </p>
+<p>443 端口会下发一个公钥给浏览器，这时 传输的数据socket包就会被加密了。 数据就看不懂了。 （若拦截时，把443的公钥也拦截，数据依然会被解密查看）</p>
+<p>查看后能不能改：（破坏数据）</p>
+<ul>
+<li>拦截修改后，浏览器在用原来的公钥去解密时，是解不开的。</li>
+<li>顺便把公钥 也进行改了。（用自己的私钥生成公钥，用自己的私钥加密修改后的数据， 把自己的公钥发给浏览器）。是否可行？ 不行，因为存在签名，保证数据传输不被篡改</li>
+<li>可以给自己的公钥重新生成签名摘要。 上面的问题就解决了。</li>
+</ul>
+<p>解决上面的问题是签名保证不能被修改，所以不能自己进行签名，应该别人进行签名。（第三方签名）  第三方是被双方可信赖的，（浏览器和 服务器）<br>第三方对公钥进行第二次加密。 </p>
+<ol>
+<li>服务器端 把自己的公钥提交给第三方， 拿第三方的私钥 对服务器端的公钥进行加密。公钥被加密，还是一个公钥。</li>
+<li>浏览器接收数据，（CA的公钥是在浏览器内置的）对公钥进行解密（拿第三方的公钥）得到 服务端公钥 —&gt; 在解密数据 ————&gt; 拿到数据，<br>CA.public –&gt; Ser.public –&gt; Ser.Realpublic</li>
+<li>传输过程中，如果被拦截CA 的公钥拦截 ， 数据可以看，但是装不回去了，用自己私钥 加密的话，你自己的公钥没有被第三方认可。</li>
+</ol>
+<p>二次加密的过称叫做签名。 不存在这个过程的话，之前数据是可以改的。</p>
+<p>CA 最大的风险就是私钥丢失</p>
+<h4 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h4><p>Ser.public + CA. 加密 （国家 ，公司 (多)域名 ….） 签名</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/11/02/Java多线程/" class="pre-post btn btn-default" title='Java多线程'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Java多线程</span>
+        </a>
+    
+    
+        <a href="/2019/11/02/Maven入门/" class="next-post btn btn-default" title='Maven入门'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Maven入门</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Sat Nov 02 2019 13:53:44 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#RSA（非对称加密算法）："><span class="toc-text">RSA（非对称加密算法）：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传输数据："><span class="toc-text">传输数据：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#加密算法："><span class="toc-text">加密算法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#证书"><span class="toc-text">证书</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
