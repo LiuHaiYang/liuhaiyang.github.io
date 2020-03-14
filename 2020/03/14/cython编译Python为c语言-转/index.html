@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Django 基础命令篇 | meet you</title>
+<title>cython编译Python为c语言-转 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Django 基础命令篇">
+        <h1 id="cython编译Python为c语言-转">
             
-	            Django 基础命令篇
+	            cython编译Python为c语言-转
             
         </h1>
         <div class="post-meta">
@@ -159,86 +159,51 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/03/28</span>
+            <span class="date-meta">2020/03/14</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>1082</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>Django 基本命令：<br>新建一个  project</p>
-<pre><code>django-admin.py startproject project_name
-</code></pre><p>特别是在 windows 上，如果报错，尝试用 django-admin 代替 django-admin.py 试试</p>
-<ol start="2">
-<li><p>新建 app<br>要先进入项目目录下，</p>
-<p> cd project_name<br>然后执行下面的命令（下同，已经在项目目录下则不需要 cd project_name）</p>
-<p> python manage.py startapp app_name<br> 或 django-admin.py startapp app_name</p>
-</li>
-</ol>
-<p>一般一个项目有多个app, 当然通用的app也可以在多个项目中使用。</p>
-<ol start="3">
-<li>创建数据库表 或 更改数据库表或字段<br>Django 1.7.1及以上 用以下命令</li>
-</ol>
+        <h2 id="转自-cython编译Python为c语言源博客"><a href="#转自-cython编译Python为c语言源博客" class="headerlink" title="转自 - cython编译Python为c语言源博客"></a>转自 - cython编译Python为c语言<a href="https://www.cnblogs.com/zhangjxblog/p/12168360.html" target="_blank" rel="noopener">源博客</a></h2><p><img src="https://www.pexels.com/zh-cn/photo/3902882/" alt="image"></p>
+<h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><hr>
 <ul>
-<li><ol>
-<li><p>创建更改的文件</p>
-<p>python manage.py makemigrations</p>
-</li>
-</ol>
-</li>
-<li><ol start="2">
-<li><p>将生成的py文件应用到数据库</p>
-<p>python manage.py migrate</p>
-</li>
-</ol>
-<p>这种方法可以在SQL等数据库中创建与models.py代码对应的表，不需要自己手动执行SQL。</p>
-<ol start="4">
-<li><p>使用开发服务器<br>开发服务器，即开发时使用，一般修改代码后会自动重启，方便调试和开发，但是由于性能问题，建议只用来测试，不要用在生产环境。</p>
-<p>python manage.py runserver</p>
-</li>
-</ol>
-</li>
-<li><p>当提示端口被占用的时候，可以用其它端口：</p>
-<p>  python manage.py runserver 8001<br>  python manage.py runserver 9999<br>（当然也可以kill掉占用端口的进程，具体后面有讲，此处想知道的同学可查下 lsof 命令用法）</p>
-</li>
-<li><p>监听机器所有可用 ip （电脑可能有多个内网ip或多个外网ip）<br>python manage.py runserver 0.0.0.0:8000</p>
-</li>
-<li>如果是外网或者局域网电脑上可以用其它电脑查看开发服务器</li>
-<li>访问对应的 ip加端口，比如 <a href="http://172.16.20.2:8000" target="_blank" rel="noopener">http://172.16.20.2:8000</a></li>
+<li>执行命令：cython test.py</li>
+<li>结果：会在同一目录下面生成test.c文件</li>
+<li>执行命令： gcc -c -fPIC -I /usr/include/python2.7 test.c</li>
+<li>结果： 在同一目录下面生成test.o文件</li>
+<li>执行命令： gcc -shared test.o -c test.so</li>
+<li>结果： 在同一目录下面生成test.so文件</li>
+<li>最后，生成的test.so文件就是需要的文件</li>
 </ul>
-<ol start="5">
-<li><p>清空数据库</p>
-<p> python manage.py flush</p>
-</li>
-<li><p>创建超级管理员</p>
-<p> python manage.py createsuperuser</p>
-</li>
-</ol>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><hr>
+<p>`<br>[setup.py]<br>from distutils.core import setup<br>from Cython.Build import cythonize</p>
+<p>setup(<br>    name = “test”,<br>    ext_modules = cythonize(“test.py”)<br>    )<br>`</p>
 <ul>
-<li><p>按照提示输入用户名和对应的密码就好了邮箱可以留空，用户名和密码必填</p>
-</li>
-<li><p>修改 用户密码可以用：</p>
-<p>  python manage.py changepassword username</p>
-</li>
+<li>执行命令： python setup.py build_ext –inplace</li>
 </ul>
-<ol start="7">
-<li><p>导出数据 导入数据 (数据库)</p>
-<p> python manage.py dumpdata appname &gt; appname.json<br> python manage.py loaddata appname.json</p>
-</li>
-<li><p>Django 项目环境终端</p>
-<p> python manage.py shell</p>
-</li>
-<li><p>数据库命令行</p>
-<p> python manage.py dbshell</p>
-</li>
-</ol>
+<h4 id="第二种办法是对单独文件进行编译，下面介绍一种批量的办法："><a href="#第二种办法是对单独文件进行编译，下面介绍一种批量的办法：" class="headerlink" title="第二种办法是对单独文件进行编译，下面介绍一种批量的办法："></a>第二种办法是对单独文件进行编译，下面介绍一种批量的办法：</h4><hr>
+<p>`</p>
+<p>#-<em>- coding:utf-8 -</em>-_<br>import os<br>import re<br>from distutils.core import Extension, setup<br>from Cython.Build import cythonize<br>from Cython.Compiler import Options</p>
+<h1 id="file-含有魔术变量的应当排除，Cython虽有个编译参数，但只能设置静态。"><a href="#file-含有魔术变量的应当排除，Cython虽有个编译参数，但只能设置静态。" class="headerlink" title="file 含有魔术变量的应当排除，Cython虽有个编译参数，但只能设置静态。"></a><strong>file</strong> 含有魔术变量的应当排除，Cython虽有个编译参数，但只能设置静态。</h1><p>exclude_so = [‘<strong>init</strong>.py’, ‘run.py’]<br>sources = ‘backend’</p>
+<p>extensions = []<br>remove_files = []<br>for source,dirnames,files in os.walk(sources):<br>    for dirpath, foldernames, filenames in os.walk(source):<br>        if ‘test’ in dirpath:<br>            break;<br>        for filename in filter(lambda x: re.match(r’.*[.]py$’, x), filenames):<br>            file_path = os.path.join(dirpath, filename)<br>            if filename not in exclude_so:<br>                extensions.append(<br>                        Extension(file_path[:-3].replace(‘/‘, ‘.’), [file_path], extra_compile_args = [“-Os”, “-g0”],<br>                                  extra_link_args = [“-Wl,–strip-all”]))<br>                remove_files.append(file_path[:-3]+’.py’)<br>                remove_files.append(file_path[:-3]+’.pyc’)</p>
+<p>Options.docstrings = False<br>compiler_directives = {‘optimize.unpack_method_calls’: False, ‘always_allow_keywords’: True}<br>setup(  </p>
+<pre><code># cythonize的exclude全路径匹配，不灵活，不如在上一步排除。
+ext_modules = cythonize(extensions, exclude = None, nthreads = 20, quiet = True, build_dir = &apos;./build&apos;,
+                        language_level = 2, compiler_directives = compiler_directives))
+</code></pre><h1 id="删除py和pyc文件"><a href="#删除py和pyc文件" class="headerlink" title="删除py和pyc文件"></a>删除py和pyc文件</h1><p>for remove_file in remove_files:</p>
+<pre><code>if os.path.exists(remove_file):
+    os.remove(remove_file)
+</code></pre><p>`</p>
+<ul>
+<li>执行命令： python setup.py build_ext –inplace</li>
+<li>结果：最后生成.so文件，删除中间结果。</li>
+<li>重点提一下，在编译flask代码时，遇到问题，报错：参数不够（大体意思是这样，错误未截图），在compiler_directives中添加： {always_allow_keywords:True}</li>
+</ul>
 
     </div>
 
@@ -256,15 +221,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/04/02/Git操作/" class="pre-post btn btn-default" title='Git操作'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Git操作</span>
-        </a>
     
-    
-        <a href="/2017/03/21/Django基础/" class="next-post btn btn-default" title='Django基础'>
+        <a href="/2020/03/05/springBoot最常用注解总结/" class="next-post btn btn-default" title='springBoot最常用注解总结'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Django基础</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">springBoot最常用注解总结</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -277,7 +237,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Tue Mar 28 2017 13:15:23 GMT+0800',
+        id: 'Sat Mar 14 2020 22:08:37 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -301,7 +261,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#转自-cython编译Python为c语言源博客"><span class="toc-text">转自 - cython编译Python为c语言源博客</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一："><span class="toc-text">方法一：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二："><span class="toc-text">方法二：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二种办法是对单独文件进行编译，下面介绍一种批量的办法："><span class="toc-text">第二种办法是对单独文件进行编译，下面介绍一种批量的办法：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#file-含有魔术变量的应当排除，Cython虽有个编译参数，但只能设置静态。"><span class="toc-text">file 含有魔术变量的应当排除，Cython虽有个编译参数，但只能设置静态。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除py和pyc文件"><span class="toc-text">删除py和pyc文件</span></a>
         
     </div>
 </aside>
