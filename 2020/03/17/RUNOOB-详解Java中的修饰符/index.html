@@ -176,7 +176,53 @@
 <p>public : 对所有类可见。使用对象：类、接口、变量、方法</p>
 <p>protected : 对同一包内的类和所有子类可见。使用对象：变量、方法。 注意：不能修饰类（外部类）。</p>
 <p>我们可以通过以下表来说明访问权限：</p>
-<p>访问控制<br>| 修饰符    |  当前类     |  同一包内    | 子孙类(同一包)    |    子孙类(不同包)|     其他包|<br>| —-| —-| —-| —-| —-| —-|<br>| public     |   Y    |    Y       |      Y            |     Y         |      Y|<br>| protected |  Y     |   Y        |     Y        |     Y/N（说明）    | N|<br>| default     |   Y     |   Y        |     Y        |     N            | N|<br>| private     |   Y    |    N        |     N        |     N        |     N| </p>
+<p>访问控制</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">修饰符</th>
+<th style="text-align:center">当前类</th>
+<th style="text-align:center">同一包内</th>
+<th style="text-align:center">子孙类(同一包)</th>
+<th style="text-align:center">子孙类(不同包)</th>
+<th style="text-align:center">其他包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">public</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:center">protected</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y/N（说明）</td>
+<td style="text-align:center">N</td>
+</tr>
+<tr>
+<td style="text-align:center">default</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">N</td>
+</tr>
+<tr>
+<td style="text-align:center">private</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">N</td>
+</tr>
+</tbody>
+</table>
 <p>默认访问修饰符-不使用任何关键字<br>用默认访问修饰符声明的变量和方法，对同一个包内的类是可见的。接口里的变量都隐式声明为 public static final,而接口里的方法默认情况下访问权限为 public。</p>
 <h4 id="私有访问修饰符-private"><a href="#私有访问修饰符-private" class="headerlink" title="私有访问修饰符-private"></a>私有访问修饰符-private</h4><p>私有访问修饰符是最严格的访问级别，所以被声明为 private 的方法、变量和构造方法只能被所属类访问，并且类和接口不能声明为 private。</p>
 <p>声明为私有访问类型的变量只能通过类中公共的 getter 方法被外部类访问。</p>
