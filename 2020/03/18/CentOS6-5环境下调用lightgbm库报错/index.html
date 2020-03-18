@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>HBase基础 | meet you</title>
+<title>CentOS6.5环境下调用lightgbm库报错 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="HBase基础">
+        <h1 id="CentOS6.5环境下调用lightgbm库报错">
             
-	            HBase基础
+	            CentOS6.5环境下调用lightgbm库报错
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/大数据" title='大数据'>
-                        大数据
+                    <a href="/tags/linux" title='linux'>
+                        linux
                     </a>
                 
             
@@ -159,61 +159,27 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/06/23</span>
+            <span class="date-meta">2020/03/18</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>999</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h1 id="HBase基础"><a href="#HBase基础" class="headerlink" title="HBase基础"></a>HBase基础</h1><p>HBase是一种构建在HDFS之上的分布式，面向列的存储系统。应用场景：需要实时写入，随机访问超大数据集。</p>
-<p>HBase通过线性方式从上到下增加节点来进行扩展。HBase不是关系型数据库，也不支持SQL，但是他有自己的特长，这是RDBNS不能处理的：HBase巧妙地将大而稀疏的表放在商用服务器集群上。</p>
-<h2 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h2><h3 id="1、数据模型速览"><a href="#1、数据模型速览" class="headerlink" title="1、数据模型速览"></a>1、数据模型速览</h3><ul>
-<li>应用程序将数据存储在带有标签的表中。 表是由行和列组成。</li>
-<li>表的单元格是行和列坐标的交际。他们是有版本号。</li>
-<li>版本号是在单元格插入式有HBase自动分配的时间戳。</li>
-<li>表的行  有 行键，表用行键，即表的主键，对表的行进行排序。</li>
-<li>每行的列被分组，形成列族。所有的列族成员都有相同的前缀。</li>
-</ul>
-<h4 id="区域"><a href="#区域" class="headerlink" title="区域"></a>区域</h4><ul>
-<li>HBase自动把表横向切分为不同区域，每个区域包含表所有行的一个子集。</li>
-<li>随着表的增大，表拥有的区域也在不断地增加。</li>
-<li>区域分散在HBase集群的单元，对于一个服务器，再大的表都可以由服务器集群来处理。</li>
-<li>通过管理整个区域某部分的节点来管理整个表。</li>
-</ul>
-<h4 id="锁定"><a href="#锁定" class="headerlink" title="锁定"></a>锁定</h4><ul>
-<li>无论有多少列组成行级事务，行的更新都是原子的，这使锁定模型比较简单。</li>
-</ul>
-<h3 id="2、实现"><a href="#2、实现" class="headerlink" title="2、实现"></a>2、实现</h3><ul>
-<li>HBase依赖于ZooKeeper且在默认情况下，他使用一个ZooKeeper实例为集群状态提供授权。</li>
-<li>HBase通过Hadoop文件系统的API进行数据维护的。</li>
-</ul>
-<h4 id="运行HBase"><a href="#运行HBase" class="headerlink" title="运行HBase"></a>运行HBase</h4><ul>
-<li>HBase的内部有两个目录表：-ROOT-  和   .META. 。HBase通过这两个表来维护当前列表，状态，最新历史和集群上所有活跃区域的位置。</li>
-<li>当新的客户端连接到ZooKeeper集群时，首先必须知道-ROOT-的地址。  根据-ROOT-分析出.META.地址。   .META.区域覆盖需要查询的行， 找到后，进行确认用户空间区域及其地址。客户端即可直接与主机区域服务器交互。</li>
-<li>-ROOT-    和  .META.     客户端可以缓存已知的所有地址。 </li>
-</ul>
-<h3 id="3、安装-测试驱动程序"><a href="#3、安装-测试驱动程序" class="headerlink" title="3、安装  测试驱动程序"></a>3、安装  测试驱动程序</h3><ul>
-<li>创建    (名为test表，带有唯一的列族   data  )  create    ‘test ‘, ‘data’</li>
-<li>输出所有的表     list</li>
-<li>插入数据：   put    ‘tets’,    ‘row1’,   ‘data:1’,  ‘value1’  </li>
-<li>想要删除表，必须在删除它之前关闭它  disable  ‘test’     删除   drop  ‘test’</li>
-</ul>
-<h3 id="4、客户端"><a href="#4、客户端" class="headerlink" title="4、客户端"></a>4、客户端</h3><ul>
-<li><p>Java</p>
-</li>
-<li><p>REST  和  thrift</p>
-<p>要运行REST     首先使用一下命令：   hbase-daemon.sh    start    rest</p>
-<p>这将启动一个服务器实例，默认的端口是60050,对他进行后台处理，将所有的输出记到HBase日志目录下的日志文件。</p>
-</li>
-</ul>
+        <p>CentOS6.5 环境下调用lightgbm库报错: OSError: /lib64/libc.so.6: version `GLIBC_2.14’ not found (required by /usr/local/python3/lib/python3.6/site-packages/lightgbm/lib_lightgbm.so)</p>
+<hr>
+<p>搞了一晚上，网上各种方案 都不搞不定啊。</p>
+<p>最终选用的方法(推荐)<br>下图是系统glibc的版本，gcc的版本是4.8.2。</p>
+<p><code>strings /lib64/libc.so.6 |grep GLIBC</code></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1885173/201912/1885173-20191202220532624-828172512.png" alt="image"></p>
+<p>红框部分需要做如下操作就可以得到，也就解决了报错。</p>
+<p>直接使用 wget 命令下载 rpm文件并安装，如果速度太慢可以直接下载再上传。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-common-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-devel-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-headers-2.17-55.el6.x86_64.rpm</span><br><span class="line"> </span><br><span class="line">sudo rpm -Uvh glibc-2.17-55.el6.x86_64.rpm glibc-common-2.17-55.el6.x86_64.rpm glibc-devel-2.17-55.el6.x86_64.rpm glibc-headers-2.17-55.el6.x86_64.rpm  --force --nodeps</span><br></pre></td></tr></table></figure>
+<p>nodeps的意思是忽视依赖关系<br>例如：rpm -ivh jdk-8u181-linux-i586.rpm –force –nodeps</p>
+<p>strings /lib64/libc.so.6 |grep GLIBC</p>
 
     </div>
 
@@ -231,15 +197,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/06/25/MongoDB查询详解/" class="pre-post btn btn-default" title='MongoDB查询详解'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">MongoDB查询详解</span>
-        </a>
     
-    
-        <a href="/2017/06/22/Linux随记/" class="next-post btn btn-default" title='Linux随记'>
+        <a href="/2020/03/17/RUNOOB-详解Java中的修饰符/" class="next-post btn btn-default" title='RUNOOB-详解Java中的修饰符'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Linux随记</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">RUNOOB-详解Java中的修饰符</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -252,7 +213,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Fri Jun 23 2017 11:01:44 GMT+0800',
+        id: 'Wed Mar 18 2020 23:06:59 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -276,7 +237,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase基础"><span class="toc-text">HBase基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念"><span class="toc-text">1、概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数据模型速览"><span class="toc-text">1、数据模型速览</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#区域"><span class="toc-text">区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁定"><span class="toc-text">锁定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、实现"><span class="toc-text">2、实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#运行HBase"><span class="toc-text">运行HBase</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、安装-测试驱动程序"><span class="toc-text">3、安装  测试驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、客户端"><span class="toc-text">4、客户端</span></a></li></ol></li></ol></li></ol>
+            <p>暂无目录</p>
         
     </div>
 </aside>
