@@ -1,0 +1,581 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>RUNOOB-java高级教程-1 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="RUNOOB-java高级教程-1">
+            
+	            RUNOOB-java高级教程-1
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/04/05</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <ol>
+<li>数据结构</li>
+</ol>
+<p>Java工具包提供了强大的数据结构。在Java中的数据结构主要包括以下几种接口和类：</p>
+<ul>
+<li>枚举（Enumeration）</li>
+<li>位集合（BitSet）</li>
+<li>向量（Vector）</li>
+<li>栈（Stack）</li>
+<li>字典（Dictionary）</li>
+<li>哈希表（Hashtable）</li>
+<li>属性（Properties）</li>
+</ul>
+<p>以上这些类是传统遗留的，在Java2中引入了一种新的框架-集合框架(Collection)，我们后面再讨论。</p>
+<h3 id="枚举（Enumeration）"><a href="#枚举（Enumeration）" class="headerlink" title="枚举（Enumeration）"></a>枚举（Enumeration）</h3><p>枚举（Enumeration）接口虽然它本身不属于数据结构,但它在其他数据结构的范畴里应用很广。 枚举（The Enumeration）接口定义了一种从数据结构中取回连续元素的方式。</p>
+<p>例如，枚举定义了一个叫nextElement 的方法，该方法用来得到一个包含多元素的数据结构的下一个元素。</p>
+<h3 id="位集合（BitSet）"><a href="#位集合（BitSet）" class="headerlink" title="位集合（BitSet）"></a>位集合（BitSet）</h3><p>位集合类实现了一组可以单独设置和清除的位或标志。</p>
+<p>该类在处理一组布尔值的时候非常有用，你只需要给每个值赋值一”位”，然后对位进行适当的设置或清除，就可以对布尔值进行操作了。</p>
+<h3 id="向量（Vector）"><a href="#向量（Vector）" class="headerlink" title="向量（Vector）"></a>向量（Vector）</h3><p>向量（Vector）类和传统数组非常相似，但是Vector的大小能根据需要动态的变化。</p>
+<p>和数组一样，Vector对象的元素也能通过索引访问。</p>
+<p>使用Vector类最主要的好处就是在创建对象的时候不必给对象指定大小，它的大小会根据需要动态的变化。</p>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>栈（Stack）实现了一个后进先出（LIFO）的数据结构。</p>
+<p>你可以把栈理解为对象的垂直分布的栈，当你添加一个新元素时，就将新元素放在其他元素的顶部。</p>
+<p>当你从栈中取元素的时候，就从栈顶取一个元素。换句话说，最后进栈的元素最先被取出。</p>
+<h3 id="字典（Dictionary）"><a href="#字典（Dictionary）" class="headerlink" title="字典（Dictionary）"></a>字典（Dictionary）</h3><p>字典（Dictionary） 类是一个抽象类，它定义了键映射到值的数据结构。</p>
+<p>当你想要通过特定的键而不是整数索引来访问数据的时候，这时候应该使用Dictionary。</p>
+<p>由于Dictionary类是抽象类，所以它只提供了键映射到值的数据结构，而没有提供特定的实现。</p>
+<h3 id="哈希表（Hashtable）"><a href="#哈希表（Hashtable）" class="headerlink" title="哈希表（Hashtable）"></a>哈希表（Hashtable）</h3><p>Hashtable类提供了一种在用户定义键结构的基础上来组织数据的手段。</p>
+<p>例如，在地址列表的哈希表中，你可以根据邮政编码作为键来存储和排序数据，而不是通过人名。</p>
+<p>哈希表键的具体含义完全取决于哈希表的使用情景和它包含的数据。</p>
+<h3 id="属性（Properties）"><a href="#属性（Properties）" class="headerlink" title="属性（Properties）"></a>属性（Properties）</h3><p>Properties 继承于 Hashtable.Properties 类表示了一个持久的属性集.属性列表中每个键及其对应值都是一个字符串。</p>
+<p>Properties 类被许多Java类使用。例如，在获取环境变量时它就作为System.getProperties()方法的返回值。</p>
+<ol start="2">
+<li>java 集合框架</li>
+</ol>
+<p>早在 Java 2 中之前，Java 就提供了特设类。比如：Dictionary, Vector, Stack, 和 Properties 这些类用来存储和操作对象组。</p>
+<p>虽然这些类都非常有用，但是它们缺少一个核心的，统一的主题。由于这个原因，使用 Vector 类的方式和使用 Properties 类的方式有着很大不同。</p>
+<p>集合框架被设计成要满足以下几个目标。</p>
+<ul>
+<li>该框架必须是高性能的。基本集合（动态数组，链表，树，哈希表）的实现也必须是高效的。</li>
+<li>该框架允许不同类型的集合，以类似的方式工作，具有高度的互操作性。</li>
+<li>对一个集合的扩展和适应必须是简单的。</li>
+</ul>
+<p>为此，整个集合框架就围绕一组标准接口而设计。你可以直接使用这些接口的标准实现，诸如： LinkedList, HashSet, 和 TreeSet 等,除此之外你也可以通过这些接口实现自己的集合。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/01/2243690-9cd9c896e0d512ed.gif" alt="image"></p>
+<p>从上面的集合框架图可以看到，Java 集合框架主要包括两种类型的容器，一种是集合（Collection），存储一个元素集合，另一种是图（Map），存储键/值对映射。Collection 接口又有 3 种子类型，List、Set 和 Queue，再下面是一些抽象类，最后是具体实现类，常用的有 ArrayList、LinkedList、HashSet、LinkedHashSet、HashMap、LinkedHashMap 等等。</p>
+<p>集合框架是一个用来代表和操纵集合的统一架构。所有的集合框架都包含如下内容：</p>
+<ul>
+<li>接口：是代表集合的抽象数据类型。例如 Collection、List、Set、Map 等。之所以定义多个接口，是为了以不同的方式操作集合对象</li>
+<li>实现（类）：是集合接口的具体实现。从本质上讲，它们是可重复使用的数据结构，例如：ArrayList、LinkedList、HashSet、HashMap。</li>
+<li>算法：是实现集合接口的对象里的方法执行的一些有用的计算，例如：搜索和排序。这些算法被称为多态，那是因为相同的方法可以在相似的接口上有着不同的实现。</li>
+</ul>
+<p>除了集合，该框架也定义了几个 Map 接口和类。Map 里存储的是键/值对。尽管 Map 不是集合，但是它们完全整合在集合中。</p>
+<h3 id="集合框架体系如图所示"><a href="#集合框架体系如图所示" class="headerlink" title="集合框架体系如图所示"></a>集合框架体系如图所示</h3><p><img src="https://www.runoob.com/wp-content/uploads/2014/01/java-coll.png" alt="image"></p>
+<h3 id="集合接口"><a href="#集合接口" class="headerlink" title="集合接口"></a>集合接口</h3><p>集合框架定义了一些接口。本节提供了每个接口的概述：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>接口</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Collection 接口</td>
+<td>Collection 是最基本的集合接口，一个 Collection 代表一组 Object，即 Collection 的元素, Java不提供直接继承自Collection的类，只提供继承于的子接口(如List和set)。 Collection 接口存储一组不唯一，无序的对象。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>List 接口</td>
+<td>List接口是一个有序的 Collection，使用此接口能够精确的控制每个元素插入的位置，能够通过索引(元素在List中位置，类似于数组的下标)来访问List中的元素，第一个元素的索引为 0，而且允许有相同的元素。</td>
+<td>List 接口存储一组不唯一，有序（插入顺序）的对象。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Set</td>
+<td>Set 具有与 Collection 完全一样的接口，只是行为上不同，Set 不保存重复的元素。 Set 接口存储一组唯一，无序的对象。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>SortedSet</td>
+<td>继承于Set保存有序的集合。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Map</td>
+<td>Map 接口存储一组键值对象，提供key（键）到value（值）的映射。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Map.Entry</td>
+<td>描述在一个Map中的一个元素（键/值对）。是一个Map的内部类。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>SortedMap</td>
+<td>继承于 Map，使 Key 保持在升序排列。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Enumeration</td>
+<td>这是一个传统的接口和定义的方法，通过它可以枚举（一次获得一个）对象集合中的元素。这个传统接口已被迭代器取代。</td>
+</tr>
+</tbody>
+</table>
+<p>Set和List的区别</p>
+<ul>
+<li>Set 接口实例存储的是无序的，不重复的数据。List 接口实例存储的是有序的，可以重复的元素。</li>
+<li>Set检索效率低下，删除和插入效率高，插入和删除不会引起元素位置改变 &lt;实现类有HashSet,TreeSet&gt;。</li>
+<li>List和数组类似，可以动态增长，根据实际存储的数据的长度自动增长List的长度。查找元素效率高，插入删除效率低，因为会引起其他元素位置改变 &lt;实现类有ArrayList,LinkedList,Vector&gt; 。</li>
+</ul>
+<h3 id="集合实现类（集合类）"><a href="#集合实现类（集合类）" class="headerlink" title="集合实现类（集合类）"></a>集合实现类（集合类）</h3><p>Java提供了一套实现了Collection接口的标准集合类。其中一些是具体类，这些类可以直接拿来使用，而另外一些是抽象类，提供了接口的部分实现。</p>
+<p>标准集合类汇总于下表：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>AbstractCollection</td>
+<td>实现了大部分的集合接口。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AbstractList</td>
+<td>继承于AbstractCollection 并且实现了大部分List接口。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>AbstractSequentialList</td>
+<td>继承于 AbstractList ，提供了对数据元素的链式访问而不是随机访问。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>LinkedList</td>
+<td>该类实现了List接口，允许有null（空）元素。主要用于创建链表数据结构，该类没有同步方法，如果多个线程同时访问一个List，则必须自己实现访问同步，解决方法就是在创建List时候构造一个同步的List。例如：<code>List list=Collections.synchronizedList(newLinkedList(...));</code>LinkedList 查找效率低。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>ArrayList</td>
+<td>该类也是实现了List的接口，实现了可变大小的数组，随机访问和遍历元素时，提供更好的性能。该类也是非同步的,在多线程的情况下不要使用。ArrayList 增长当前长度的50%，插入删除效率低。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AbstractSet</td>
+<td>继承于AbstractCollection 并且实现了大部分Set接口。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>HashSet</td>
+<td>该类实现了Set接口，不允许出现重复元素，不保证集合中元素的顺序，允许包含值为null的元素，但最多只能一个。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>LinkedHashSet</td>
+<td>具有可预知迭代顺序的 Set 接口的哈希表和链接列表实现。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>TreeSet</td>
+<td>该类实现了Set接口，可以实现排序等功能。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>AbstractMap</td>
+<td>实现了大部分的Map接口。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>HashMap</td>
+<td>HashMap 是一个散列表，它存储的内容是键值对(key-value)映射。 该类实现了Map接口，根据键的HashCode值存储数据，具有很快的访问速度，最多允许一条记录的键为null，不支持线程同步。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>TreeMap</td>
+<td>继承了AbstractMap，并且使用一颗树。</td>
+</tr>
+<tr>
+<td>13</td>
+<td>WeakHashMap</td>
+<td>继承AbstractMap类，使用弱密钥的哈希表。</td>
+</tr>
+<tr>
+<td>14</td>
+<td>LinkedHashMap</td>
+<td>继承于HashMap，使用元素的自然顺序对元素进行排序.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>IdentityHashMap</td>
+<td>继承AbstractMap类，比较文档时使用引用相等。</td>
+</tr>
+</tbody>
+</table>
+<p>在前面的教程中已经讨论通过java.util包中定义的类，如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Vector</td>
+<td>该类和ArrayList非常相似，但是该类是同步的，可以用在多线程的情况，该类允许设置默认的增长长度，默认扩容方式为原来的2倍。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Stack</td>
+<td>栈是Vector的一个子类，它实现了一个标准的后进先出的栈。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Dictionary</td>
+<td>Dictionary 类是一个抽象类，用来存储键/值对，作用和Map类相似。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Hashtable</td>
+<td>Hashtable 是 Dictionary(字典) 类的子类，位于 java.util 包中。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Properties</td>
+<td>Properties 继承于 Hashtable，表示一个持久的属性集，属性列表中每个键及其对应值都是一个字符串。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>BitSet</td>
+<td>一个Bitset类创建一种特殊类型的数组来保存位值。BitSet中数组大小会随需要增加。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="集合算法"><a href="#集合算法" class="headerlink" title="集合算法"></a>集合算法</h3><p>集合框架定义了几种算法，可用于集合和映射。这些算法被定义为集合类的静态方法。</p>
+<p>在尝试比较不兼容的类型时，一些方法能够抛出 ClassCastException异常。当试图修改一个不可修改的集合时，抛出UnsupportedOperationException异常。</p>
+<p>集合定义三个静态的变量：EMPTY_SET，EMPTY_LIST，EMPTY_MAP的。这些变量都不可改变。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>算法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Collection Algorithms</td>
+<td>这里是一个列表中的所有算法实现。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="如何使用迭代器"><a href="#如何使用迭代器" class="headerlink" title="如何使用迭代器"></a>如何使用迭代器</h3><p>通常情况下，你会希望遍历一个集合中的元素。例如，显示集合中的每个元素。</p>
+<p>一般遍历数组都是采用for循环或者增强for，这两个方法也可以用在集合框架，但是还有一种方法是采用迭代器遍历集合框架，它是一个对象，实现了Iterator 接口或ListIterator接口。</p>
+<p>迭代器，使你能够通过循环来得到或删除集合的元素。ListIterator 继承了Iterator，以允许双向遍历列表和修改元素。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>迭代器</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>使用 Java Iterator</td>
+<td>这里通过实例列出Iterator和listIterator接口提供的所有方法。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="遍历-ArrayList"><a href="#遍历-ArrayList" class="headerlink" title="遍历 ArrayList"></a>遍历 ArrayList</h3><p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line"> </span><br><span class="line">public class Test&#123;</span><br><span class="line"> public static void main(String[] args) &#123;</span><br><span class="line">     List&lt;String&gt; list=new ArrayList&lt;String&gt;();</span><br><span class="line">     list.add(&quot;Hello&quot;);</span><br><span class="line">     list.add(&quot;World&quot;);</span><br><span class="line">     list.add(&quot;HAHAHAHA&quot;);</span><br><span class="line">     //第一种遍历方法使用 For-Each 遍历 List</span><br><span class="line">     for (String str : list) &#123;            //也可以改写 for(int i=0;i&lt;list.size();i++) 这种形式</span><br><span class="line">        System.out.println(str);</span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     //第二种遍历，把链表变为数组相关的内容进行遍历</span><br><span class="line">     String[] strArray=new String[list.size()];</span><br><span class="line">     list.toArray(strArray);</span><br><span class="line">     for(int i=0;i&lt;strArray.length;i++) //这里也可以改写为  for(String str:strArray) 这种形式</span><br><span class="line">     &#123;</span><br><span class="line">        System.out.println(strArray[i]);</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">    //第三种遍历 使用迭代器进行相关遍历</span><br><span class="line">     </span><br><span class="line">     Iterator&lt;String&gt; ite=list.iterator();</span><br><span class="line">     while(ite.hasNext())//判断下一个元素之后有值</span><br><span class="line">     &#123;</span><br><span class="line">         System.out.println(ite.next());</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解析：</p>
+<p>三种方法都是用来遍历ArrayList集合，第三种方法是采用迭代器的方法，该方法可以不用担心在遍历的过程中会超出集合的长度。</p>
+<h3 id="遍历-Map"><a href="#遍历-Map" class="headerlink" title="遍历 Map"></a>遍历 Map</h3><p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line"> </span><br><span class="line">public class Test&#123;</span><br><span class="line">     public static void main(String[] args) &#123;</span><br><span class="line">      Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();</span><br><span class="line">      map.put(&quot;1&quot;, &quot;value1&quot;);</span><br><span class="line">      map.put(&quot;2&quot;, &quot;value2&quot;);</span><br><span class="line">      map.put(&quot;3&quot;, &quot;value3&quot;);</span><br><span class="line">      </span><br><span class="line">      //第一种：普遍使用，二次取值</span><br><span class="line">      System.out.println(&quot;通过Map.keySet遍历key和value：&quot;);</span><br><span class="line">      for (String key : map.keySet()) &#123;</span><br><span class="line">       System.out.println(&quot;key= &quot;+ key + &quot; and value= &quot; + map.get(key));</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      //第二种</span><br><span class="line">      System.out.println(&quot;通过Map.entrySet使用iterator遍历key和value：&quot;);</span><br><span class="line">      Iterator&lt;Map.Entry&lt;String, String&gt;&gt; it = map.entrySet().iterator();</span><br><span class="line">      while (it.hasNext()) &#123;</span><br><span class="line">       Map.Entry&lt;String, String&gt; entry = it.next();</span><br><span class="line">       System.out.println(&quot;key= &quot; + entry.getKey() + &quot; and value= &quot; + entry.getValue());</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      //第三种：推荐，尤其是容量大时</span><br><span class="line">      System.out.println(&quot;通过Map.entrySet遍历key和value&quot;);</span><br><span class="line">      for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">       System.out.println(&quot;key= &quot; + entry.getKey() + &quot; and value= &quot; + entry.getValue());</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">      //第四种</span><br><span class="line">      System.out.println(&quot;通过Map.values()遍历所有的value，但不能遍历key&quot;);</span><br><span class="line">      for (String v : map.values()) &#123;</span><br><span class="line">       System.out.println(&quot;value= &quot; + v);</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="如何使用比较器"><a href="#如何使用比较器" class="headerlink" title="如何使用比较器"></a>如何使用比较器</h3><p>TreeSet和TreeMap的按照排序顺序来存储元素. 然而，这是通过比较器来精确定义按照什么样的排序顺序。<br>这个接口可以让我们以不同的方式来排序一个集合。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>比较器方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>使用 Java Comparator</td>
+<td>这里通过实例列出Comparator接口提供的所有方法</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Java集合框架为程序员提供了预先包装的数据结构和算法来操纵他们。</p>
+<p>集合是一个对象，可容纳其他对象的引用。集合接口声明对每一种类型的集合可以执行的操作。</p>
+<p>集合框架的类和接口均在java.util包中。</p>
+<p>任何对象加入集合类后，自动转变为Object类型，所以在取出的时候，需要进行强制类型转换。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2020/04/05/RUNOOB-java面向对象3/" class="next-post btn btn-default" title='RUNOOB-java面向对象3'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">RUNOOB-java面向对象3</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Sun Apr 05 2020 16:49:16 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举（Enumeration）"><span class="toc-text">枚举（Enumeration）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位集合（BitSet）"><span class="toc-text">位集合（BitSet）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量（Vector）"><span class="toc-text">向量（Vector）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#栈（Stack）"><span class="toc-text">栈（Stack）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字典（Dictionary）"><span class="toc-text">字典（Dictionary）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希表（Hashtable）"><span class="toc-text">哈希表（Hashtable）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性（Properties）"><span class="toc-text">属性（Properties）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合框架体系如图所示"><span class="toc-text">集合框架体系如图所示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合接口"><span class="toc-text">集合接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合实现类（集合类）"><span class="toc-text">集合实现类（集合类）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合算法"><span class="toc-text">集合算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用迭代器"><span class="toc-text">如何使用迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历-ArrayList"><span class="toc-text">遍历 ArrayList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历-Map"><span class="toc-text">遍历 Map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用比较器"><span class="toc-text">如何使用比较器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
