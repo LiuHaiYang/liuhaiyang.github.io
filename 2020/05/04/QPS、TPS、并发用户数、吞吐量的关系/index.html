@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>QPS、TPS、并发用户数、吞吐量的关系 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="QPS、TPS、并发用户数、吞吐量的关系">
+            
+	            QPS、TPS、并发用户数、吞吐量的关系
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/测试" title='测试'>
+                        测试
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/05/04</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="系统吞度量要素："><a href="#系统吞度量要素：" class="headerlink" title="系统吞度量要素："></a>系统吞度量要素：</h3><p>一个系统的吞度量（承压能力）与request对CPU的消耗、外部接口、IO等等紧密关联。<br>单个reqeust 对CPU消耗越高，外部系统接口、IO影响速度越慢，系统吞吐能力越低，反之越高。</p>
+<h3 id="系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间"><a href="#系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间" class="headerlink" title="系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间"></a>系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间</h3><ul>
+<li>QPS（TPS）：每秒钟request/事务 数量 </li>
+<li>并发数： 系统同时处理的request/事务数 </li>
+<li>响应时间：  一般取平均响应时间</li>
+</ul>
+<p>很多人经常会把并发数和TPS理解混淆</p>
+<p>理解了上面三个要素的意义之后，就能推算出它们之间的关系：<br>QPS（TPS）= 并发数/平均响应时间<br>一个系统吞吐量通常由QPS（TPS）、并发数两个因素决定，每套系统这两个值都有一个相对极限值，在应用场景访问压力下，只要某一项达到系统最高值，系统的吞吐量就上不去了，如果压力继续增大，系统的吞吐量反而会下降，原因是系统超负荷工作，上下文切换、内存等等其它消耗导致系统性能下降。</p>
+<h3 id="系统吞吐量评估："><a href="#系统吞吐量评估：" class="headerlink" title="系统吞吐量评估："></a>系统吞吐量评估：</h3><p>我们在做系统设计的时候就需要考虑CPU运算、IO、外部系统响应因素造成的影响以及对系统性能的初步预估。</p>
+<p>而通常境况下，我们面对需求，我们评估出来的出来QPS、并发数之外，还有另外一个维度：日PV。</p>
+<p>通过观察系统的访问日志发现，在用户量很大的情况下，各个时间周期内的同一时间段的访问流量几乎一样。比如工作日的每天早上。只要能拿到日流量图和QPS我们就可以推算日流量。</p>
+<p>通常的技术方法：</p>
+<ol>
+<li>找出系统的最高TPS和日PV，这两个要素有相对比较稳定的关系（除了放假、季节性因素影响之外）</li>
+<li>通过压力测试或者经验预估，得出最高TPS，然后跟进1的关系，计算出系统最高的日吞吐量。B2B中文和淘宝面对的客户群不一样，这两个客户群的网络行为不应用，他们之间的TPS和PV关系比例也不一样。</li>
+</ol>
+<hr>
+<p>1、QPS<br>QPS Queries Per Second  是每秒查询率 ,是一台服务器每秒能够相应的查询次数，是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准, 即每秒的响应请求数，也即是最大吞吐能力。</p>
+<p>2、TPS<br>TPS Transactions Per Second  也就是事务数/秒。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来计算使用的时间和完成的事务个数</p>
+<p>3、 QPS 和 TPS 区别</p>
+<ul>
+<li>TPS即每秒处理事务数，包括了<ul>
+<li>用户请求服务器</li>
+<li>服务器自己内部的处理</li>
+<li>服务器返回给用户</li>
+</ul>
+</li>
+</ul>
+<p>这三个过程，每秒就能够完成N个这三个步骤， TPS 就是N。</p>
+<p>2、 QPS基本类似于Tps，但是不同的是，对于一个页面的一次访问，形成一个TPS，但是一次页面请求，可能产生多次服务器的请求，服务器对这些请求，就可以计入 QPS 之中。</p>
+<p>例如：访问一个页面会请求服务器3次，一次放，产生一个“T”，产生3个“Q”</p>
+<p>4、并发数</p>
+<p>并发数（并发度）：指系统同时能处理的请求数量，同样反应了系统的负载能力。这个数值可以分析机器1s内的访问日志数量来得到</p>
+<p>5、吐吞量<br>吞吐量是指系统在单位时间内处理请求的数量，TPS、QPS都是吞吐量的常用量化指标。</p>
+<p>系统吞吐量要素</p>
+<p>一个系统的吞吐量（承压能力）与request（请求）对cpu的消耗，外部接口，IO等等紧密关联。</p>
+<p>单个request 对cpu消耗越高，外部系统接口，IO影响速度越慢，系统吞吐能力越低，反之越高。</p>
+<p>重要参数</p>
+<p>QPS(TPS),并发数，响应时间</p>
+<p>QPS(TPS)：每秒钟request/事务 数量</p>
+<p>并发数：系统同时处理的request/事务数</p>
+<p>响应时间：一般取平均响应时间</p>
+<p>关系</p>
+<p>QPS(TPS)=并发数/平均响应时间</p>
+<p>一个系统吞吐量通常有QPS(TPS),并发数两个因素决定，每套系统这个两个值都有一个相对极限值，在应用场景访问压力下，只要某一项达到系统最高值，系统吞吐量就上不去了，如果压力继续增大，系统的吞吐量反而会下降，原因是系统超负荷工作，上下文切换，内存等等其他消耗导致系统性能下降。</p>
+<p>6、PV<br>PV（Page View）：页面访问量，即页面浏览量或点击量，用户每次刷新即被计算一次。可以统计服务一天的访问日志得到。 </p>
+<p>7、UV<br>UV（Unique Visitor）：独立访客，统计1天内访问某站点的用户数。可以统计服务一天的访问日志并根据用户的唯一标识去重得到。响应时间（RT）：响应时间是指系统对请求作出响应的时间，一般取平均响应时间。可以通过Nginx、Apache之类的Web Server得到。 </p>
+<p>8、DAU<br>DAU(Daily Active User)，日活跃用户数量。常用于反映网站、互联网应用或网络游戏的运营情况。DAU通常统计一日（统计日）之内，登录或使用了某个产品的用户数（去除重复登录的用户），与UV概念相似  </p>
+<p>9、MAU<br>MAU(Month Active User)：月活跃用户数量，指网站、app等去重后的月活跃用户数量</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2020/04/26/HTTP协议头部和keep-alive模式详解/" class="next-post btn btn-default" title='HTTP协议头部和keep-alive模式详解'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">HTTP协议头部和keep-alive模式详解</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon May 04 2020 11:27:50 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#系统吞度量要素："><span class="toc-text">系统吞度量要素：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间"><span class="toc-text">系统吞吐量几个重要参数：QPS（TPS）、并发数、响应时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统吞吐量评估："><span class="toc-text">系统吞吐量评估：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
