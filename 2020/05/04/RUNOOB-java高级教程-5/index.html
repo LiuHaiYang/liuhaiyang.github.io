@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>RUNOOB-java高级教程-5 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/大数据/"><i class="fa "></i>大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="RUNOOB-java高级教程-5">
+            
+	            RUNOOB-java高级教程-5
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/05/04</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <ol start="7">
+<li>java 多线程编程</li>
+</ol>
+<p>Java 给多线程编程提供了内置的支持。 一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。</p>
+<p>多线程是多任务的一种特别的形式，但多线程使用了更小的资源开销。</p>
+<p>这里定义和线程相关的另一个术语 - 进程：一个进程包括由操作系统分配的内存空间，包含一个或多个线程。一个线程不能独立的存在，它必须是进程的一部分。一个进程一直运行，直到所有的非守护线程都结束运行后才能结束。</p>
+<p>多线程能满足程序员编写高效率的程序来达到充分利用 CPU 的目的。</p>
+<h3 id="一个线程的生命周期"><a href="#一个线程的生命周期" class="headerlink" title="一个线程的生命周期"></a>一个线程的生命周期</h3><p>线程是一个动态执行的过程，它也有一个从产生到死亡的过程。</p>
+<p>下图显示了一个线程完整的生命周期。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/01/java-thread.jpg" alt="image"></p>
+<h4 id="新建状态"><a href="#新建状态" class="headerlink" title="新建状态:"></a>新建状态:</h4><p>使用 new 关键字和 Thread 类或其子类建立一个线程对象后，该线程对象就处于新建状态。它保持这个状态直到程序 start() 这个线程。</p>
+<h4 id="就绪状态"><a href="#就绪状态" class="headerlink" title="就绪状态:"></a>就绪状态:</h4><p>当线程对象调用了start()方法之后，该线程就进入就绪状态。就绪状态的线程处于就绪队列中，要等待JVM里线程调度器的调度。</p>
+<h4 id="运行状态"><a href="#运行状态" class="headerlink" title="运行状态:"></a>运行状态:</h4><p>如果就绪状态的线程获取 CPU 资源，就可以执行 run()，此时线程便处于运行状态。处于运行状态的线程最为复杂，它可以变为阻塞状态、就绪状态和死亡状态。</p>
+<h4 id="阻塞状态"><a href="#阻塞状态" class="headerlink" title="阻塞状态:"></a>阻塞状态:</h4><p>如果一个线程执行了sleep（睡眠）、suspend（挂起）等方法，失去所占用资源之后，该线程就从运行状态进入阻塞状态。在睡眠时间已到或获得设备资源后可以重新进入就绪状态。可以分为三种：</p>
+<h4 id="等待阻塞：运行状态中的线程执行-wait-方法，使线程进入到等待阻塞状态。"><a href="#等待阻塞：运行状态中的线程执行-wait-方法，使线程进入到等待阻塞状态。" class="headerlink" title="等待阻塞：运行状态中的线程执行 wait() 方法，使线程进入到等待阻塞状态。"></a>等待阻塞：运行状态中的线程执行 wait() 方法，使线程进入到等待阻塞状态。</h4><h4 id="同步阻塞：线程在获取-synchronized-同步锁失败-因为同步锁被其他线程占用-。"><a href="#同步阻塞：线程在获取-synchronized-同步锁失败-因为同步锁被其他线程占用-。" class="headerlink" title="同步阻塞：线程在获取 synchronized 同步锁失败(因为同步锁被其他线程占用)。"></a>同步阻塞：线程在获取 synchronized 同步锁失败(因为同步锁被其他线程占用)。</h4><h4 id="其他阻塞：通过调用线程的-sleep-或-join-发出了-I-O-请求时，线程就会进入到阻塞状态。当sleep-状态超时，join-等待线程终止或超时，或者-I-O-处理完毕，线程重新转入就绪状态。"><a href="#其他阻塞：通过调用线程的-sleep-或-join-发出了-I-O-请求时，线程就会进入到阻塞状态。当sleep-状态超时，join-等待线程终止或超时，或者-I-O-处理完毕，线程重新转入就绪状态。" class="headerlink" title="其他阻塞：通过调用线程的 sleep() 或 join() 发出了 I/O 请求时，线程就会进入到阻塞状态。当sleep() 状态超时，join() 等待线程终止或超时，或者 I/O 处理完毕，线程重新转入就绪状态。"></a>其他阻塞：通过调用线程的 sleep() 或 join() 发出了 I/O 请求时，线程就会进入到阻塞状态。当sleep() 状态超时，join() 等待线程终止或超时，或者 I/O 处理完毕，线程重新转入就绪状态。</h4><h4 id="死亡状态"><a href="#死亡状态" class="headerlink" title="死亡状态:"></a>死亡状态:</h4><p>一个运行状态的线程完成任务或者其他终止条件发生时，该线程就切换到终止状态。</p>
+<h3 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h3><p>每一个 Java 线程都有一个优先级，这样有助于操作系统确定线程的调度顺序。</p>
+<p>Java 线程的优先级是一个整数，其取值范围是 1 （Thread.MIN_PRIORITY ） - 10 （Thread.MAX_PRIORITY ）。</p>
+<p>默认情况下，每一个线程都会分配一个优先级 NORM_PRIORITY（5）。</p>
+<p>具有较高优先级的线程对程序更重要，并且应该在低优先级的线程之前分配处理器资源。但是，线程优先级不能保证线程执行的顺序，而且非常依赖于平台。</p>
+<h3 id="创建一个线程"><a href="#创建一个线程" class="headerlink" title="创建一个线程"></a>创建一个线程</h3><p>Java 提供了三种创建线程的方法：</p>
+<ul>
+<li>通过实现 Runnable 接口；</li>
+<li>通过继承 Thread 类本身；</li>
+<li>通过 Callable 和 Future 创建线程。</li>
+</ul>
+<h4 id="通过实现-Runnable-接口来创建线程"><a href="#通过实现-Runnable-接口来创建线程" class="headerlink" title="通过实现 Runnable 接口来创建线程"></a>通过实现 Runnable 接口来创建线程</h4><p>创建一个线程，最简单的方法是创建一个实现 Runnable 接口的类。</p>
+<p>为了实现 Runnable，一个类只需要执行一个方法调用 run()，声明如下：<br><figure class="highlight plain"><figcaption><span>void run()```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">你可以重写该方法，重要的是理解的 run() 可以调用其他方法，使用其他类，并声明变量，就像主线程一样。</span><br><span class="line"></span><br><span class="line">在创建一个实现 Runnable 接口的类之后，你可以在类中实例化一个线程对象。</span><br><span class="line"></span><br><span class="line">Thread 定义了几个构造方法，下面的这个是我们经常使用的：</span><br><span class="line"></span><br><span class="line">```Thread(Runnable threadOb,String threadName)```;</span><br><span class="line">这里，threadOb 是一个实现 Runnable 接口的类的实例，并且 threadName 指定新线程的名字。</span><br><span class="line"></span><br><span class="line">新线程创建之后，你调用它的 start() 方法它才会运行。</span><br><span class="line">```void start()```;</span><br><span class="line">下面是一个创建线程并开始让它执行的实例：</span><br><span class="line"></span><br><span class="line">实例</span><br></pre></td></tr></table></figure></p>
+<p>class RunnableDemo implements Runnable {<br>   private Thread t;<br>   private String threadName;</p>
+<p>   RunnableDemo( String name) {<br>      threadName = name;<br>      System.out.println(“Creating “ +  threadName );<br>   }</p>
+<p>   public void run() {<br>      System.out.println(“Running “ +  threadName );<br>      try {<br>         for(int i = 4; i &gt; 0; i–) {<br>            System.out.println(“Thread: “ + threadName + “, “ + i);<br>            // 让线程睡眠一会<br>            Thread.sleep(50);<br>         }<br>      }catch (InterruptedException e) {<br>         System.out.println(“Thread “ +  threadName + “ interrupted.”);<br>      }<br>      System.out.println(“Thread “ +  threadName + “ exiting.”);<br>   }</p>
+<p>   public void start () {<br>      System.out.println(“Starting “ +  threadName );<br>      if (t == null) {<br>         t = new Thread (this, threadName);<br>         t.start ();<br>      }<br>   }<br>}</p>
+<p>public class TestThread {</p>
+<p>   public static void main(String args[]) {<br>      RunnableDemo R1 = new RunnableDemo( “Thread-1”);<br>      R1.start();</p>
+<pre><code>RunnableDemo R2 = new RunnableDemo( &quot;Thread-2&quot;);
+R2.start();
+</code></pre><p>   }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 通过继承Thread来创建线程</span><br><span class="line">创建一个线程的第二种方法是创建一个新的类，该类继承 Thread 类，然后创建一个该类的实例。</span><br><span class="line"></span><br><span class="line">继承类必须重写 run() 方法，该方法是新线程的入口点。它也必须调用 start() 方法才能执行。</span><br><span class="line"></span><br><span class="line">该方法尽管被列为一种多线程实现方式，但是本质上也是实现了 Runnable 接口的一个实例。</span><br><span class="line"></span><br><span class="line">实例</span><br></pre></td></tr></table></figure></p>
+<p>class ThreadDemo extends Thread {<br>   private Thread t;<br>   private String threadName;</p>
+<p>   ThreadDemo( String name) {<br>      threadName = name;<br>      System.out.println(“Creating “ +  threadName );<br>   }</p>
+<p>   public void run() {<br>      System.out.println(“Running “ +  threadName );<br>      try {<br>         for(int i = 4; i &gt; 0; i–) {<br>            System.out.println(“Thread: “ + threadName + “, “ + i);<br>            // 让线程睡眠一会<br>            Thread.sleep(50);<br>         }<br>      }catch (InterruptedException e) {<br>         System.out.println(“Thread “ +  threadName + “ interrupted.”);<br>      }<br>      System.out.println(“Thread “ +  threadName + “ exiting.”);<br>   }</p>
+<p>   public void start () {<br>      System.out.println(“Starting “ +  threadName );<br>      if (t == null) {<br>         t = new Thread (this, threadName);<br>         t.start ();<br>      }<br>   }<br>}</p>
+<p>public class TestThread {</p>
+<p>   public static void main(String args[]) {<br>      ThreadDemo T1 = new ThreadDemo( “Thread-1”);<br>      T1.start();</p>
+<pre><code>ThreadDemo T2 = new ThreadDemo( &quot;Thread-2&quot;);
+T2.start();
+</code></pre><p>   }<br>}<br><code>`</code></p>
+<h4 id="通过-Callable-和-Future-创建线程"><a href="#通过-Callable-和-Future-创建线程" class="headerlink" title="通过 Callable 和 Future 创建线程"></a>通过 Callable 和 Future 创建线程</h4><ul>
+<li>创建 Callable 接口的实现类，并实现 call() 方法，该 call() 方法将作为线程执行体，并且有返回值。</li>
+<li>创建 Callable 实现类的实例，使用 FutureTask 类来包装 Callable 对象，该 FutureTask 对象封装了该 Callable 对象的 call() 方法的返回值。</li>
+<li>使用 FutureTask 对象作为 Thread 对象的 target 创建并启动新线程。</li>
+<li>调用 FutureTask 对象的 get() 方法来获得子线程执行结束后的返回值。</li>
+</ul>
+<h4 id="创建线程的三种方式的对比"><a href="#创建线程的三种方式的对比" class="headerlink" title="创建线程的三种方式的对比"></a>创建线程的三种方式的对比</h4><ol>
+<li><p>采用实现 Runnable、Callable 接口的方式创建多线程时，线程类只是实现了 Runnable 接口或 Callable 接口，还可以继承其他类。</p>
+</li>
+<li><p>使用继承 Thread 类的方式创建多线程时，编写简单，如果需要访问当前线程，则无需使用 Thread.currentThread() 方法，直接使用 this 即可获得当前线程。</p>
+</li>
+</ol>
+<h4 id="线程的几个主要概念"><a href="#线程的几个主要概念" class="headerlink" title="线程的几个主要概念"></a>线程的几个主要概念</h4><p>在多线程编程时，你需要了解以下几个概念：</p>
+<ul>
+<li>线程同步</li>
+<li>线程间通信</li>
+<li>线程死锁</li>
+<li>线程控制：挂起、停止和恢复</li>
+</ul>
+<h4 id="多线程的使用"><a href="#多线程的使用" class="headerlink" title="多线程的使用"></a>多线程的使用</h4><p>有效利用多线程的关键是理解程序是并发执行而不是串行执行的。例如：程序中有两个子系统需要并发执行，这时候就需要利用多线程编程。</p>
+<p>通过对多线程的使用，可以编写出非常高效的程序。不过请注意，如果你创建太多的线程，程序执行的效率实际上是降低了，而不是提升了。</p>
+<p>请记住，上下文的切换开销也很重要，如果你创建了太多的线程，CPU 花费在上下文的切换的时间将多于执行程序的时间！</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2020/05/04/RUNOOB-java高级教程-4/" class="next-post btn btn-default" title='RUNOOB-java高级教程-4'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">RUNOOB-java高级教程-4</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon May 04 2020 23:17:09 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一个线程的生命周期"><span class="toc-text">一个线程的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#新建状态"><span class="toc-text">新建状态:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#就绪状态"><span class="toc-text">就绪状态:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行状态"><span class="toc-text">运行状态:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#阻塞状态"><span class="toc-text">阻塞状态:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#等待阻塞：运行状态中的线程执行-wait-方法，使线程进入到等待阻塞状态。"><span class="toc-text">等待阻塞：运行状态中的线程执行 wait() 方法，使线程进入到等待阻塞状态。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步阻塞：线程在获取-synchronized-同步锁失败-因为同步锁被其他线程占用-。"><span class="toc-text">同步阻塞：线程在获取 synchronized 同步锁失败(因为同步锁被其他线程占用)。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他阻塞：通过调用线程的-sleep-或-join-发出了-I-O-请求时，线程就会进入到阻塞状态。当sleep-状态超时，join-等待线程终止或超时，或者-I-O-处理完毕，线程重新转入就绪状态。"><span class="toc-text">其他阻塞：通过调用线程的 sleep() 或 join() 发出了 I/O 请求时，线程就会进入到阻塞状态。当sleep() 状态超时，join() 等待线程终止或超时，或者 I/O 处理完毕，线程重新转入就绪状态。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#死亡状态"><span class="toc-text">死亡状态:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程的优先级"><span class="toc-text">线程的优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个线程"><span class="toc-text">创建一个线程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#通过实现-Runnable-接口来创建线程"><span class="toc-text">通过实现 Runnable 接口来创建线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过-Callable-和-Future-创建线程"><span class="toc-text">通过 Callable 和 Future 创建线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建线程的三种方式的对比"><span class="toc-text">创建线程的三种方式的对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程的几个主要概念"><span class="toc-text">线程的几个主要概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多线程的使用"><span class="toc-text">多线程的使用</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
