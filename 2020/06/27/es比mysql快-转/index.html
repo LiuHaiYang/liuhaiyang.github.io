@@ -170,6 +170,19 @@
     
     <div class="post-body post-content">
         <p>转 <a href="https://www.csdn.net/gather_27/MtTaIgwsOTY2MC1ibG9n.html" target="_blank" rel="noopener">Elasticsearch原理学习–为什么Elasticsearch/Lucene检索可以比MySQL快?</a></p>
+<p><img src="https://images.pexels.com/photos/4450090/pexels-photo-4450090.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" alt="image"></p>
+<hr>
+<p>同样都可以对数据构建索引并通过索引查询数据，为什么Lucene 或基于 ElasticSearch会比关系型数据库，比如Mysql搜索性能更优？<br>两者有什么区别？<br>各自选型的依据是什么？<br>它们各自又有什么优势？</p>
+<p>本文针对以上问题，基于个人理解及参与网上资料，给出说明。</p>
+<hr>
+<p>本文将从以下各模块进行阐述：</p>
+<ul>
+<li>什么是索引？</li>
+<li>Mysql 索引是如何实现的？</li>
+<li>Lucene 索引是如何实现的（包含压缩技术）</li>
+</ul>
+<h2 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h2><p>eg:现实世界中存在很多书籍,当我们想搜索某些内容 ,比如特定的主题，短语，甚至是单个单词,这会是一个灰常耗时的过程,逐页逐词的搜索，猴年马月才能搜索到我们想要的内容,这真的是一个杯具,但是对于很多书籍，有一个非常高效的工具：索引,创建索引需要大量的工作:必须按字母顺序列出单词，并引用它们的页面位置,但是好处是，当我们查找想要的内容时,我们只需要翻到索引所指向的页面,<br>现实世界中书籍是通过这种方式解决查找问题，那么计算机世界是如何解决查找问题的呢,计算机世界存在有大量的数据,数据库存储了大量文本,如果我们要查找某些内容，通常是非常缓慢的,计算机逐行扫描文本以获得我们要查找的内容,这种方式太耗时了,但是有一个工具可以让这个过程更加高效，没错就是：索引,<br>对数据库中的文本逐行进行分析并写入索引，这个过程称作indexing,索引按字母顺序组织，方便快速查找,对于写入到索引的每一项，都会附加其在数据库中的原始行，供后续查找使用,现在，当计算机搜索某内容时，它会跳过数据库，直接进入索引显示的匹配项.</p>
+<p>让我们来看一个索引建立的过程演示:<br><img src="http://vlambda.com/img?url=https://mmbiz.qpic.cn/mmbiz_gif/nRQHVMtWYqiaMs0B1C7aDGibmj6Gnn2WK7k24gc6OXgvPwJkFYPsQN2wgep9e8DHajlEo7zcQs2vj7268ch1w5pw/0?wx_fmt=gif" alt="image"><br>当我们搜索关键字“pie”时，搜索引擎快速查找匹配到的记录<br><img src="http://vlambda.com/img?url=http://mmbiz.qpic.cn/mmbiz_png/nRQHVMtWYqiaMs0B1C7aDGibmj6Gnn2WK7KwrhZea38OHicxYU26iaRQTVmpJvpIWojUHJqu2Ric9v2lo9YuMrYdjOw/0?wx_fmt=png" alt="image"></p>
 
     </div>
 
@@ -227,7 +240,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是索引"><span class="toc-text">什么是索引</span></a></li></ol>
         
     </div>
 </aside>
