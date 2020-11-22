@@ -1,0 +1,397 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>RUNOOB-java面向对象2 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="RUNOOB-java面向对象2">
+            
+	            RUNOOB-java面向对象2
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/03/30</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="https://images.pexels.com/photos/3556117/pexels-photo-3556117.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500" alt="image"></p>
+<ol start="3">
+<li>java 多态<br>多态是同一个行为具有多个不同表现形式或形态的能力。</li>
+</ol>
+<p>多态就是同一个接口，使用不同的实例而执行不同操作，如图所示：<br><img src="https://www.runoob.com/wp-content/uploads/2013/12/dt-java.png" alt="image"></p>
+<p>多态性是对象多种表现形式的体现。</p>
+<p>多态的优点</p>
+<ul>
+<li>消除类型之间的耦合关系</li>
+<li>可替换性</li>
+<li>可扩充性</li>
+<li>接口性</li>
+<li>灵活性</li>
+<li>简化性</li>
+</ul>
+<p>多态存在的三个必要条件</p>
+<ul>
+<li>继承</li>
+<li>重写</li>
+<li>父类引用指向子类对象</li>
+</ul>
+<p>当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误；如果有，再去调用子类的同名方法。</p>
+<p>多态的好处：可以使程序有良好的扩展，并可以对所有类的对象进行通用处理。</p>
+<p>虚函数</p>
+<ul>
+<li>虚函数的存在是为了多态。</li>
+<li>Java 中其实没有虚函数的概念，它的普通函数就相当于 C++ 的虚函数，动态绑定是Java的默认行为。如果 Java 中不希望某个函数具有虚函数特性，可以加上 final 关键字变成非虚函数。</li>
+</ul>
+<p>重写</p>
+<ul>
+<li>我们将介绍在 Java 中，当设计类时，被重写的方法的行为怎样影响多态性。</li>
+<li>我们已经讨论了方法的重写，也就是子类能够重写父类的方法。</li>
+<li>当子类对象调用重写的方法时，调用的是子类的方法，而不是父类中被重写的方法。</li>
+<li>要想调用父类中被重写的方法，则必须使用关键字 super。</li>
+</ul>
+<ol start="4">
+<li>java 抽象类</li>
+</ol>
+<p>在面向对象的概念中，所有的对象都是通过类来描绘的，但是反过来，并不是所有的类都是用来描绘对象的，如果一个类中没有包含足够的信息来描绘一个具体的对象，这样的类就是抽象类。</p>
+<p>抽象类除了不能实例化对象之外，类的其它功能依然存在，成员变量、成员方法和构造方法的访问方式和普通类一样。</p>
+<p>由于抽象类不能实例化对象，所以抽象类必须被继承，才能被使用。也是因为这个原因，通常在设计阶段决定要不要设计抽象类。</p>
+<p>父类包含了子类集合的常见的方法，但是由于父类本身是抽象的，所以不能使用这些方法。</p>
+<p>在Java中抽象类表示的是一种继承关系，一个类只能继承一个抽象类，而一个类却可以实现多个接口。</p>
+<p>抽象类<br>在Java语言中使用abstract class来定义抽象类。如下实例：</p>
+<p>Employee.java 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">/* 文件名 : Employee.java */</span><br><span class="line">public abstract class Employee</span><br><span class="line">&#123;</span><br><span class="line">   private String name;</span><br><span class="line">   private String address;</span><br><span class="line">   private int number;</span><br><span class="line">   public Employee(String name, String address, int number)</span><br><span class="line">   &#123;</span><br><span class="line">      System.out.println(&quot;Constructing an Employee&quot;);</span><br><span class="line">      this.name = name;</span><br><span class="line">      this.address = address;</span><br><span class="line">      this.number = number;</span><br><span class="line">   &#125;</span><br><span class="line">   public double computePay()</span><br><span class="line">   &#123;</span><br><span class="line">     System.out.println(&quot;Inside Employee computePay&quot;);</span><br><span class="line">     return 0.0;</span><br><span class="line">   &#125;</span><br><span class="line">   public void mailCheck()</span><br><span class="line">   &#123;</span><br><span class="line">      System.out.println(&quot;Mailing a check to &quot; + this.name</span><br><span class="line">       + &quot; &quot; + this.address);</span><br><span class="line">   &#125;</span><br><span class="line">   public String toString()</span><br><span class="line">   &#123;</span><br><span class="line">      return name + &quot; &quot; + address + &quot; &quot; + number;</span><br><span class="line">   &#125;</span><br><span class="line">   public String getName()</span><br><span class="line">   &#123;</span><br><span class="line">      return name;</span><br><span class="line">   &#125;</span><br><span class="line">   public String getAddress()</span><br><span class="line">   &#123;</span><br><span class="line">      return address;</span><br><span class="line">   &#125;</span><br><span class="line">   public void setAddress(String newAddress)</span><br><span class="line">   &#123;</span><br><span class="line">      address = newAddress;</span><br><span class="line">   &#125;</span><br><span class="line">   public int getNumber()</span><br><span class="line">   &#123;</span><br><span class="line">     return number;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意到该 Employee 类没有什么不同，尽管该类是抽象类，但是它仍然有 3 个成员变量，7 个成员方法和 1 个构造方法。 现在如果你尝试如下的例子：</p>
+<p>AbstractDemo.java 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/* 文件名 : AbstractDemo.java */</span><br><span class="line">public class AbstractDemo</span><br><span class="line">&#123;</span><br><span class="line">   public static void main(String [] args)</span><br><span class="line">   &#123;</span><br><span class="line">      /* 以下是不允许的，会引发错误 */</span><br><span class="line">      Employee e = new Employee(&quot;George W.&quot;, &quot;Houston, TX&quot;, 43);</span><br><span class="line"> </span><br><span class="line">      System.out.println(&quot;\n Call mailCheck using Employee reference--&quot;);</span><br><span class="line">      e.mailCheck();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>继承抽象类<br>我们能通过一般的方法继承Employee类：</p>
+<p>Salary.java 文件代码：<br>/<em> 文件名 : Salary.java </em>/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class Salary extends Employee</span><br><span class="line">&#123;</span><br><span class="line">   private double salary; //Annual salary</span><br><span class="line">   public Salary(String name, String address, int number, double</span><br><span class="line">      salary)</span><br><span class="line">   &#123;</span><br><span class="line">       super(name, address, number);</span><br><span class="line">       setSalary(salary);</span><br><span class="line">   &#125;</span><br><span class="line">   public void mailCheck()</span><br><span class="line">   &#123;</span><br><span class="line">       System.out.println(&quot;Within mailCheck of Salary class &quot;);</span><br><span class="line">       System.out.println(&quot;Mailing check to &quot; + getName()</span><br><span class="line">       + &quot; with salary &quot; + salary);</span><br><span class="line">   &#125;</span><br><span class="line">   public double getSalary()</span><br><span class="line">   &#123;</span><br><span class="line">       return salary;</span><br><span class="line">   &#125;</span><br><span class="line">   public void setSalary(double newSalary)</span><br><span class="line">   &#123;</span><br><span class="line">       if(newSalary &gt;= 0.0)</span><br><span class="line">       &#123;</span><br><span class="line">          salary = newSalary;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   public double computePay()</span><br><span class="line">   &#123;</span><br><span class="line">      System.out.println(&quot;Computing salary pay for &quot; + getName());</span><br><span class="line">      return salary/52;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>尽管我们不能实例化一个 Employee 类的对象，但是如果我们实例化一个 Salary 类对象，该对象将从 Employee 类继承 7 个成员方法，且通过该方法可以设置或获取三个成员变量。</p>
+<p>AbstractDemo.java 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* 文件名 : AbstractDemo.java */</span><br><span class="line">public class AbstractDemo</span><br><span class="line">&#123;</span><br><span class="line">   public static void main(String [] args)</span><br><span class="line">   &#123;</span><br><span class="line">      Salary s = new Salary(&quot;Mohd Mohtashim&quot;, &quot;Ambehta, UP&quot;, 3, 3600.00);</span><br><span class="line">      Employee e = new Salary(&quot;John Adams&quot;, &quot;Boston, MA&quot;, 2, 2400.00);</span><br><span class="line"> </span><br><span class="line">      System.out.println(&quot;Call mailCheck using Salary reference --&quot;);</span><br><span class="line">      s.mailCheck();</span><br><span class="line"> </span><br><span class="line">      System.out.println(&quot;\n Call mailCheck using Employee reference--&quot;);</span><br><span class="line">      e.mailCheck();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>抽象方法</p>
+<p>如果你想设计这样一个类，该类包含一个特别的成员方法，该方法的具体实现由它的子类确定，那么你可以在父类中声明该方法为抽象方法。</p>
+<p>Abstract 关键字同样可以用来声明抽象方法，抽象方法只包含一个方法名，而没有方法体。</p>
+<p>抽象方法没有定义，方法名后面直接跟一个分号，而不是花括号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Employee</span><br><span class="line">&#123;</span><br><span class="line">   private String name;</span><br><span class="line">   private String address;</span><br><span class="line">   private int number;</span><br><span class="line">   </span><br><span class="line">   public abstract double computePay();</span><br><span class="line">   </span><br><span class="line">   //其余代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明抽象方法会造成以下两个结果：</p>
+<p>如果一个类包含抽象方法，那么该类必须是抽象类。<br>任何子类必须重写父类的抽象方法，或者声明自身为抽象类。<br>继承抽象方法的子类必须重写该方法。否则，该子类也必须声明为抽象类。最终，必须有子类实现该抽象方法，否则，从最初的父类到最终的子类都不能用来实例化对象。</p>
+<p>如果Salary类继承了Employee类，那么它必须实现computePay()方法：</p>
+<p>Salary.java 文件代码：<br>/<em> 文件名 : Salary.java </em>/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Salary extends Employee</span><br><span class="line">&#123;</span><br><span class="line">   private double salary; // Annual salary</span><br><span class="line">  </span><br><span class="line">   public double computePay()</span><br><span class="line">   &#123;</span><br><span class="line">      System.out.println(&quot;Computing salary pay for &quot; + getName());</span><br><span class="line">      return salary/52;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   //其余代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>抽象类总结规定</p>
+<ul>
+<li>抽象类不能被实例化(初学者很容易犯的错)，如果被实例化，就会报错，编译无法通过。只有抽象类的非抽象子类可以创建对象。</li>
+<li>抽象类中不一定包含抽象方法，但是有抽象方法的类必定是抽象类。</li>
+<li>抽象类中的抽象方法只是声明，不包含方法体，就是不给出方法的具体实现也就是方法的具体功能。</li>
+<li>构造方法，类方法（用 static 修饰的方法）不能声明为抽象方法。</li>
+<li>抽象类的子类必须给出抽象类中的抽象方法的具体实现，除非该子类也是抽象类。</li>
+</ul>
+<ol start="5">
+<li>java 封装</li>
+</ol>
+<p>Java 封装</p>
+<ul>
+<li>在面向对象程式设计方法中，封装（英语：Encapsulation）是指一种将抽象性函式接口的实现细节部分包装、隐藏起来的方法。</li>
+<li>封装可以被认为是一个保护屏障，防止该类的代码和数据被外部类定义的代码随机访问。</li>
+<li>要访问该类的代码和数据，必须通过严格的接口控制。</li>
+<li>封装最主要的功能在于我们能修改自己的实现代码，而不用修改那些调用我们代码的程序片段。</li>
+<li>适当的封装可以让程式码更容易理解与维护，也加强了程式码的安全性。</li>
+</ul>
+<p>封装的优点</p>
+<ul>
+<li>良好的封装能够减少耦合。</li>
+<li>类内部的结构可以自由修改。</li>
+<li>可以对成员变量进行更精确的控制。</li>
+<li>隐藏信息，实现细节。</li>
+</ul>
+<p>实现Java封装的步骤</p>
+<ul>
+<li><p>修改属性的可见性来限制对属性的访问（一般限制为private），例如：</p>
+<p>  public class Person {</p>
+<pre><code>private String name;
+private int age;
+</code></pre><p>  }<br>  这段代码中，将 name 和 age 属性设置为私有的，只能本类才能访问，其他类都访问不了，如此就对信息进行了隐藏。</p>
+</li>
+<li><p>对每个值属性提供对外的公共方法访问，也就是创建一对赋取值方法，用于对私有属性的访问，例如：</p>
+<p>  public class Person{</p>
+<pre><code>private String name;
+private int age;
+</code></pre><p>  ​</p>
+<pre><code>public int getAge(){
+  return age;
+}
+</code></pre><p>  ​</p>
+<pre><code>public String getName(){
+  return name;
+}
+</code></pre><p>  ​</p>
+<pre><code>public void setAge(int age){
+  this.age = age;
+}
+</code></pre><p>  ​</p>
+<pre><code>public void setName(String name){
+  this.name = name;
+}
+</code></pre><p>  }<br>  采用 this 关键字是为了解决实例变量（private String name）和局部变量（setName(String name)中的name变量）之间发生的同名的冲突。</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2020/04/05/RUNOOB-java面向对象3/" class="pre-post btn btn-default" title='RUNOOB-java面向对象3'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">RUNOOB-java面向对象3</span>
+        </a>
+    
+    
+        <a href="/2020/03/28/RUNOOB-java面向对象1/" class="next-post btn btn-default" title='RUNOOB-java面向对象1'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">RUNOOB-java面向对象1</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon Mar 30 2020 21:30:46 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

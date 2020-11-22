@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>转：二维码换肤（python） | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="转：二维码换肤（python）">
+            
+	            转：二维码换肤（python）
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/python" title='python'>
+                        python
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/11/16</span>
+        </span>
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>737</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p>二维码又称QR Code，是一个近几年来流行的一种编码方式，使用黑白矩形图案表示二进制数据，被设备扫描后可获取其中所包含的信息。本教程将展示如何在原有黑白图片的基础上，给二维码添加一些色彩和动态效果，也可以说是给二维码换个皮肤。</p>
+<p>首先，简单了解一下二维码的基础知识。</p>
+<p>一个普通二维码的基本结构如下:<br><img src="http://101python.cn/static/images/qrcode_structure.png" alt="image"></p>
+<p>定位图案</p>
+<p>定位图案，用于标记二维码的矩形大小。之所以三个而不是四个意思就是三个就可以标识一个矩形了。这个在转换的时候需要保留。</p>
+<p>功能性数据</p>
+<p>功能性数据用于存放一些格式化数据的，比如格式信息和版本信息。</p>
+<p>数据码和纠错码</p>
+<p>除了上述的那些地方，剩下的地方存放数据码和纠错码。</p>
+<p>以上就是二维码的基本结构，下面就可以二维码图片的转换了。</p>
+<p>EG1:</p>
+<pre><code># 导入需要使用的Python库
+from PIL import Image, ImageEnhance
+import matplotlib.pyplot as plt
+# 读取二维码图片
+qrcode = Image.open(&apos;./qrcode.png&apos;).convert(&quot;RGBA&quot;)
+# 为方便处理，先将二维码转换为99x99的尺寸
+src_size = (qrcode.size[0], qrcode.size[1])
+qrcode = qrcode.resize((99, 99))
+bg = Image.open(&apos;./static/images/luffy.jpeg&apos;).convert(&quot;RGBA&quot;)
+# 将新的图片转换为合适的尺寸
+if bg.size[0] &lt; bg.size[1]:
+    bg = bg.resize((qrcode.size[0]-24, (qrcode.size[0]-24)*int(bg.size[1]/bg.size[0])))
+else:
+    bg = bg.resize(((qrcode.size[1]-24)*int(bg.size[0]/bg.size[1]), qrcode.size[1]-24))
+&apos;&apos;&apos;
+循环二维码图片中各个像素点
+其中三个定位图案和有效数据不能替换
+这里的坐标位置以本教程的二维码为例，如有不同，需要修改
+&apos;&apos;&apos;
+for i in range(qrcode.size[0]-24):
+    for j in range(qrcode.size[1]-24):
+        # 忽略左上角定位图案
+        if i&lt;24 and j&lt;24:
+            continue
+        # 忽略右上角定位图案
+        elif i&lt;24 and j&gt;qrcode.size[1]-49:
+            continue
+        # 忽略左下角定位图案
+        elif i&gt;qrcode.size[0]-49 and j&lt;24:
+            continue
+        elif i%3==1 and j%3==1:
+            continue
+        # 背景中透明的略不做处理
+        elif bg.getpixel((i,j))[3]==0:
+            continue
+        else:
+            # 用新图片上的像素替换原有二维码上
+            qrcode.putpixel((i+12,j+12), bg.getpixel((i,j)))
+# 显示新的二维码图片
+qrcode = qrcode.resize(src_size)
+plt.imshow(qrcode)
+plt.show()
+</code></pre><p>GIF效果：</p>
+<p><img src="http://mmbiz.qpic.cn/mmbiz_gif/LiaGhAsRNttt93WTwwEhlMzlXBnQib4HneBnWsm11AyibFaA21WUa4u9uT46pGPlf3P89trolfhiag3eQC0KR20pbw/0?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="image"></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/11/19/20181119/" class="pre-post btn btn-default" title='20181119'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">20181119</span>
+        </a>
+    
+    
+        <a href="/2018/11/12/20181111/" class="next-post btn btn-default" title='20181111'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">20181111</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Fri Nov 16 2018 18:35:37 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>java版本更新的新特性 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="java版本更新的新特性">
+            
+	            java版本更新的新特性
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/03/24</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id><a href="#" class="headerlink" title></a><img src="https://images.pexels.com/photos/3746197/pexels-photo-3746197.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500" alt="image"></h2><h3 id="jdk-1-8-新特性"><a href="#jdk-1-8-新特性" class="headerlink" title="jdk 1.8 新特性"></a>jdk 1.8 新特性</h3><p>Java 8 (又称为 jdk 1.8) 是 Java 语言开发的一个主要版本。 Oracle 公司于 2014 年 3 月 18 日发布 Java 8 ，它支持函数式编程，新的 JavaScript 引擎，新的日期 API，新的Stream API 等。</p>
+<ul>
+<li>新特性</li>
+</ul>
+<p>Java8 新增了非常多的特性，我们主要讨论以下几个：</p>
+<ul>
+<li>Lambda 表达式 − Lambda 允许把函数作为一个方法的参数（函数作为参数传递到方法中）。</li>
+<li>方法引用 − 方法引用提供了非常有用的语法，可以直接引用已有Java类或对象（实例）的方法或构造器。与lambda联合使用，方法引用可以使语言的构造更紧凑简洁，减少冗余代码。</li>
+<li>默认方法 − 默认方法就是一个在接口里面有了一个实现的方法。</li>
+<li>新工具 − 新的编译工具，如：Nashorn引擎 jjs、 类依赖分析器jdeps。</li>
+<li>Stream API −新添加的Stream API（java.util.stream） 把真正的函数式编程风格引入到Java中。</li>
+<li>Date Time API − 加强对日期与时间的处理。</li>
+<li>Optional 类 − Optional 类已经成为 Java 8 类库的一部分，用来解决空指针异常。</li>
+<li>Nashorn, JavaScript 引擎 − Java 8提供了一个新的Nashorn javascript引擎，它允许我们在JVM上运行特定的javascript应用。</li>
+</ul>
+<h3 id="jdk-1-9"><a href="#jdk-1-9" class="headerlink" title="jdk 1.9"></a>jdk 1.9</h3><p>Java 9 发布于 2017 年 9 月 22 日，带来了很多新特性，其中最主要的变化是已经实现的模块化系统。接下来我们会详细介绍 Java 9 的新特性。</p>
+<ul>
+<li>Java 9 新特性<ul>
+<li>模块系统：模块是一个包的容器，Java 9 最大的变化之一是引入了模块系统（Jigsaw 项目）。</li>
+<li>REPL (JShell)：交互式编程环境。</li>
+<li>HTTP 2 客户端：HTTP/2标准是HTTP协议的最新版本，新的 HTTPClient API 支持 WebSocket 和 HTTP2 流以及服务器推送特性。</li>
+<li>改进的 Javadoc：Javadoc 现在支持在 API 文档中的进行搜索。另外，Javadoc 的输出现在符合兼容 HTML5 标准。</li>
+<li>多版本兼容 JAR 包：多版本兼容 JAR 功能能让你创建仅在特定版本的 Java 环境中运行库程序时选择使用的 class 版本。</li>
+<li>集合工厂方法：List，Set 和 Map 接口中，新的静态工厂方法可以创建这些集合的不可变实例。</li>
+<li>私有接口方法：在接口中使用private私有方法。我们可以使用 private 访问修饰符在接口中编写私有方法。</li>
+<li>进程 API: 改进的 API 来控制和管理操作系统进程。引进 java.lang.ProcessHandle 及其嵌套接口 Info 来让开发者逃离时常因为要获取一个本地进程的 PID 而不得不使用本地代码的窘境。</li>
+<li>改进的 Stream API：改进的 Stream API 添加了一些便利的方法，使流处理更容易，并使用收集器编写复杂的查询。</li>
+<li>改进 try-with-resources：如果你已经有一个资源是 final 或等效于 final 变量,您可以在 try-with-resources 语句中使用该变量，而无需在 try-with-resources 语句中声明一个新变量。</li>
+<li>改进的弃用注解 @Deprecated：注解 @Deprecated 可以标记 Java API 状态，可以表示被标记的 API 将会被移除，或者已经破坏。</li>
+<li>改进钻石操作符(Diamond Operator) ：匿名类可以使用钻石操作符(Diamond Operator)。</li>
+<li>改进 Optional 类：java.util.Optional 添加了很多新的有用方法，Optional 可以直接转为 stream。</li>
+<li>多分辨率图像 API：定义多分辨率图像API，开发者可以很容易的操作和展示不同分辨率的图像了。</li>
+<li>改进的 CompletableFuture API ： CompletableFuture 类的异步机制可以在 ProcessHandle.onExit 方法退出时执行操作。</li>
+<li>轻量级的 JSON API：内置了一个轻量级的JSON API</li>
+<li>响应式流（Reactive Streams) API: Java 9中引入了新的响应式流 API 来支持 Java 9 中的响应式编程。</li>
+</ul>
+</li>
+</ul>
+<h3 id="jdk-1-10"><a href="#jdk-1-10" class="headerlink" title="jdk 1.10"></a>jdk 1.10</h3><ul>
+<li>Java 10 新特性<ul>
+<li>局部变量的类型推断 var关键字</li>
+<li>GC改进和内存管理 并行全垃圾回收器 G1</li>
+<li>垃圾回收器接口</li>
+<li>线程-局部变量管控</li>
+<li>合并 JDK 多个代码仓库到一个单独的储存库中</li>
+<li>新增API：ByteArrayOutputStream</li>
+<li>新增API：List、Map、Set</li>
+<li>新增API：java.util.Properties</li>
+<li>新增API： Collectors收集器</li>
+</ul>
+</li>
+</ul>
+<h3 id="jdk-1-11"><a href="#jdk-1-11" class="headerlink" title="jdk 1.11"></a>jdk 1.11</h3><ul>
+<li><p>Java 11 新特性</p>
+<ul>
+<li>本地变量类型推断</li>
+<li>字符串加强</li>
+<li>集合加强</li>
+<li>Stream 加强</li>
+<li>Optional 加强</li>
+<li>InputStream 加强</li>
+<li>HTTP Client API</li>
+<li>化繁为简，一个命令编译运行源代码</li>
+</ul>
+<p><a href="https://blog.csdn.net/itcast_cn/article/details/84991548" target="_blank" rel="noopener">Java11新特性</a>，java程序员必看哦！</p>
+</li>
+</ul>
+<h3 id="jdk-1-12"><a href="#jdk-1-12" class="headerlink" title="jdk 1.12"></a>jdk 1.12</h3><ul>
+<li><p>Java 12 新特性</p>
+<ul>
+<li><p>switch表达式</p>
+<ul>
+<li>新形式的开关标签，类似lamada表达式“ case L -&gt;”形式，表示如果标签匹配，则只执行标签右侧的代码，没有break<ul>
+<li>case后的标签支持多个逗号分隔的标签</li>
+<li>标签右侧代码支持表达式，代码块，直接抛异常</li>
+<li>更清晰，更安全的switch 表达式，局部变量返回值，语句返回值，个人觉得此处是参考了lamada表达式，可直接返回值然后赋值给接收的变量</li>
+<li>break语句返回值，不过此处需注意，如果需要break语句返回值，则需每一个case后都有返回值或者抛出一个异常<br>示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">	// java12以前</span><br><span class="line">switch (day) &#123;</span><br><span class="line">    case MONDAY:</span><br><span class="line">    case FRIDAY:</span><br><span class="line">    case SUNDAY:</span><br><span class="line">        System.out.println(6);</span><br><span class="line">        break;</span><br><span class="line">    case TUESDAY:</span><br><span class="line">        System.out.println(7);</span><br><span class="line">        break;</span><br><span class="line">    case THURSDAY:</span><br><span class="line">    case SATURDAY:</span><br><span class="line">        System.out.println(8);</span><br><span class="line">        break;</span><br><span class="line">    case WEDNESDAY:</span><br><span class="line">        System.out.println(9);</span><br><span class="line">        break;</span><br><span class="line">&#125;</span><br><span class="line">// java12 ’case L -&gt;‘形式</span><br><span class="line">switch (day) &#123;</span><br><span class="line">    case MONDAY, FRIDAY, SUNDAY -&gt; System.out.println(6);</span><br><span class="line">    case TUESDAY                -&gt; System.out.println(7);</span><br><span class="line">    case THURSDAY, SATURDAY     -&gt; System.out.println(8);</span><br><span class="line">    case WEDNESDAY              -&gt; System.out.println(9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// java12以前</span><br><span class="line">int numLetters;</span><br><span class="line">switch (day) &#123;</span><br><span class="line">    case MONDAY:</span><br><span class="line">    case FRIDAY:</span><br><span class="line">    case SUNDAY:</span><br><span class="line">        numLetters = 6;</span><br><span class="line">        break;</span><br><span class="line">    case TUESDAY:</span><br><span class="line">        numLetters = 7;</span><br><span class="line">        break;</span><br><span class="line">    case THURSDAY:</span><br><span class="line">    case SATURDAY:</span><br><span class="line">        numLetters = 8;</span><br><span class="line">        break;</span><br><span class="line">    case WEDNESDAY:</span><br><span class="line">        numLetters = 9;</span><br><span class="line">        break;</span><br><span class="line">    default:</span><br><span class="line">        throw new IllegalStateException(&quot;Wat: &quot; + day);</span><br><span class="line">&#125;</span><br><span class="line">// java12 更清晰，更安全的switch表达式</span><br><span class="line">int numLetters = switch (day) &#123;</span><br><span class="line">    case MONDAY, FRIDAY, SUNDAY -&gt; 6;</span><br><span class="line">    case TUESDAY                -&gt; 7;</span><br><span class="line">    case THURSDAY, SATURDAY     -&gt; 8;</span><br><span class="line">    case WEDNESDAY              -&gt; 9;</span><br><span class="line">&#125;;</span><br><span class="line">// java12 break可携带返回值</span><br><span class="line">int numLetters = switch (day) &#123;</span><br><span class="line">    case MONDAY, FRIDAY, SUNDAY:</span><br><span class="line">      break 6;</span><br><span class="line">    case TUESDAY:</span><br><span class="line">      break  7;</span><br><span class="line">    case THURSDAY, SATURDAY:</span><br><span class="line">      break  8;</span><br><span class="line">    case WEDNESDAY:</span><br><span class="line">      break  9;</span><br><span class="line">    default:</span><br><span class="line">        System.out.println(&quot;default statement...&quot;);</span><br><span class="line">        break 0;</span><br><span class="line">&#125;;</span><br><span class="line">// java12 break value error</span><br><span class="line">int i = switch (day) &#123;</span><br><span class="line">    case MONDAY -&gt; &#123;</span><br><span class="line">        System.out.println(&quot;Monday&quot;); </span><br><span class="line">        // ERROR! Block doesn&apos;t contain a break with value</span><br><span class="line">    &#125;</span><br><span class="line">    default -&gt; 1;</span><br><span class="line">&#125;;</span><br><span class="line">i = switch (day) &#123;</span><br><span class="line">    case MONDAY, TUESDAY, WEDNESDAY: </span><br><span class="line">        break 0;</span><br><span class="line">    default: </span><br><span class="line">        System.out.println(&quot;Second half of the week&quot;);</span><br><span class="line">        // ERROR! Group doesn&apos;t contain a break with value</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>默认CDS归档 : 在64位平台上使用默认类列表增强JDK构建过程以生成类数据共享（CDS）归档。</p>
+</li>
+<li>Shenandoah低暂停时间垃圾收集器<ul>
+<li>添加一个名为Shenandoah的新垃圾收集（GC）算法，通过与正在运行的Java线程同时进行疏散工作来减少GC暂停时间。使用Shenandoah的暂停时间与堆大小无关，这意味着无论堆是200 MB还是200 GB，您都将具有相同的一致暂停时间。</li>
+<li>作为一个实验性的功能，要启用/使用Shenandoah GC，需要以下JVM选项：-XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC。</li>
+</ul>
+</li>
+<li>JMH 基准测试 : 在JDK源代码中添加一套基本的微基准测试，使开发人员可以轻松运行现有的微基准测试并创建新的基准测试。</li>
+<li>JVM常量API : 引入API来模拟关键类文件和运行时工件的名义描述，特别是可从常量池加载的常量。</li>
+<li>改进 AArch64 实现<ul>
+<li>Java 12 中将只保留一套 AArch64 实现，删除所有与 arm64 实现相关的代码，只保留 32 位 ARM 端口和 64 位 aarch64 的端口。删除此套实现将允许所有开发人员将目标集中在剩下的这个 64 位 ARM 实现上，消除维护两套端口所需的重复工作。</li>
+<li>当前 Java 11 中存在两套 64 位 AArch64 端口，它们主要存在于 src/hotspot/cpu/arm 和 open/src/hotspot/cpu/aarch64 目录中。这两套代码中都实现了 AArch64，Java 12 中将删除目录 open/src/hotspot/cpu/arm 中关于 64-bit 的这套实现，只保留其中有关 32-bit 的实现，余下目录的 open/src/hotspot/cpu/aarch64 代码部分就成了 AArch64 的默认实现。</li>
+</ul>
+</li>
+<li>改善 G1 垃圾收集器，使其能够中止混合集合</li>
+<li>增强 G1 垃圾收集器，使其能自动返回未用堆内存给操作系统</li>
+</ul>
+<p>参考 <a href="https://www.ibm.com/developerworks/cn/java/the-new-features-of-Java-12/index.html" target="_blank" rel="noopener">java 12 新特性</a></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2020/03/25/RUNOOB-java基础回顾5/" class="pre-post btn btn-default" title='RUNOOB-java基础回顾5'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">RUNOOB-java基础回顾5</span>
+        </a>
+    
+    
+        <a href="/2020/03/24/RUNOOB-java基础回顾4/" class="next-post btn btn-default" title='RUNOOB-java基础回顾4'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">RUNOOB-java基础回顾4</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Tue Mar 24 2020 23:19:20 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk-1-8-新特性"><span class="toc-text">jdk 1.8 新特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk-1-9"><span class="toc-text">jdk 1.9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk-1-10"><span class="toc-text">jdk 1.10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk-1-11"><span class="toc-text">jdk 1.11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk-1-12"><span class="toc-text">jdk 1.12</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

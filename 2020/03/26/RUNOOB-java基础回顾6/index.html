@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>RUNOOB-java基础回顾6 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="RUNOOB-java基础回顾6">
+            
+	            RUNOOB-java基础回顾6
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/03/26</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <ol start="19">
+<li>Java 方法</li>
+</ol>
+<p>我们经常使用到 System.out.println()，那么它是什么呢？</p>
+<ul>
+<li>println() 是一个方法。</li>
+<li>System 是系统类。</li>
+<li>out 是标准输出对象。<br>这句话的用法是调用系统类 System 中的标准输出对象 out 中的方法 println()。</li>
+</ul>
+<p>那么什么是方法呢？</p>
+<ul>
+<li>Java方法是语句的集合，它们在一起执行一个功能。</li>
+<li>方法是解决一类问题的步骤的有序组合</li>
+<li>方法包含于类或对象中</li>
+<li>方法在程序中被创建，在其他地方被引用</li>
+</ul>
+<p>方法的优点</p>
+<ul>
+<li>使程序变得更简短而清晰。</li>
+<li>有利于程序维护。</li>
+<li>可以提高程序开发的效率。</li>
+<li>提高了代码的重用性。</li>
+</ul>
+<p>方法的命名规则</p>
+<ul>
+<li>方法的名字的第一个单词应以小写字母作为开头，后面的单词则用大写字母开头写，不使用连接符。例如：addPerson。</li>
+<li>下划线可能出现在 JUnit 测试方法名称中用以分隔名称的逻辑组件。一个典型的模式是：<code>test&lt;MethodUnderTest&gt;_&lt;state&gt;，例如 testPop_emptyStack。</code></li>
+</ul>
+<p>方法包含一个方法头和一个方法体。下面是一个方法的所有部分：</p>
+<ul>
+<li>修饰符：修饰符，这是可选的，告诉编译器如何调用该方法。定义了该方法的访问类型。</li>
+<li>返回值类型 ：方法可能会返回值。returnValueType 是方法返回值的数据类型。有些方法执行所需的操作，但没有返回值。在这种情况下，returnValueType 是关键字void。</li>
+<li>方法名：是方法的实际名称。方法名和参数表共同构成方法签名。</li>
+<li>参数类型：参数像是一个占位符。当方法被调用时，传递值给参数。这个值被称为实参或变量。参数列表是指方法的参数类型、顺序和参数的个数。参数是可选的，方法可以不包含任何参数。</li>
+<li>方法体：方法体包含具体的语句，定义该方法的功能。</li>
+</ul>
+<p>构造方法</p>
+<ul>
+<li>当一个对象被创建时候，构造方法用来初始化该对象。构造方法和它所在类的名字相同，但构造方法没有返回值。</li>
+<li>通常会使用构造方法给一个类的实例变量赋初值，或者执行其它必要的步骤来创建一个完整的对象。</li>
+<li>不管你是否自定义构造方法，所有的类都有构造方法，因为Java自动提供了一个默认构造方法，默认构造方法的访问修改符和类的访问修改符相同(类为 public，构造函数也为 public；类改为 protected，构造函数也改为 protected)。</li>
+<li>一旦你定义了自己的构造方法，默认构造方法就会失效。</li>
+</ul>
+<p>finalize() 方法</p>
+<ul>
+<li>Java 允许定义这样的方法，它在对象被垃圾收集器析构(回收)之前调用，这个方法叫做 finalize( )，它用来清除回收对象。</li>
+<li>例如，你可以使用 finalize() 来确保一个对象打开的文件被关闭了。</li>
+<li>在 finalize() 方法里，你必须指定在对象销毁时候要执行的操作。<br>finalize() 一般格式是：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">protected void finalize()</span><br><span class="line">&#123;</span><br><span class="line">   // 在这里终结代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="20">
+<li>Java 流(Stream)、文件(File)和IO</li>
+</ol>
+<p>Java.io 包几乎包含了所有操作输入、输出需要的类。所有这些流类代表了输入源和输出目标。</p>
+<p>Java.io 包中的流支持很多种格式，比如：基本类型、对象、本地化字符集等等。</p>
+<p>一个流可以理解为一个数据的序列。输入流表示从一个源读取数据，输出流表示向一个目标写数据。</p>
+<p>Java 为 I/O 提供了强大的而灵活的支持，使其更广泛地应用到文件传输和网络编程中。</p>
+<ul>
+<li>读取控制台输入</li>
+</ul>
+<p>Java 的控制台输入由 System.in 完成。<br>为了获得一个绑定到控制台的字符流，你可以把 System.in 包装在一个 BufferedReader 对象中来创建一个字符流。</p>
+<p>下面是创建 BufferedReader 的基本语法：<br><code>BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</code></p>
+<p>BufferedReader 对象创建后，我们便可以使用 read() 方法从控制台读取一个字符，或者用 readLine() 方法读取一个字符串。</p>
+<p>每次调用 read() 方法，它从输入流读取一个字符并把该字符作为整数值返回。 当流结束的时候返回 -1。该方法抛出 IOException。</p>
+<p>下面的程序示范了用 read() 方法从控制台不断读取字符直到用户输入 “q”。</p>
+<p>BRRead.java 文件代码：<br>//使用 BufferedReader 在控制台读取字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">public class BRRead &#123;</span><br><span class="line">    public static void main(String args[]) throws IOException &#123;</span><br><span class="line">        char c;</span><br><span class="line">        // 使用 System.in 创建 BufferedReader</span><br><span class="line">        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">        System.out.println(&quot;输入字符, 按下 &apos;q&apos; 键退出。&quot;);</span><br><span class="line">        // 读取字符</span><br><span class="line">        do &#123;</span><br><span class="line">            c = (char) br.read();</span><br><span class="line">            System.out.println(c);</span><br><span class="line">        &#125; while (c != &apos;q&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>从控制台读取字符串<br>从标准输入读取一个字符串需要使用 BufferedReader 的 readLine() 方法。</li>
+</ul>
+<p>它的一般格式是：</p>
+<p>String readLine( ) throws IOException<br>下面的程序读取和显示字符行直到你输入了单词”end”。</p>
+<p>BRReadLines.java 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//使用 BufferedReader 在控制台读取字符</span><br><span class="line">import java.io.*;</span><br><span class="line">public class BRReadLines &#123;</span><br><span class="line">    public static void main(String args[]) throws IOException &#123;</span><br><span class="line">        // 使用 System.in 创建 BufferedReader</span><br><span class="line">        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">        String str;</span><br><span class="line">        System.out.println(&quot;Enter lines of text.&quot;);</span><br><span class="line">        System.out.println(&quot;Enter &apos;end&apos; to quit.&quot;);</span><br><span class="line">        do &#123;</span><br><span class="line">            str = br.readLine();</span><br><span class="line">            System.out.println(str);</span><br><span class="line">        &#125; while (!str.equals(&quot;end&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>控制台输出<br>控制台的输出由 print( ) 和 println() 完成。这些方法都由类 PrintStream 定义，System.out 是该类对象的一个引用。</li>
+</ul>
+<p>PrintStream 继承了 OutputStream类，并且实现了方法 write()。这样，write() 也可以用来往控制台写操作。</p>
+<p>PrintStream 定义 write() 的最简单格式如下所示：</p>
+<p>void write(int byteval)<br>该方法将 byteval 的低八位字节写到流中。</p>
+<p>实例<br>下面的例子用 write() 把字符 “A” 和紧跟着的换行符输出到屏幕：<br>WriteDemo.java 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">//演示 System.out.write().</span><br><span class="line">public class WriteDemo &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        int b;</span><br><span class="line">        b = &apos;A&apos;;</span><br><span class="line">        System.out.write(b);</span><br><span class="line">        System.out.write(&apos;\n&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：write() 方法不经常使用，因为 print() 和 println() 方法用起来更为方便。</p>
+<h3 id="读写文件"><a href="#读写文件" class="headerlink" title="读写文件"></a>读写文件</h3><p><img src="https://www.runoob.com/wp-content/uploads/2013/12/iostream2xx.png" alt="image"></p>
+<ul>
+<li>下面将要讨论的两个重要的流是 FileInputStream 和 FileOutputStream：</li>
+</ul>
+<p>FileInputStream</p>
+<pre><code>该流用于从文件读取数据，它的对象可以用关键字 new 来创建。
+
+可以使用字符串类型的文件名来创建一个输入流对象来读取文件：
+
+InputStream f = new FileInputStream(&quot;C:/java/hello&quot;);
+也可以使用一个文件对象来创建一个输入流对象来读取文件。我们首先得使用 File() 方法来创建一个文件对象：
+
+File f = new File(&quot;C:/java/hello&quot;);
+InputStream out = new FileInputStream(f);
+</code></pre><p>FileOutputStream</p>
+<pre><code>该类用来创建一个文件并向文件中写数据。
+
+如果该流在打开文件进行输出前，目标文件不存在，那么该流会创建该文件。
+
+有两个构造方法可以用来创建 FileOutputStream 对象。
+
+使用字符串类型的文件名来创建一个输出流对象：
+
+OutputStream f = new FileOutputStream(&quot;C:/java/hello&quot;)
+也可以使用一个文件对象来创建一个输出流来写文件。我们首先得使用File()方法来创建一个文件对象：
+
+File f = new File(&quot;C:/java/hello&quot;);
+OutputStream f = new FileOutputStream(f);
+</code></pre><p>文件和I/O</p>
+<pre><code>File Class(类)
+FileReader Class(类)
+FileWriter Class(类)
+</code></pre><p>Java中的目录</p>
+<p>创建目录：File类中有两个方法可以用来创建文件夹：</p>
+<pre><code>mkdir( )方法创建一个文件夹，成功则返回true，失败则返回false。失败表明File对象指定的路径已经存在，或者由于整个路径还不存在，该文件夹不能被创建。
+mkdirs()方法创建一个文件夹和它的所有父文件夹。
+</code></pre><p>读取目录</p>
+<p>一个目录其实就是一个 File 对象，它包含其他文件和文件夹。</p>
+<p>如果创建一个 File 对象并且它是一个目录，那么调用 isDirectory() 方法会返回 true。</p>
+<p>可以通过调用该对象上的 list() 方法，来提取它包含的文件和文件夹的列表。</p>
+<p>下面展示的例子说明如何使用 list() 方法来检查一个文件夹中包含的内容：<br>DirList.java 文件代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import java.io.File;</span><br><span class="line">public class DirList &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        String dirname = &quot;/tmp&quot;;</span><br><span class="line">        File f1 = new File(dirname);</span><br><span class="line">        if (f1.isDirectory()) &#123;</span><br><span class="line">            System.out.println(&quot;目录 &quot; + dirname);</span><br><span class="line">            String s[] = f1.list();</span><br><span class="line">            for (int i = 0; i &lt; s.length; i++) &#123;</span><br><span class="line">                File f = new File(dirname + &quot;/&quot; + s[i]);</span><br><span class="line">                if (f.isDirectory()) &#123;</span><br><span class="line">                    System.out.println(s[i] + &quot; 是一个目录&quot;);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    System.out.println(s[i] + &quot; 是一个文件&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            System.out.println(dirname + &quot; 不是一个目录&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除目录或文件</p>
+<p>删除文件可以使用 java.io.File.delete() 方法。需要注意的是当删除某一目录时，必须保证该目录下没有其他文件才能正确删除，否则将删除失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import java.io.File;</span><br><span class="line">public class DeleteFileDemo &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        // 这里修改为自己的测试目录</span><br><span class="line">        File folder = new File(&quot;/tmp/java/&quot;);</span><br><span class="line">        deleteFolder(folder);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    // 删除文件及目录</span><br><span class="line">    public static void deleteFolder(File folder) &#123;</span><br><span class="line">        File[] files = folder.listFiles();</span><br><span class="line">        if (files != null) &#123;</span><br><span class="line">            for (File f : files) &#123;</span><br><span class="line">                if (f.isDirectory()) &#123;</span><br><span class="line">                    deleteFolder(f);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    f.delete();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        folder.delete();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2020/03/28/RUNOOB-java基础回顾7/" class="pre-post btn btn-default" title='RUNOOB-java基础回顾7'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">RUNOOB-java基础回顾7</span>
+        </a>
+    
+    
+        <a href="/2020/03/25/java新特性补充版本/" class="next-post btn btn-default" title='java新特性补充版本'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">java新特性补充版本</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Thu Mar 26 2020 22:46:19 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#读写文件"><span class="toc-text">读写文件</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

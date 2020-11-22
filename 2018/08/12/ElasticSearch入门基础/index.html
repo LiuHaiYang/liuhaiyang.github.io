@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>ElasticSearch入门基础 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="ElasticSearch入门基础">
+            
+	            ElasticSearch入门基础
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/大数据" title='大数据'>
+                        大数据
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/08/12</span>
+        </span>
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>833</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h3><p>ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。</p>
+<h3 id="cluster"><a href="#cluster" class="headerlink" title="cluster"></a>cluster</h3><p>代表一个集群，集群中有多个节点，其中有一个为主节点，这个主节点是可以通过选举产生的，主从节点是对于集群内部来说的。es的一个概念就是去中心化，字面上理解就是无中心节点，这是对于集群外部来说的，因为从外部来看es集群，在逻辑上是个整体，你与任何一个节点的通信和与整个es集群通信是等价的。</p>
+<h3 id="shards"><a href="#shards" class="headerlink" title="shards"></a>shards</h3><p>代表索引分片，es可以把一个完整的索引分成多个分片，这样的好处是可以把一个大的索引拆分成多个，分布到不同的节点上。构成分布式搜索。分片的数量只能在索引创建前指定，并且索引创建后不能更改。</p>
+<h3 id="replicas"><a href="#replicas" class="headerlink" title="replicas"></a>replicas</h3><p>代表索引副本，es可以设置多个索引的副本，副本的作用一是提高系统的容错性，当某个节点某个分片损坏或丢失时可以从副本中恢复。二是提高es的查询效率，es会自动对搜索请求进行负载均衡。</p>
+<h3 id="recovery"><a href="#recovery" class="headerlink" title="recovery"></a>recovery</h3><p>代表数据恢复或叫数据重新分布，es在有节点加入或退出时会根据机器的负载对索引分片进行重新分配，挂掉的节点重新启动时也会进行数据恢复。</p>
+<h3 id="river"><a href="#river" class="headerlink" title="river"></a>river</h3><p>代表es的一个数据源，也是其它存储方式（如：数据库）同步数据到es的一个方法。它是以插件方式存在的一个es服务，通过读取river中的数据并把它索引到es中，官方的river有couchDB的，RabbitMQ的，Twitter的，Wikipedia的。</p>
+<h3 id="gateway"><a href="#gateway" class="headerlink" title="gateway"></a>gateway</h3><p>代表es索引快照的存储方式，es默认是先把索引存放到内存中，当内存满了时再持久化到本地硬盘。gateway对索引快照进行存储，当这个es集群关闭再重新启动时就会从gateway中读取索引备份数据。es支持多种类型的gateway，有本地文件系统（默认），分布式文件系统，Hadoop的HDFS和amazon的s3云存储服务。</p>
+<h3 id="discovery-zen"><a href="#discovery-zen" class="headerlink" title="discovery.zen"></a>discovery.zen</h3><p>代表es的自动发现节点机制，es是一个基于p2p的系统，它先通过广播寻找存在的节点，再通过多播协议来进行节点之间的通信，同时也支持点对点的交互。</p>
+<h3 id="Transport"><a href="#Transport" class="headerlink" title="Transport"></a>Transport</h3><p>代表es内部节点或集群与客户端的交互方式，默认内部是使用tcp协议进行交互，同时它支持http协议（json格式）、thrift、servlet、memcached、zeroMQ等的传输协议（通过插件方式集成）。</p>
+<p><hr></p>
+<h3 id="py-es-eg1"><a href="#py-es-eg1" class="headerlink" title="py_es_eg1:"></a>py_es_eg1:</h3><pre><code>from datetime import datetime
+from elasticsearch import Elasticsearch
+
+#连接elasticsearch,默认是9200
+es = Elasticsearch(host=&apos;192.168.1.129&apos;,port=&apos;9200&apos;)
+
+#创建索引，索引的名字是my-index,如果已经存在了，就返回个400，
+#这个索引可以现在创建，也可以在后面插入数据的时候再临时创建
+es.indices.create(index=&apos;my-index&apos;,ignore)
+#{u&apos;acknowledged&apos;:True}
+
+#插入数据,(这里省略插入其他两条数据，后面用)
+es.index(index=&quot;my-index&quot;,doc_type=&quot;test-type&quot;,id=01,body={&quot;any&quot;:&quot;data01&quot;,&quot;timestamp&quot;:datetime.now()})
+
+#{u&apos;_type&apos;:u&apos;test-type&apos;,u&apos;created&apos;:True,u&apos;_shards&apos;:{u&apos;successful&apos;:1,u&apos;failed&apos;:0,u&apos;total&apos;:2},u&apos;_version&apos;:1,u&apos;_index&apos;:u&apos;my-index&apos;,u&apos;_id&apos;:u&apos;1}
+#也可以，在插入数据的时候再创建索引test-index
+es.index(index=&quot;test-index&quot;,doc_type=&quot;test-type&quot;,id=42,body={&quot;any&quot;:&quot;data&quot;,&quot;timestamp&quot;:datetime.now()})
+
+
+#查询数据，两种get and search
+#get获取
+res = es.get(index=&quot;my-index&quot;, doc_type=&quot;test-type&quot;, id=01)
+print(res)
+ {u&apos;_type&apos;: u&apos;test-type&apos;, u&apos;_source&apos;: {u&apos;timestamp&apos;: u&apos;2016-01-20T10:53:36.997000&apos;, u&apos;any&apos;: u&apos;data01&apos;}, u&apos;_index&apos;: u&apos;my-index&apos;, u&apos;_version&apos;: 1, u&apos;found&apos;: True, u&apos;_id&apos;: u&apos;1&apos;}
+print(res[&apos;_source&apos;])
+#{u&apos;timestamp&apos;: u&apos;2016-01-20T10:53:36.997000&apos;, u&apos;any&apos;: u&apos;data01&apos;}
+
+#search获取
+res = es.search(index=&quot;test-index&quot;, body={&quot;query&quot;:{&quot;match_all&quot;:{}}})
+print(res)
+&apos;&apos;&apos;{u&apos;hits&apos;:
+    {
+    u&apos;hits&apos;: [
+        {u&apos;_score&apos;: 1.0, u&apos;_type&apos;: u&apos;test-type&apos;, u&apos;_id&apos;: u&apos;2&apos;, u&apos;_source&apos;: {u&apos;timestamp&apos;: u&apos;2016-01-20T10:53:58.562000&apos;, u&apos;any&apos;: u&apos;data02&apos;}, u&apos;_index&apos;: u&apos;my-index&apos;},
+        {u&apos;_score&apos;: 1.0, u&apos;_type&apos;: u&apos;test-type&apos;, u&apos;_id&apos;: u&apos;1&apos;, u&apos;_source&apos;: {u&apos;timestamp&apos;: u&apos;2016-01-20T10:53:36.997000&apos;, u&apos;any&apos;: u&apos;data01&apos;}, u&apos;_index&apos;: u&apos;my-index&apos;},
+        {u&apos;_score&apos;: 1.0, u&apos;_type&apos;: u&apos;test-type&apos;, u&apos;_id&apos;: u&apos;3&apos;, u&apos;_source&apos;: {u&apos;timestamp&apos;: u&apos;2016-01-20T11:09:19.403000&apos;, u&apos;any&apos;: u&apos;data033&apos;}, u&apos;_index&apos;: u&apos;my-index&apos;}
+    ],
+    u&apos;total&apos;: 5,
+    u&apos;max_score&apos;: 1.0
+    },
+u&apos;_shards&apos;: {u&apos;successful&apos;: 5, u&apos;failed&apos;: 0, u&apos;total&apos;:5},
+u&apos;took&apos;: 1,
+u&apos;timed_out&apos;: False
+}&apos;&apos;&apos;
+for hit in res[&apos;hits&apos;][&apos;hits&apos;]:
+    print(hit[&quot;_source&quot;])
+res = es.search(index=&quot;test-index&quot;, body={&apos;query&apos;:{&apos;match&apos;:{&apos;any&apos;:&apos;data&apos;}}}) #获取any=data的所有值
+print(res)
+</code></pre><h3 id="py-es-eg2"><a href="#py-es-eg2" class="headerlink" title="py_es_eg2:"></a>py_es_eg2:</h3><pre><code>from datetime import datetime   
+from elasticsearch import Elasticsearch
+# by default we connect to localhost:9200
+es =  Elasticsearch(host=&apos;192.168.1.129&apos;,port=&apos;9200&apos;)
+# datetimes will be serialized
+es.index(index=&quot;my-index&quot;, doc_type=&quot;test-type&quot;, id=42, body={&quot;any&quot;: &quot;data&quot;, &quot;timestamp&quot;: datetime.now()})
+# {u&apos;_id&apos;: u&apos;42&apos;, u&apos;_index&apos;: u&apos;my-index&apos;, u&apos;_type&apos;: u&apos;test-type&apos;, u&apos;_version&apos;: 1, u&apos;ok&apos;: True}
+
+# but not deserialized
+a = es.get(index=&quot;my-index&quot;, doc_type=&quot;test-type&quot;, id=42)[&apos;_source&apos;]
+print(a)
+# {u&apos;any&apos;: u&apos;data&apos;, u&apos;timestamp&apos;: u&apos;2013-05-12T19:45:31.804229&apos;}
+</code></pre><h3 id="py-es-eg3"><a href="#py-es-eg3" class="headerlink" title="py_es_eg3:"></a>py_es_eg3:</h3><pre><code>import traceback
+from pymongo import MongoClient
+from elasticsearch import Elasticsearch
+
+# 建立到MongoDB的连接
+_db = MongoClient(&apos;mongodb://127.0.0.1:27017&apos;)[&apos;blog&apos;]
+
+# 建立到Elasticsearch的连接
+_es = Elasticsearch()
+
+# 初始化索引的Mappings设置
+_index_mappings = {
+  &quot;mappings&quot;: {
+    &quot;user&quot;: { 
+      &quot;properties&quot;: { 
+        &quot;title&quot;:    { &quot;type&quot;: &quot;text&quot;  }, 
+        &quot;name&quot;:     { &quot;type&quot;: &quot;text&quot;  }, 
+        &quot;age&quot;:      { &quot;type&quot;: &quot;integer&quot; }  
+      }
+    },
+    &quot;blogpost&quot;: { 
+      &quot;properties&quot;: { 
+        &quot;title&quot;:    { &quot;type&quot;: &quot;text&quot;  }, 
+        &quot;body&quot;:     { &quot;type&quot;: &quot;text&quot;  }, 
+        &quot;user_id&quot;:  {
+          &quot;type&quot;:   &quot;keyword&quot; 
+        },
+        &quot;created&quot;:  {
+          &quot;type&quot;:   &quot;date&quot;
+        }
+      }
+    }
+  }
+}
+
+# 如果索引不存在，则创建索引
+if _es.indices.exists(index=&apos;blog_index&apos;) is not True:
+  _es.indices.create(index=&apos;blog_index&apos;, body=_index_mappings) 
+
+# 从MongoDB中查询数据，由于在Elasticsearch使用自动生成_id，因此从MongoDB查询
+# 返回的结果中将_id去掉。
+user_cursor = db.user.find({}, projection={&apos;_id&apos;:False})
+user_docs = [x for x in user_cursor]
+
+# 记录处理的文档数
+processed = 0
+# 将查询出的文档添加到Elasticsearch中
+for _doc in user_docs:
+  try:
+    # 将refresh设为true，使得添加的文档可以立即搜索到；
+    # 默认为false，可能会导致下面的search没有结果
+    _es.index(index=&apos;blog_index&apos;, doc_type=&apos;user&apos;, refresh=True, body=_doc)
+    processed += 1
+    print(&apos;Processed: &apos; + str(processed), flush=True)
+  except:
+    traceback.print_exc()
+
+# 查询所有记录结果
+print(&apos;Search all...&apos;,  flush=True)
+_query_all = {
+  &apos;query&apos;: {
+    &apos;match_all&apos;: {}
+  }
+}
+_searched = _es.search(index=&apos;blog_index&apos;, doc_type=&apos;user&apos;, body=_query_all)
+print(_searched, flush=True)
+
+# 输出查询到的结果
+for hit in _searched[&apos;hits&apos;][&apos;hits&apos;]:
+  print(hit[&apos;_source&apos;], flush=True)
+
+# 查询姓名中包含jerry的记录
+print(&apos;Search name contains jerry.&apos;, flush=True)
+_query_name_contains = {
+  &apos;query&apos;: {
+    &apos;match&apos;: {
+      &apos;name&apos;: &apos;jerry&apos;
+    }
+  }
+}
+_searched = _es.search(index=&apos;blog_index&apos;, doc_type=&apos;user&apos;, body=_query_name_contains)
+print(_searched, flush=True)
+</code></pre>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/08/17/2018-08-17随记/" class="pre-post btn btn-default" title='2018.08.17随记'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">2018.08.17随记</span>
+        </a>
+    
+    
+        <a href="/2017/11/23/Python搜资源神库/" class="next-post btn btn-default" title='Python搜资源神库'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Python搜资源神库</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Sun Aug 12 2018 15:50:03 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#elasticsearch"><span class="toc-text">elasticsearch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cluster"><span class="toc-text">cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shards"><span class="toc-text">shards</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#replicas"><span class="toc-text">replicas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#recovery"><span class="toc-text">recovery</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#river"><span class="toc-text">river</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gateway"><span class="toc-text">gateway</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#discovery-zen"><span class="toc-text">discovery.zen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transport"><span class="toc-text">Transport</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#py-es-eg1"><span class="toc-text">py_es_eg1:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#py-es-eg2"><span class="toc-text">py_es_eg2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#py-es-eg3"><span class="toc-text">py_es_eg3:</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

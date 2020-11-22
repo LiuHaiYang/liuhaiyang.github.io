@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Tornado部署 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Tornado部署">
+            
+	            Tornado部署
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/python" title='python'>
+                        python
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/16</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <ul>
+<li><p><a href="#部署Tornado">部署Tornado</a></p>
+<ul>
+<li><p><a href="#Supervisor">Supervisor</a></p>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置">配置</a></li>
+<li><a href="#启动">启动</a></li>
+<li><a href="#supervisorctl">supervisorctl</a></li>
+</ul>
+</li>
+<li><p><a href="#nginx">nginx</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="部署Tornado"><a href="#部署Tornado" class="headerlink" title="部署Tornado"></a>部署Tornado</h2><p>为了充分利用多核CPU，并且为了减少同步代码中的阻塞影响，在部署Tornado的时候需要开启多个进程(最好为每个CPU核开启一个进程)</p>
+<p>因为Tornado 自带的服务器性能很高，所以我们只需要多开启几个Tornado进程。为了对外有统一的接口，并且可以分发用户的请求到不同的Tornado进程上，我们使用Nginx来进行代理。</p>
+<p><img src="https://img-blog.csdn.net/20180905111818647?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpY2hpbWkzMzc1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h3 id="Supervisor"><a href="#Supervisor" class="headerlink" title="Supervisor"></a>Supervisor</h3><p>为了统一管理Tornado的多个进程，我们可以借助supervisor工具。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><blockquote>
+<p>pip install supervisor</p>
+</blockquote>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>运行echo_supervisord_conf命令输出默认的配置项，可以如下操作将默认配置保存到文件中</p>
+<blockquote>
+<p>echo_supervisord_conf &gt; supervisord.conf</p>
+</blockquote>
+<p>vim 打开编辑supervisord.conf文件，修改</p>
+<blockquote>
+<p>[include]<br>files = relative/directory/*.ini</p>
+</blockquote>
+<p>为</p>
+<blockquote>
+<p>[include]<br>files = /etc/supervisor/*.conf</p>
+</blockquote>
+<p>include选项指明包含的其他配置文件。</p>
+<p>将编辑后的supervisord.conf文件复制到/etc/目录下</p>
+<blockquote>
+<p>sudo cp supervisord.conf /etc/</p>
+</blockquote>
+<p>然后我们在/etc目录下新建子目录supervisor（与配置文件里的选项相同），并在/etc/supervisor/中新建tornado管理的配置文件tornado.conf。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[group:tornadoes]</span><br><span class="line">programs=tornado-8000,tornado-8001,tornado-8002,tornado-8003</span><br><span class="line"> </span><br><span class="line">[program:tornado-8000]</span><br><span class="line">command=/home/python/.virtualenvs/tornado_py2/bin/python /home/python/Documents/demo/chat    /server.py --port=8000</span><br><span class="line">directory=/home/python/Documents/demo/chat</span><br><span class="line">user=python</span><br><span class="line">autorestart=true</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/home/python/tornado.log</span><br><span class="line">loglevel=info</span><br><span class="line"> </span><br><span class="line">[program:tornado-8001]</span><br><span class="line">command=/home/python/.virtualenvs/tornado_py2/bin/python /home/python/Documents/demo/chat    /server.py --port=8001</span><br><span class="line">directory=/home/python/Documents/demo/chat</span><br><span class="line">user=python</span><br><span class="line">autorestart=true</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/home/python/tornado.log</span><br><span class="line">loglevel=info</span><br><span class="line"> </span><br><span class="line">[program:tornado-8002]</span><br><span class="line">command=/home/python/.virtualenvs/tornado_py2/bin/python /home/python/Documents/demo/chat    /server.py --port=8002</span><br><span class="line">directory=/home/python/Documents/demo/chat</span><br><span class="line">user=python</span><br><span class="line">autorestart=true</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/home/python/tornado.log</span><br><span class="line">loglevel=info</span><br><span class="line"> </span><br><span class="line">[program:tornado-8003]</span><br><span class="line">command=/home/python/.virtualenvs/tornado_py2/bin/python /home/python/Documents/demo/chat    /server.py --port=8003</span><br><span class="line">directory=/home/python/Documents/demo/chat</span><br><span class="line">user=python</span><br><span class="line">autorestart=true</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/home/python/tornado.log</span><br><span class="line">loglevel=info</span><br></pre></td></tr></table></figure>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><blockquote>
+<p>supervisord -c /etc/supervisord.conf</p>
+</blockquote>
+<p>查看supervisord 是否运行：</p>
+<blockquote>
+<p>ps aux | grep supervisord</p>
+</blockquote>
+<h4 id="supervisorctl"><a href="#supervisorctl" class="headerlink" title="supervisorctl"></a>supervisorctl</h4><p>我们可以利用supervisorctl来管理supervisor。</p>
+<blockquote>
+<p>supervisorctl</p>
+<p>status  #查看程序状态<br>stop  tornados:<em>   #关闭 tornado组 程序<br>start  tornados:</em>   #开启 tornado组 程序<br>restart  tornados:*   #重启 tornado组 程序<br>update  # 重启配置文件修改过的程序</p>
+</blockquote>
+<p>执行status命令时显示如下信息说明Tornado组程序运行正常：</p>
+<blockquote>
+<p>supervisor&gt; status<br>tornadoes:tornado-8000 RUNNING pid 32091, uptime 00:00:02<br>tornadoes:tornado-8001 RUNNING pid 32092, uptime 00:00:02<br>tornadoes:tornado-8002 RUNNING pid 32093, uptime 00:00:02<br>tornadoes:tornado-8003 RUNNING pid 32094, uptime 00:00:02</p>
+</blockquote>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><p>对于使用安装nginx，其配置文件位于/etc/nginx/中，修改default文件如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">upstream tornadoes &#123;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    server 127.0.0.1:8003;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">upstream websocket &#123;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    listen [::]:80 default_server;</span><br><span class="line">    server_name _;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">        root /home/python/Documents/demo/chat;</span><br><span class="line">        if ($query_string) &#123;</span><br><span class="line">            expires max;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    location /chat &#123;</span><br><span class="line">        proxy_pass http://websocket/chat;</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">        proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Scheme $scheme;  # 协议 http https</span><br><span class="line">        proxy_pass http://tornadoes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>操作Nginx</p>
+<blockquote>
+<p>service nginx start   # 启动<br>service nginx stop   # 停止<br>service nginx restart   # 重新启动</p>
+</blockquote>
+<hr>
+<p><img src="https://images.pexels.com/photos/1433052/pexels-photo-1433052.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" alt="image"></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/05/27/python协程/" class="pre-post btn btn-default" title='python协程'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">python协程</span>
+        </a>
+    
+    
+        <a href="/2019/04/12/分库分表/" class="next-post btn btn-default" title='分库分表'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">分库分表</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Tue Apr 16 2019 10:05:02 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#部署Tornado"><span class="toc-text">部署Tornado</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Supervisor"><span class="toc-text">Supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#supervisorctl"><span class="toc-text">supervisorctl</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx"><span class="toc-text">nginx</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

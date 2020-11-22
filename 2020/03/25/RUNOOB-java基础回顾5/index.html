@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>RUNOOB-java基础回顾5 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="RUNOOB-java基础回顾5">
+            
+	            RUNOOB-java基础回顾5
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/03/25</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <ol start="17">
+<li>Java 日期时间</li>
+</ol>
+<ul>
+<li><p>java.util 包提供了 Date 类来封装当前的日期和时间。 Date 类提供两个构造函数来实例化 Date 对象。</p>
+<p>  第一个构造函数使用当前日期和时间来初始化对象。<code>Date( )</code><br>  第二个构造函数接收一个参数，该参数是从1970年1月1日起的毫秒数。<code>Date(long millisec)</code></p>
+</li>
+<li><p>Date对象创建以后，可以调用下面的方法。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>boolean after(Date date)</td>
+<td>若当调用此方法的Date对象在指定日期之后返回true,否则返回false。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>boolean before(Date date)</td>
+<td>若当调用此方法的Date对象在指定日期之前返回true,否则返回false。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Object clone( )</td>
+<td>返回此对象的副本。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>int compareTo(Date date)</td>
+<td>比较当调用此方法的Date对象和指定日期。两者相等时候返回0。调用对象在指定日期之前则返回负数。调用对象在指定日期之后则返回正数。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>int compareTo(Object obj)</td>
+<td>若obj是Date类型则操作等同于compareTo(Date) 。否则它抛出ClassCastException。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>boolean equals(Object date)</td>
+<td>当调用此方法的Date对象和指定日期相等时候返回true,否则返回false。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>long getTime( )</td>
+<td>返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>int hashCode( )</td>
+<td>返回此对象的哈希码值。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>void setTime(long time)</td>
+<td>用自1970年1月1日00:00:00 GMT以后time毫秒数设置时间和日期。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>String toString( )</td>
+<td>把此 Date 对象转换为以下形式的 String： dow mon dd hh:mm:ss zzz yyyy 其中： dow 是一周中的某一天 (Sun, Mon, Tue, Wed, Thu, Fri, Sat)。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>获取当前日期时间</li>
+</ul>
+<p>Java中获取当前日期和时间很简单，使用 Date 对象的 toString() 方法来打印当前日期和时间，如下所示：</p>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Date;</span><br><span class="line">  </span><br><span class="line">public class DateDemo &#123;</span><br><span class="line">   public static void main(String args[]) &#123;</span><br><span class="line">       // 初始化 Date 对象</span><br><span class="line">       Date date = new Date();</span><br><span class="line">        </span><br><span class="line">       // 使用 toString() 函数显示日期时间</span><br><span class="line">       System.out.println(date.toString());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>日期比较<br>Java使用以下三种方法来比较两个日期：</p>
+<ul>
+<li>使用 getTime() 方法获取两个日期（自1970年1月1日经历的毫秒数值），然后比较这两个值。</li>
+<li>使用方法 before()，after() 和 equals()。例如，一个月的12号比18号早，则 new Date(99, 2, 12).before(new Date (99, 2, 18)) 返回true。</li>
+<li>使用 compareTo() 方法，它是由 Comparable 接口定义的，Date 类实现了这个接口。</li>
+</ul>
+</li>
+<li><p>使用 SimpleDateFormat 格式化日期<br>SimpleDateFormat 是一个以语言环境敏感的方式来格式化和分析日期的类。SimpleDateFormat 允许你选择任何用户自定义日期时间格式来运行。例如：</p>
+</li>
+</ul>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import  java.util.*;</span><br><span class="line">import java.text.*;</span><br><span class="line"> </span><br><span class="line">public class DateDemo &#123;</span><br><span class="line">   public static void main(String args[]) &#123;</span><br><span class="line"> </span><br><span class="line">      Date dNow = new Date( );</span><br><span class="line">      SimpleDateFormat ft = new SimpleDateFormat (&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line"> </span><br><span class="line">      System.out.println(&quot;当前时间为: &quot; + ft.format(dNow));</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这一行代码确立了转换的格式，其中 yyyy 是完整的公元年，MM 是月份，dd 是日期，HH:mm:ss 是时、分、秒。</p>
+<p>注意:有的格式大写，有的格式小写，例如 MM 是月份，mm 是分；HH 是 24 小时制，而 hh 是 12 小时制。</p>
+<ul>
+<li>解析字符串为时间<br>SimpleDateFormat 类有一些附加的方法，特别是parse()，它试图按照给定的SimpleDateFormat 对象的格式化存储来解析字符串。例如：</li>
+</ul>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">import java.text.*;</span><br><span class="line">  </span><br><span class="line">public class DateDemo &#123;</span><br><span class="line"> </span><br><span class="line">   public static void main(String args[]) &#123;</span><br><span class="line">      SimpleDateFormat ft = new SimpleDateFormat (&quot;yyyy-MM-dd&quot;); </span><br><span class="line"> </span><br><span class="line">      String input = args.length == 0 ? &quot;1818-11-11&quot; : args[0]; </span><br><span class="line"> </span><br><span class="line">      System.out.print(input + &quot; Parses as &quot;); </span><br><span class="line"> </span><br><span class="line">      Date t; </span><br><span class="line"> </span><br><span class="line">      try &#123; </span><br><span class="line">          t = ft.parse(input); </span><br><span class="line">          System.out.println(t); </span><br><span class="line">      &#125; catch (ParseException e) &#123; </span><br><span class="line">          System.out.println(&quot;Unparseable using &quot; + ft); </span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>Java 休眠(sleep)<br>sleep()使当前线程进入停滞状态（阻塞当前线程），让出CPU的使用、目的是不让当前线程独自霸占该进程所获的CPU资源，以留一定时间给其他线程执行的机会。</p>
+</li>
+<li><p>测量时间<br>下面的一个例子表明如何测量时间间隔（以毫秒为单位）<code>Thread.sleep(5*60*10);</code></p>
+</li>
+<li><p>Calendar类<br>我们现在已经能够格式化并创建一个日期对象了，但是我们如何才能设置和获取日期数据的特定部分呢，比如说小时，日，或者分钟? 我们又如何在日期的这些部分加上或者减去值呢? 答案是使用Calendar 类。</p>
+</li>
+</ul>
+<p>Calendar类的功能要比Date类强大很多，而且在实现方式上也比Date类要复杂一些。</p>
+<p>Calendar类是一个抽象类，在实际使用时实现特定的子类的对象，创建对象的过程对程序员来说是透明的，只需要使用getInstance方法创建即可。</p>
+<p>创建一个代表系统当前日期的Calendar对象 <code>Calendar c = Calendar.getInstance();//默认是当前日期</code><br>创建一个指定日期的Calendar对象<br>使用Calendar类代表特定的时间，需要首先创建一个Calendar的对象，然后再设定该对象中的年月日参数来完成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//创建一个代表2009年6月12日的Calendar对象</span><br><span class="line">Calendar c1 = Calendar.getInstance();</span><br><span class="line">c1.set(2009, 6, 12);</span><br></pre></td></tr></table></figure></p>
+<p>Calendar类对象字段类型<br>Calendar类中用以下这些常量表示不同的意义，jdk内的很多类其实都是采用的这种思想</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calendar.YEAR</td>
+<td>年份</td>
+</tr>
+<tr>
+<td>Calendar.MONTH</td>
+<td>月份</td>
+</tr>
+<tr>
+<td>Calendar.DATE</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>Calendar.DAY_OF_MONTH</td>
+<td>日期，和上面的字段意义完全相同</td>
+</tr>
+<tr>
+<td>Calendar.HOUR</td>
+<td>12小时制的小时</td>
+</tr>
+<tr>
+<td>Calendar.HOUR_OF_DAY</td>
+<td>24小时制的小时</td>
+</tr>
+<tr>
+<td>Calendar.MINUTE</td>
+<td>分钟</td>
+</tr>
+<tr>
+<td>Calendar.SECOND</td>
+<td>秒</td>
+</tr>
+<tr>
+<td>Calendar.DAY_OF_WEEK</td>
+<td>星期几</td>
+</tr>
+</tbody>
+</table>
+<ol start="18">
+<li>java 正则表达式</li>
+</ol>
+<p>正则表达式定义了字符串的模式。</p>
+<p>正则表达式可以用来搜索、编辑或处理文本。</p>
+<p>正则表达式并不仅限于某一种语言，但是在每种语言中有细微的差别。 </p>
+<ul>
+<li><p>java.util.regex 包主要包括以下三个类：</p>
+<ul>
+<li>Pattern 类：pattern 对象是一个正则表达式的编译表示。Pattern 类没有公共构造方法。要创建一个 Pattern 对象，你必须首先调用其公共静态编译方法，它返回一个 Pattern 对象。该方法接受一个正则表达式作为它的第一个参数。</li>
+<li>Matcher 类：Matcher 对象是对输入字符串进行解释和匹配操作的引擎。与Pattern 类一样，Matcher 也没有公共构造方法。你需要调用 Pattern 对象的 matcher 方法来获得一个 Matcher 对象。</li>
+<li>PatternSyntaxException：PatternSyntaxException 是一个非强制异常类，它表示一个正则表达式模式中的语法错误。</li>
+</ul>
+</li>
+<li><p>正则表达式语法</p>
+</li>
+</ul>
+<p>在其他语言中，\ 表示：我想要在正则表达式中插入一个普通的（字面上的）反斜杠，请不要给它任何特殊的意义。</p>
+<p>在 Java 中，\ 表示：我要插入一个正则表达式的反斜线，所以其后的字符具有特殊的意义。</p>
+<p>所以，在其他的语言中（如Perl），一个反斜杠 \ 就足以具有转义的作用，而在 Java 中正则表达式中则需要有两个反斜杠才能被解析为其他语言中的转义作用。也可以简单的理解在 Java 的正则表达式中，两个 \ 代表其他语言中的一个 \，这也就是为什么表示一位数字的正则表达式是 \d，而表示一个普通的反斜杠是 \\。</p>
+<ul>
+<li>matches 和 lookingAt 方法</li>
+</ul>
+<p>matches 和 lookingAt 方法都用来尝试匹配一个输入序列模式。它们的不同是 matches 要求整个序列都匹配，而lookingAt 不要求。</p>
+<p>lookingAt 方法虽然不需要整句都匹配，但是需要从第一个字符开始匹配。</p>
+<ul>
+<li>replaceFirst 和 replaceAll 方法<br>replaceFirst 和 replaceAll 方法用来替换匹配正则表达式的文本。不同的是，replaceFirst 替换首次匹配，replaceAll 替换所有匹配。</li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2020/03/25/java新特性补充版本/" class="pre-post btn btn-default" title='java新特性补充版本'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">java新特性补充版本</span>
+        </a>
+    
+    
+        <a href="/2020/03/24/java版本更新的新特性/" class="next-post btn btn-default" title='java版本更新的新特性'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">java版本更新的新特性</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Wed Mar 25 2020 10:11:28 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
