@@ -169,7 +169,21 @@
     </div>
     
     <div class="post-body post-content">
-        <h3 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1. 什么是跨域"></a>1. 什么是跨域</h3><p>跨域是指跨域名的访问，以下情况属于跨域<br>|–|–|<br>|跨域原因说明| 示例|<br>|–|–|<br>｜域名不同｜ <a href="http://www.jd.com" target="_blank" rel="noopener">www.jd.com</a> 与 <a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a> ｜<br>|域名相同，端口不同| jd.com:8080 jd.com:9090|<br>|二级域名不同|xx.jd.com  yy.jd.com|</p>
+        <h3 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1. 什么是跨域"></a>1. 什么是跨域</h3><p>跨域是指跨域名的访问，以下情况属于跨域</p>
+<table>
+<thead>
+<tr>
+<th>跨域原因说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>｜域名不同｜ <a href="http://www.jd.com" target="_blank" rel="noopener">www.jd.com</a> 与 <a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a> ｜<br>|域名相同，端口不同| jd.com:8080 jd.com:9090|<br>|二级域名不同|xx.jd.com  yy.jd.com|</p>
 <p>请求路径不同，不属于跨域。</p>
 <h3 id="2-为什么会有跨域的问题存在"><a href="#2-为什么会有跨域的问题存在" class="headerlink" title="2. 为什么会有跨域的问题存在"></a>2. 为什么会有跨域的问题存在</h3><p>跨域不一定会有跨域问题。<br>因为跨域问题是浏览器对ajax请求的一种安全限制：一个页面发起的ajax 请求，只能是于当前页面域名的路径，这个能有效的阻止跨站攻击。<br>因此：跨域问题是针对ajax的一种限制。</p>
 <p>但是却给我们开发带来了不便，而且在实际生产环境中，肯定会有很多台服务器之间的交互，地址和端口都可能不同，怎么办？</p>
