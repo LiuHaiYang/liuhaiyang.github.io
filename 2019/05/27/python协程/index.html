@@ -172,6 +172,93 @@
         <p><img src="https://images.pexels.com/photos/2363367/pexels-photo-2363367.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" alt="image"></p>
 <h3 id="实例code"><a href="#实例code" class="headerlink" title="实例code:"></a>实例code:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line">import concurrent.futures</span><br><span class="line">from concurrent.futures import ThreadPoolExecutor</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def cpu_bound(i,j):</span><br><span class="line">    for o in range(10):</span><br><span class="line">        asyncio.sleep(1)</span><br><span class="line">        print(&apos;a-----&gt;&gt;&apos;,o)</span><br><span class="line">    print(i,j)</span><br><span class="line">    return sum((i,j))</span><br><span class="line"></span><br><span class="line">async def main():</span><br><span class="line"></span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    executor = ThreadPoolExecutor(1)</span><br><span class="line"></span><br><span class="line">    i,j = 0,1</span><br><span class="line">    res = loop.run_in_executor(executor, cpu_bound, i, j)</span><br><span class="line"></span><br><span class="line">    n = 0</span><br><span class="line">    for l in range(10):</span><br><span class="line">        print(&apos;m---&gt;&apos;,l)</span><br><span class="line">        time.sleep(1)</span><br><span class="line">        n+=l</span><br><span class="line">        if n &gt;20:</span><br><span class="line">            await_res = await res</span><br><span class="line">            print(n,await_res)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    loop.run_until_complete(main())</span><br><span class="line">    ## 先起一个线程</span><br></pre></td></tr></table></figure>
 <p>其中用到的是 <code>run_in_executor</code> 函数</p>
+<h3 id="多线程比协程有何优势？"><a href="#多线程比协程有何优势？" class="headerlink" title="多线程比协程有何优势？"></a>多线程比协程有何优势？</h3><p>最大的优势就是协程极高的执行效率。因为子程序切换不是线程切换（协程的特点在于是一个线程执行）而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显。</p>
+<p>第二大优势就是不需要多线程的锁机制，因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
+<p>因为协程是一个线程执行，那怎么利用多核CPU呢？最简单的方法是多进程+协程，既充分利用多核，又充分发挥协程的高效率，可获得极高的性能。</p>
+<p>Python对协程的支持还非常有限，用在generator中的yield可以一定程度上实现协程。虽然支持不完全，但已经可以发挥相当大的威力了。</p>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>Python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。</p>
+<p>gevent是第三方库，通过greenlet实现协程，其基本思想是：</p>
+<p>当一个greenlet遇到IO操作时，比如访问网络，就自动切换到其他的greenlet，等到IO操作完成，再在适当的时候切换回来继续执行。由于IO操作非常耗时，经常使程序处于等待状态，有了gevent为我们自动切换协程，就保证总有greenlet在运行，而不是等待IO。</p>
+<p>由于切换是在IO操作时自动完成，所以gevent需要修改Python自带的一些标准库，这一过程在启动时通过monkey patch完成：</p>
+<pre><code>from gevent import monkey; monkey.patch_socket()
+import gevent
+
+def f(n):
+    for i in range(n):
+        print gevent.getcurrent(), i
+
+g1 = gevent.spawn(f, 5)
+g2 = gevent.spawn(f, 5)
+g3 = gevent.spawn(f, 5)
+g1.join()
+g2.join()
+g3.join()
+</code></pre><p>运行结果：</p>
+<pre><code>&lt;Greenlet at 0x10e49f550: f(5)&gt; 0
+&lt;Greenlet at 0x10e49f550: f(5)&gt; 1
+&lt;Greenlet at 0x10e49f550: f(5)&gt; 2
+&lt;Greenlet at 0x10e49f550: f(5)&gt; 3
+&lt;Greenlet at 0x10e49f550: f(5)&gt; 4
+&lt;Greenlet at 0x10e49f910: f(5)&gt; 0
+&lt;Greenlet at 0x10e49f910: f(5)&gt; 1
+&lt;Greenlet at 0x10e49f910: f(5)&gt; 2
+&lt;Greenlet at 0x10e49f910: f(5)&gt; 3
+&lt;Greenlet at 0x10e49f910: f(5)&gt; 4
+&lt;Greenlet at 0x10e49f4b0: f(5)&gt; 0
+&lt;Greenlet at 0x10e49f4b0: f(5)&gt; 1
+&lt;Greenlet at 0x10e49f4b0: f(5)&gt; 2
+&lt;Greenlet at 0x10e49f4b0: f(5)&gt; 3
+&lt;Greenlet at 0x10e49f4b0: f(5)&gt; 4
+</code></pre><p>可以看到，3个greenlet是依次运行而不是交替运行。</p>
+<p>要让greenlet交替运行，可以通过gevent.sleep()交出控制权：</p>
+<pre><code>def f(n):
+    for i in range(n):
+        print gevent.getcurrent(), i
+        gevent.sleep(0)
+</code></pre><p>执行结果：</p>
+<pre><code>&lt;Greenlet at 0x10cd58550: f(5)&gt; 0
+&lt;Greenlet at 0x10cd58910: f(5)&gt; 0
+&lt;Greenlet at 0x10cd584b0: f(5)&gt; 0
+&lt;Greenlet at 0x10cd58550: f(5)&gt; 1
+&lt;Greenlet at 0x10cd584b0: f(5)&gt; 1
+&lt;Greenlet at 0x10cd58910: f(5)&gt; 1
+&lt;Greenlet at 0x10cd58550: f(5)&gt; 2
+&lt;Greenlet at 0x10cd58910: f(5)&gt; 2
+&lt;Greenlet at 0x10cd584b0: f(5)&gt; 2
+&lt;Greenlet at 0x10cd58550: f(5)&gt; 3
+&lt;Greenlet at 0x10cd584b0: f(5)&gt; 3
+&lt;Greenlet at 0x10cd58910: f(5)&gt; 3
+&lt;Greenlet at 0x10cd58550: f(5)&gt; 4
+&lt;Greenlet at 0x10cd58910: f(5)&gt; 4
+&lt;Greenlet at 0x10cd584b0: f(5)&gt; 4
+</code></pre><p>3个greenlet交替运行，</p>
+<p>把循环次数改为500000，让它们的运行时间长一点，然后在操作系统的进程管理器中看，线程数只有1个。</p>
+<p>当然，实际代码里，我们不会用gevent.sleep()去切换协程，而是在执行到IO操作时，gevent自动切换，代码如下：</p>
+<pre><code>from gevent import monkey; monkey.patch_all()
+import gevent
+import urllib2
+
+def f(url):
+    print(&apos;GET: %s&apos; % url)
+    resp = urllib2.urlopen(url)
+    data = resp.read()
+    print(&apos;%d bytes received from %s.&apos; % (len(data), url))
+
+gevent.joinall([
+        gevent.spawn(f, &apos;https://www.python.org/&apos;),
+        gevent.spawn(f, &apos;https://www.yahoo.com/&apos;),
+        gevent.spawn(f, &apos;https://github.com/&apos;),
+])
+</code></pre><p>运行结果：</p>
+<pre><code>GET: https://www.python.org/
+GET: https://www.yahoo.com/
+GET: https://github.com/
+45661 bytes received from https://www.python.org/.
+14823 bytes received from https://github.com/.
+304034 bytes received from https://www.yahoo.com/.
+</code></pre><p>从结果看，3个网络操作是并发执行的，而且结束顺序不同，但只有一个线程。</p>
+<p><a href="https://www.liaoxuefeng.com/wiki/897692888725344/923057403198272
+[协程和任务](https://docs.python.org/zh-cn/3/library/asyncio-task.html" target="_blank" rel="noopener">廖雪峰协程</a></p>
 
     </div>
 
@@ -234,7 +321,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例code"><span class="toc-text">实例code:</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例code"><span class="toc-text">实例code:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多线程比协程有何优势？"><span class="toc-text">多线程比协程有何优势？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yield"><span class="toc-text">yield</span></a></li></ol>
         
     </div>
 </aside>

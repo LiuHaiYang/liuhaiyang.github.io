@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>clickHouse入门 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="clickHouse入门">
+            
+	            clickHouse入门
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title='数据库'>
+                        数据库
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/01/06</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="什么是ClickHouse"><a href="#什么是ClickHouse" class="headerlink" title="什么是ClickHouse"></a>什么是ClickHouse</h3><p>ClickHouse 是一个用于联机分析(OLAP)的列式数据库管理系统。</p>
+<p>存储结构： 来自不同列的值被单独存储，来自同一列的数据被存储在一起。</p>
+<h3 id="常见的列式数据库："><a href="#常见的列式数据库：" class="headerlink" title="常见的列式数据库："></a>常见的列式数据库：</h3><ul>
+<li>Vertica : Vertica是一款基于列存储的MPP （massively parallel processing）架构的数据库。它可以支持存放多至PB（Petabyte）级别的结构化数据。</li>
+<li>Paraccel (Actian Matrix，Amazon Redshift): 一种比同类产品性能更高、速度快50倍以上的列式数据库，提供快速和选择性查询。其产品ParAccel SMP/MMP能为商业智能工具以及其他应用程序利用大多数非结构化数据进行高速分析。</li>
+<li>Sybase IQ : Sybase IQ是Sybase公司推出的特别为数据仓库设计的关系型数据库，IQ的架构与大多数关系型数据库不同，特别的设计用以支持大量并发用户的即时查询。</li>
+<li>Exasol :</li>
+<li>Infobright : infobright是开源的MySQL数据仓库解决方案，引入了列存储方案，高强度的数据压缩，优化的统计计算。是基于mysql的，但不装mysql亦可，因为它本身就自带了一个。mysql可以粗分为逻辑层和物理存储引擎，infobright主要实现的就是一个存储引擎，但因为它自身存储逻辑跟关系型数据库根本不同，所以，它不能像InnoDB那样直接作为插件挂接到mysql，它的逻辑层是mysql的逻辑 层加上它自身的优化器。</li>
+<li>InfiniDB : 提供一个可伸缩的分析型数据库引擎，主要为数据仓库、商业智能、以及对实时性要求不严格的应用而开发。基于 MySQL 搭建。包括对查询、事务处理以及大数据量加载的支持。</li>
+<li>MonetDB (VectorWise， Actian Vector) : MonetDB是一个开源的面向列的数据库管理系统。MonetDB被设计用来为较大规模数据（如几百万行和数百列的数据库表）提供高性能查询的支持。</li>
+<li>LucidDB :<br>LucidDB是唯一一款专注于数据仓库和商务智能的开源RDBMS，它使用了列存储架构，支持位图索引，哈希连接/聚合和页面级多版本，大部分数据库最初都注重事务处理能力，而分析功能都是后来才加上去的。相反，LucidDB中的所有组件从一开始就是为满足灵活的需求，高性能数据集成和大规模数据查询而设计的，此外，其架构设计彻底从用户出发，操作简单，完全无需DBA。</li>
+<li>SAP HANA: 是一款支持企业预置型部署和云部署模式的内存计算平台 [1]  ，提供高性能的数据查询功能，用户可以直接对大量实时业务数据进行查询和分析，而不需要对业务数据进行建模、聚合等。SAP内存数据库的数据并不是只在内存里，也会不停写到硬盘里，这就用到复制服务器Replication Server，包括Log-based，Trigger-based和ETL-based。</li>
+<li>Google Dremel : 数据模型起源于分布式系统的应用环境(Protocol Buffers，一种在Google内广泛使用，现已开源的实现)。其数据模型是基于强类型的嵌套记录，嵌套列式存储。</li>
+<li>Google PowerDrill : PowerDrill 就可以处理上万亿条信息，Google 从 2008 年开始使用 PowerDrill，将其作为 Dremel 的变通方案。PowerDrill 与 Dremel 的类似之处在于都用了列存，都为 SQL 接口。</li>
+<li>Druid : 是一个高效的数据查询系统，主要解决的是对于大量的基于时序的数据进行聚合查询。数据可以实时摄入，进入到Druid后立即可查，同时数据是几乎是不可变。通常是基于时序的事实事件，事实发生后进入Druid，外部系统就可以对该事实进行查询。</li>
+<li><p>kdb+ : 是来自Kx Systems Inc的高性能列式数据库。 kdb +旨在捕获，分析，比较和存储数据 - 所有这些都是高速和大量数据。</p>
+<p>  不同的数据存储方式适用不同的业务场景，数据访问的场景包括：进行了何种查询、多久查询一次以及各类查询的比例；每种类型的查询(行、列和字节)读取多少数据；读取数据和更新之间的关系；使用的数据集大小以及如何使用本地的数据集；是否使用事务,以及它们是如何进行隔离的；数据的复制机制与数据的完整性要求；每种类型的查询要求的延迟与吞吐量等等。</p>
+</li>
+</ul>
+<h3 id="PowerDrill-与-Dremel"><a href="#PowerDrill-与-Dremel" class="headerlink" title="PowerDrill 与 Dremel"></a>PowerDrill 与 Dremel</h3><h4 id="不同"><a href="#不同" class="headerlink" title="不同"></a>不同</h4><ul>
+<li>两者的设计目标不同，Dremel 设计用来管理非常大量的大数据集（指数据集的数量和每数据集的规模都大），而 PowerDrill 设计用来分析少量的大数据集（指数据集的规模大，但数据集的数量不多）时提供更强劲的分析性能。</li>
+<li>设计思路不同，包括：<ul>
+<li>Dremel 数据存于外存；PowerDrill 数据存于内存。</li>
+<li>Dremel 没做数据分区，分析时要扫瞄所有需要的列；PowerDrill 做了组合范围分区，分析时可以跳过很多不需要的分区（真实应用统计可以跳过 92.41% 的分区）。</li>
+<li>Dremel 用层次数据模型；PowerDrill 用普通关系模型。</li>
+<li>Dremel 数据通常不需要 load，增加数据很方便；PowerDrill 数据要 load，增加数据（估计）不太方便。</li>
+</ul>
+</li>
+</ul>
+<h4 id="PowerDrill-最鲜明的特点："><a href="#PowerDrill-最鲜明的特点：" class="headerlink" title="PowerDrill 最鲜明的特点："></a>PowerDrill 最鲜明的特点：</h4><ul>
+<li>一个是已经提到的组合范围分区，另一个是空间效率非常高的内存数据结构。</li>
+<li>首先，各列的数据使用基于字典的压缩技术，并且是双层字典。全局字典编码列中所有不同值，每个分区还有个小字典，映射分区内不同值的编码到全局编码，这样各分区内的值的编码取值范围比较小，从而可以用较少的比特来编码一个值。</li>
+<li>在这个基本方法之上，还通过一下方式进一步优化空间效率：全局字典用 trie 结构；属性值 Zippy 压缩（热点数据不压缩，LRU 替换）；reorder 纪录。这些优化通常能带来 2-10+ 倍的空间效率提升。</li>
+</ul>
+<h3 id="OLAP场景的关键特征"><a href="#OLAP场景的关键特征" class="headerlink" title="OLAP场景的关键特征"></a>OLAP场景的关键特征</h3><ul>
+<li>绝大多数是读请求</li>
+<li>数据以相当大的批次(&gt; 1000行)更新，而不是单行更新;或者根本没有更新。</li>
+<li>已添加到数据库的数据不能修改。</li>
+<li>对于读取，从数据库中提取相当多的行，但只提取列的一小部分。</li>
+<li>宽表，即每个表包含着大量的列</li>
+<li>查询相对较少(通常每台服务器每秒查询数百次或更少)</li>
+<li>对于简单查询，允许延迟大约50毫秒</li>
+<li>列中的数据相对较小：数字和短字符串(例如，每个URL 60个字节)</li>
+<li>处理单个查询时需要高吞吐量(每台服务器每秒可达数十亿行)</li>
+<li>事务不是必须的</li>
+<li>对数据一致性要求低</li>
+<li>每个查询有一个大表。除了他以外，其他的都很小。</li>
+<li>查询结果明显小于源数据。换句话说，数据经过过滤或聚合，因此结果适合于单个服务器的RAM中</li>
+</ul>
+<h3 id="输入-输出"><a href="#输入-输出" class="headerlink" title="输入/输出"></a>输入/输出</h3><ul>
+<li>针对分析类查询，通常只需要读取表的一小部分列。在列式数据库中你可以只读取你需要的数据。例如，如果只需要读取100列中的5列，这将帮助你最少减少20倍的I/O消耗。</li>
+<li>由于数据总是打包成批量读取的，所以压缩是非常容易的。同时数据按列分别存储这也更容易压缩。这进一步降低了I/O的体积。</li>
+<li>由于I/O的降低，这将帮助更多的数据被系统缓存。</li>
+</ul>
+<h3 id="常用命令："><a href="#常用命令：" class="headerlink" title="常用命令："></a>常用命令：</h3><ul>
+<li>SHOW DATABASES</li>
+<li>SHOW TABLES FROM datasets</li>
+<li>DESCRIBE TABLE hits_100m_obfuscated</li>
+<li>SHOW CREATE TABLE hits_100m_obfuscated</li>
+<li>SELECT  *  FROM <code>hits_100m_obfuscated</code> WHERE EventDate = ‘2013-07-15’ LIMIT 100;</li>
+</ul>
+<h3 id="补充1"><a href="#补充1" class="headerlink" title="补充1"></a>补充1</h3><p>ClickHouse 是一个列导向数据库，是原生的向量化执行引擎。它在大数据领域没有走 Hadoop 生态，而是采用 Local attached storage 作为存储，这样整个 IO 可能就没有 Hadoop 那一套的局限。它的系统在生产环境中可以应用到比较大的规模，因为它的线性扩展能力和可靠性保障能够原生支持 shard + replication 这种解决方案。它还提供了一些 SQL 直接接口，有比较丰富的原生 client。</p>
+<h3 id="查询快的原因"><a href="#查询快的原因" class="headerlink" title="查询快的原因"></a>查询快的原因</h3><ul>
+<li>它的数据剪枝能力比较强，分区剪枝在执行层，而存储格式用局部数据表示，就可以更细粒度地做一些数据的剪枝。它的引擎在实际使用中应用了一种现在比较流行的 LSM 方式。</li>
+<li>它对整个资源的垂直整合能力做得比较好，并发 MPP+ SMP 这种执行方式可以很充分地利用机器的集成资源。它的实现又做了很多性能相关的优化，它的一个简单的汇聚操作有很多不同的版本，会根据不同 Key 的组合方式有不同的实现。对于高级的计算指令，数据解压时，它也有少量使用。</li>
+<li>我当时选择它的一个原因，ClickHouse 是一套完全由 C++ 模板 Code 写出来的实现，代码还是比较优雅的。</li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/01/06/restFul汇总复习/" class="pre-post btn btn-default" title='restFul汇总复习'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">restFul汇总复习</span>
+        </a>
+    
+    
+        <a href="/2021/01/02/2020个人总结/" class="next-post btn btn-default" title='2020个人总结'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">2020个人总结</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Wed Jan 06 2021 10:56:41 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是ClickHouse"><span class="toc-text">什么是ClickHouse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的列式数据库："><span class="toc-text">常见的列式数据库：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PowerDrill-与-Dremel"><span class="toc-text">PowerDrill 与 Dremel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#不同"><span class="toc-text">不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PowerDrill-最鲜明的特点："><span class="toc-text">PowerDrill 最鲜明的特点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OLAP场景的关键特征"><span class="toc-text">OLAP场景的关键特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入-输出"><span class="toc-text">输入/输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令："><span class="toc-text">常用命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充1"><span class="toc-text">补充1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询快的原因"><span class="toc-text">查询快的原因</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
