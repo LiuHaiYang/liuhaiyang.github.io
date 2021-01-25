@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>20181111 | meet you</title>
+<title>LRU-cache算法的实现 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="20181111">
+        <h1 id="LRU-cache算法的实现">
             
-	            20181111
+	            LRU-cache算法的实现
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/生活" title='生活'>
-                        生活
+                    <a href="/tags/python" title='python'>
+                        python
                     </a>
                 
             
@@ -159,33 +159,94 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/11/12</span>
+            <span class="date-meta">2021/01/25</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>805</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>又是美好的一周！</p>
-<hr>
-<h5 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h5><p>又是一年双十一，好像一直双十一跟我也没什么关系吧，不喜欢在这个时候消费。以前是因为物流太慢了，但是今年我发现，不管是京东还是淘宝的快递都很快了，各大商家都在不断的改善用户体验啊，很厉害…. (说了句其他话，跑题了) 因为他们都做了 预定，前几天都不让买。</p>
-<p>这个双十一我做了什么呢？</p>
-<p>还没有到这一天，公司已经准备了很多，贴满了墙面的海报，口号，定的衣服（作战服），准备的下午茶…. 11.10这一天（周六）的高层慰问，部门的聚餐，大部门的合照。大家都在为这一天做着准备，希望双十一大卖，毕竟在电商这种公司，也是第一次去经历这些东西，整体感觉还是很不错的，内心也是希望公司大卖，想着今年的双十一天猫，京东可以有多少的交易额….</p>
-<h5 id="周六"><a href="#周六" class="headerlink" title="周六"></a>周六</h5><p>这一天自愿加班，早上没有闹钟，到公司都快十一点了，刚到就听见同事在讨论午餐定什么好的，毕竟也是公司组织的，必须吃大餐。这一天吃了很多的东西，饺子，寿司，披萨，全家桶，牛肉，橘子，酸奶，蛋糕… 还有啤酒，为明天的双十一庆祝。也许这一天就是来玩的，大家开心下。拍了大合照，部门也拍了照片，也有博文总的合照，大家都挺开心的。下午的零食都吃不下了…<br>四点多五点大家也都撤了，我们部门还没有和双十一相关的业务，所以就不用加班了。哈哈，所以也就很早的回家了。美好的一天，也挺开心的。（想起来早上为啥起的晚了，因为前一天晚上和舍友吃了下龙虾，聊的有一点嗨皮）</p>
-<h5 id="周日"><a href="#周日" class="headerlink" title="周日"></a>周日</h5><p>今天有事情需要去趟石家庄，因为昨天也挺嗨，昨天晚上就是双十一，看别人都在买买买，我更关心交易额的增长，（水分也是比较大的）晚上睡的也比较晚。下午两点多到的石家庄，办了一些事情，就找了大学同学开始嗨，商场，游戏厅，电玩，唱歌，吃饭。和老同学在一起的感觉挺好的，互相吹吹NB，商业互吹，互黑下…. 大家都混的挺好的。还是那句话，不管多久没联系，第一句‘儿子’ 一下子就回到大学的时候,时间还是短暂的，晚上8点的车（尽管是改签后的，）时间还是紧张的，差点累死我，6分钟从下地铁到取票，到上高铁。佩服我们两个人啊。10点到北京，美好的一天。</p>
-<h5 id="周一"><a href="#周一" class="headerlink" title="周一"></a>周一</h5><p>今天是我一线支援的一天，早上九点到的支援的JD 派送站点。感觉还是很刺激的，今天一天卸了4车的货并进行分拣，按地区进行分类。真的是一线支援的，来车分拣的时候是真的累。让我感觉到劳动人民很辛苦，为自己的现在感觉幸运，还需要不断的去努力。拍了很多照片，但不上图了，这都是个人财富，哈哈。现在很累。胳膊很酸的啊，今晚肯定还梦。</p>
-<hr>
-<p>已此博客结束 2018 的双十一。</p>
-<hr>
-<p>最近是不是颓废了，全是生活的博客，技术的也没有…<br><img src="https://images.pexels.com/photos/1527242/pexels-photo-1527242.jpeg" alt="image"></p>
-<p>忘了说，今天买了滑板，我要学玩滑板，come on！ 日后见图！</p>
+        <pre><code>from functools import lru_cache
+@lru_cache(100)
+def fib(n):
+    if n &lt; 2:
+        return 1
+    else:
+        return fib(n - 1) + fib(n - 2)
+</code></pre><p>使用lru_cache的效率是最高的，直接递归的效率低的惊人，毕竟是指数级别的时间复杂度。</p>
+<p>lru_cache比起成熟的缓存系统还有些不足之处，比如它不能设置缓存的时间，只能等到空间占满后再利用LRU算法淘汰出空间出来，并且不能自定义淘汰算法，但在简单的场景中很适合使</p>
+<h3 id="什么是LRU"><a href="#什么是LRU" class="headerlink" title="什么是LRU"></a>什么是LRU</h3><p>LRU Cache是一个Cache置换算法，（least recently use）含义是“最近最少使用”，当Cache满（没有空闲的cache块）时，把满足“最近最少使用”的数据从Cache中置换出去，并且保证Cache中第一个数据是最近刚刚访问的。由“局部性原理”，这样的数据更有可能被接下来的程序访问。</p>
+<h3 id="LRU基本算法"><a href="#LRU基本算法" class="headerlink" title="LRU基本算法"></a>LRU基本算法</h3><h4 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h4><p>提供两个接口：一个获取数据int get(int key),一个写入数据void set(int key, int value)。</p>
+<p>无论获取数据还是写入数据，这个数据要保持在最容易访问的位置。</p>
+<p>缓存的数据大小有限，当缓存满时置换出最长时间没有被访问的数据，否则直接把数据加入缓存即可。</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><ul>
+<li>使用list来保存缓存数据的访问序列，头指针指向刚刚访问过的数据。</li>
+<li>使用map保存数据的key和数据所在链表中的位置。map主要用于加速查找（log(n)的时间复杂度）。</li>
+<li>每次获取数据时，遍历map判断数据（使用数据的key）是否在缓存中，在则返回数据（存在则通过数据所在链表中的位置返回数据值）；不在则返回-1。</li>
+<li>每次写入新的数据时，可能有三种情况：<ul>
+<li>数据已在缓存中</li>
+<li>遍历map判断数据是否已在缓存中，在则更新数据值，并置数据缓存在链表头</li>
+<li>数据不在缓存中，缓存已满</li>
+<li>剔除掉链表末尾的数据和map指定的数据key，并把新的数据加入到缓存链表的头，并更新map</li>
+<li>数据不在缓存中，缓存未满</li>
+<li>直接把新的数据加入到缓存链表的头，并更新map</li>
+</ul>
+</li>
+</ul>
+<h3 id="LRU实现"><a href="#LRU实现" class="headerlink" title="LRU实现"></a>LRU实现</h3><p>实现方案：使用stl的map和list<br>这里map使用unordered_map（hashmap）+list(双向链表），因此本质上使用hashmap和双向链表</p>
+<pre><code>class LRUCache{
+    int m_capacity;
+
+    //m_map_iter-&gt;first: key, m_map_iter-&gt;second: list iterator;
+    unordered_map&lt;int,  list&lt;pair&lt;int, int&gt;&gt;::iterator&gt; m_map; 
+
+    //m_list_iter-&gt;first: key, m_list_iter-&gt;second: value;
+    list&lt;pair&lt;int, int&gt;&gt; m_list;                              
+public:
+    LRUCache(int capacity): m_capacity(capacity) {
+
+    }
+
+    int get(int key) {
+        auto found_iter = m_map.find(key);
+        // key 不存在
+        if (found_iter == m_map.end()) 
+            return -1;
+
+        // key存在时，更新list的key所在节点的位置为list第一元素
+        m_list.splice(m_list.begin(), m_list, found_iter-&gt;second); 
+
+        return found_iter-&gt;second-&gt;second; 
+    }
+
+    void set(int key, int value) {
+        auto found_iter = m_map.find(key);
+        // key存在
+        if (found_iter != m_map.end()) 
+        {
+            // 移动key所在list中的位置
+            m_list.splice(m_list.begin(), m_list, found_iter-&gt;second); 
+            // 更新值
+            found_iter-&gt;second-&gt;second = value; 
+            return;
+        }
+        // 缓存已满且key不存在，删除list中最后一个节点，并从map中删除该key；
+        // 注意：这里就是为什么list存储的是key和value 键值对的原因，需要删除map中指定key
+        if (m_map.size() == m_capacity) 
+        {
+           int key_to_del = m_list.back().first; 
+           m_list.pop_back();           
+           m_map.erase(key_to_del);  
+        }
+        // 缓存不满，list把key和value加入到list的第一个位置，并存储到map中
+        m_list.emplace_front(key, value); 
+        m_map[key] = m_list.begin();      
+    }
+};
+</code></pre><h3 id="涉及的数据结构"><a href="#涉及的数据结构" class="headerlink" title="涉及的数据结构"></a>涉及的数据结构</h3><p>std::map：主要用于实现快速访问（logn），存储key对应的list的位置信息，这里对应key对应list的迭代器<br>std::list：主要用于存储key和value值</p>
 
     </div>
 
@@ -203,15 +264,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/11/16/（转）python二维码换肤/" class="pre-post btn btn-default" title='转：二维码换肤（python）'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">转：二维码换肤（python）</span>
-        </a>
     
-    
-        <a href="/2018/11/10/谎言和梦/" class="next-post btn btn-default" title='谎言和梦'>
+        <a href="/2021/01/25/转-什么是缓存雪崩，缓存击穿，缓存穿透/" class="next-post btn btn-default" title='转-什么是缓存雪崩，缓存击穿，缓存穿透'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">谎言和梦</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">转-什么是缓存雪崩，缓存击穿，缓存穿透</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -224,7 +280,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Mon Nov 12 2018 20:53:50 GMT+0800',
+        id: 'Mon Jan 25 2021 21:09:27 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -248,7 +304,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#引言"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#周六"><span class="toc-text">周六</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#周日"><span class="toc-text">周日</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#周一"><span class="toc-text">周一</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是LRU"><span class="toc-text">什么是LRU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LRU基本算法"><span class="toc-text">LRU基本算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#要求"><span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法"><span class="toc-text">算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LRU实现"><span class="toc-text">LRU实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#涉及的数据结构"><span class="toc-text">涉及的数据结构</span></a></li></ol>
         
     </div>
 </aside>
