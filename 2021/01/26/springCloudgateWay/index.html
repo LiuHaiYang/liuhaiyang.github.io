@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>python+opencv视频入门处理 | meet you</title>
+<title>springcloudgateway | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="python+opencv视频入门处理">
+        <h1 id="springcloudgateway">
             
-	            python+opencv视频入门处理
+	            springcloudgateway
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title='python'>
-                        python
+                    <a href="/tags/系统" title='系统'>
+                        系统
                     </a>
                 
             
@@ -159,72 +159,31 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/10/24</span>
+            <span class="date-meta">2021/01/26</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>826</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h4 id="工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"><a href="#工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。" class="headerlink" title="工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"></a>工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。</h4><hr>
-<p>环境： <code>Python3 opencv 3</code></p>
-<h4 id="入门代码记录"><a href="#入门代码记录" class="headerlink" title="入门代码记录"></a>入门代码记录</h4><pre><code># coding=utf-8
-import os
-import numpy as np
-from PIL import Image, ImageDraw
-import cv2
-import requests
-import json
+        <h4 id="springcloud-gateway是基于netty运行的环境，在servlet容器环境或者把它构建为war包运行的话是不允许的，因此在项目当中没有必要添加spring-boot-starter-web。在gateway当中有三个重要的元素他们分别是"><a href="#springcloud-gateway是基于netty运行的环境，在servlet容器环境或者把它构建为war包运行的话是不允许的，因此在项目当中没有必要添加spring-boot-starter-web。在gateway当中有三个重要的元素他们分别是" class="headerlink" title="springcloud-gateway是基于netty运行的环境，在servlet容器环境或者把它构建为war包运行的话是不允许的，因此在项目当中没有必要添加spring-boot-starter-web。在gateway当中有三个重要的元素他们分别是:"></a>springcloud-gateway是基于netty运行的环境，在servlet容器环境或者把它构建为war包运行的话是不允许的，因此在项目当中没有必要添加spring-boot-starter-web。在gateway当中有三个重要的元素他们分别是:</h4><ul>
+<li>Route 是最核心的路由元素，它定义了ID，目标URI ，predicates的集合与filter的集合，如果Predicate聚合返回真，则匹配该路由</li>
+<li>Predicate 基于java8的函数接口Predicate，其输入参数类型ServerWebExchange，其作用就是允许开发人员根据当前的http请求进行规则的匹配，比如说http请求头，请求时间等，匹配的结果将决定执行哪种路由</li>
+<li>Filter为GatewayFilter,它是由特殊的工厂构建，通过Filter可以在下层请求路由前后改变http请求与响应</li>
+</ul>
+<h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p><img src="https://cloud.spring.io/spring-cloud-gateway/reference/html/images/spring_cloud_gateway_diagram.png" alt="image"></p>
+<p>Spring Cloud Gateway收到客户端的请求之后，如果本次请求在Gateway Handler Mapping匹配到一个路由，请求将被发送到Gateway Web Handler之中，在这个Handler之中，会将请求发送到一个具体的过滤器链(filter chain)中。在上面的图中，Filter那部分被使用虚线分开，是因为这些filter可能在代理请求发送之前执行，这些过滤器称为“pre”类型，也会在代理请求发送之后执行，这些过滤器称为“post”类型。</p>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><ul>
+<li>路由(Route)：路由为一组断言与一组过滤器的集合，他是网关的一个基本组件。</li>
+<li>断言(Predicate)：匹配路由的判断条件，例如Path=/demo，匹配后应用路由。</li>
+<li>过滤器(Filter)：过滤器可以对请求和返回进行修改，比如增加头信息等。</li>
+<li>地址(Uri)：匹配路由后转发的地址。</li>
+</ul>
+<p>Gateway是基于Webflux实现的，它通过扩展HandlerMapping与WebHandler来处理用户的请求，先通过Predicate定位到Router然后在经过FilterChain的过滤处理，最后定位到下层服务。同时官方给我们提供了许多Prdicate与Filter,比如说限流的。从这点来说它的功能比zuul还强大呢，zuul里有的服务发现，断路保护等，Gateway分别通过GlobalFilter与Filter来实现。</p>
 
-videoCapture = cv2.VideoCapture(0)
-fps = videoCapture.get(cv2.CAP_PROP_FPS)
-size = (int(videoCapture.get(cv2.CAP_PROP_FRAME_WIDTH)),
-        int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-fourcc = cv2.VideoWriter_fourcc(&apos;M&apos;,&apos;J&apos;,&apos;P&apos;,&apos;G&apos;)
-
-while 1:
-    ret, img = videoCapture.read()
-    # frame_resize = cv2.resize(img, (640, 360), interpolation=cv2.INTER_AREA)
-    frame_resize = cv2.resize(img, (size[0], size[1]), interpolation=cv2.INTER_AREA)
-    cv2.imwrite(&quot;&quot;, frame_resize)
-
-    # 鉴别
-    try:
-        #AI 人脸识别接口
-        url = &apos;&apos;
-        data = {}
-
-        new_img = open(&quot;&quot;, &apos;rb&apos;)
-        f = {&quot;image&quot;: new_img}
-        result = requests.post(url, files=f, data=data)
-        requestdata = result.json()
-        fontface = cv2.FONT_HERSHEY_SIMPLEX
-        fontscale = 1
-        fontcolor = (255, 255, 255)
-        #识别后的视频中文字说明
-        #接口中数据处理
-        for per_info in requestdata[&apos;resultInfo&apos;]:
-            if per_info[&apos;score&apos;] &gt; 0.6:
-                cv2.putText(img, &apos;hello world!&apos;, (
-                int(x), int(y)),fontface, fontscale, fontcolor)
-    except Exception as e:
-        pass
-    #人体关键点 同理 画线
-
-    cv2.imshow(&apos;video&apos;, img)
-    key = cv2.waitKey(1)
-    if key == ord(&apos;q&apos;):
-        break
-videoCapture.release()
-cv2.destroyAllWindows()
-</code></pre>
     </div>
 
     <div class="post-footer">
@@ -241,15 +200,15 @@ cv2.destroyAllWindows()
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/10/26/20181026/" class="pre-post btn btn-default" title='20181026'>
+        <a href="/2021/01/28/转-一次完整的HTTP事务是怎样一个过程？/" class="pre-post btn btn-default" title='转-一次完整的HTTP事务是怎样一个过程？'>
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">20181026</span>
+            <span class="hidden-xs">转-一次完整的HTTP事务是怎样一个过程？</span>
         </a>
     
     
-        <a href="/2018/10/22/20181022/" class="next-post btn btn-default" title='20181022'>
+        <a href="/2021/01/26/网关调研/" class="next-post btn btn-default" title='网关调研'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">20181022</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">网关调研</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -262,7 +221,7 @@ cv2.destroyAllWindows()
 
 <script>
     var gitment = new Gitment({
-        id: 'Wed Oct 24 2018 14:46:21 GMT+0800',
+        id: 'Tue Jan 26 2021 20:21:24 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -286,7 +245,7 @@ cv2.destroyAllWindows()
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"><span class="toc-text">工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#入门代码记录"><span class="toc-text">入门代码记录</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#springcloud-gateway是基于netty运行的环境，在servlet容器环境或者把它构建为war包运行的话是不允许的，因此在项目当中没有必要添加spring-boot-starter-web。在gateway当中有三个重要的元素他们分别是"><span class="toc-text">springcloud-gateway是基于netty运行的环境，在servlet容器环境或者把它构建为war包运行的话是不允许的，因此在项目当中没有必要添加spring-boot-starter-web。在gateway当中有三个重要的元素他们分别是:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工作流程"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#术语"><span class="toc-text">术语</span></a></li></ol>
         
     </div>
 </aside>
