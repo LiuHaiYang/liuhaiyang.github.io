@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Java布隆过滤器 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Java布隆过滤器">
+            
+	            Java布隆过滤器
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/02/01</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><p>在程序的世界中，布隆过滤器是程序员的一把利器，利用它可以快速地解决项目中一些比较棘手的问题。如网页 URL 去重、垃圾邮件识别、大集合中重复元素的判断和缓存穿透等问题。</p>
+<p>布隆过滤器（Bloom Filter）是 1970 年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都比一般的算法要好的多，缺点是有一定的误识别率和删除困难。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>假设我们的个人网站同时在线人数达到1亿，要存储这一亿人的在线状态，先构建一个16亿比特位即两亿字节的向量，然后把这16亿个比特位都记为0。对于每一个登录用的userId，使用8个不同的算法产出8个不同信息指纹，在用一个算法把这8个信息隐身到这16亿个比特位的8个位置上，把这8个位置都设置成1，这样就构建成了一个记录一亿用户在线状态的布隆过滤器。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6328467-1747a90dca69cf01.png?imageMogr2/auto-orient/strip|imageView2/2/w/758/format/webp" alt="image"></p>
+<p>检索就是同样的原理，使用相同的算法对要检索的userId产生8个信息指纹，然后在看这八个信息指纹在这16亿比特位对应的值是否为1，都为1就说明这个userId在线，下面就用java代码来实现一个布隆过滤器。</p>
+<p>Java 实现布隆过滤器</p>
+<pre><code>package edu.se;
+
+import java.util.BitSet;
+
+/**
+ * @author ZhaoWeinan
+ * @date 2018/10/28
+ * @description
+ */
+public class BloomFileter {
+
+    //使用加法hash算法，所以定义了一个8个元素的质数数组
+    private static final int[] primes = new int[]{2, 3, 5, 7, 11, 13, 17, 19};
+    //用八个不同的质数，相当于构建8个不同算法
+    private Hash[] hashList = new Hash[primes.length];
+    //创建一个长度为10亿的比特位
+    private BitSet bits = new BitSet(256 &lt;&lt; 22);
+
+    public BloomFileter() {
+        for (int i = 0; i &lt; primes.length; i++) {
+            //使用8个质数，创建八种算法
+            hashList[i] = new Hash(primes[i]);
+        }
+    }
+
+    //添加元素
+    public void add(String value) {
+        for (Hash f : hashList) {
+            //算出8个信息指纹，对应到2的32次方个比特位上
+            bits.set(f.hash(value), true);
+        }
+    }
+
+    //判断是否在布隆过滤器中
+    public boolean contains(String value) {
+        if (value == null) {
+            return false;
+        }
+        boolean ret = true;
+        for (Hash f : hashList) {
+            //查看8个比特位上的值
+            ret = ret &amp;&amp; bits.get(f.hash(value));
+        }
+        return ret;
+    }
+
+    //加法hash算法
+    public static class Hash {
+
+        private int prime;
+
+        public Hash(int prime) {
+            this.prime = prime;
+        }
+
+        public int hash(String key) {
+            int hash, i;
+            for (hash = key.length(), i = 0; i &lt; key.length(); i++) {
+                hash += key.charAt(i);
+            }
+            return (hash % prime);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        BloomFileter bloomFileter = new BloomFileter();
+        System.out.println(bloomFileter.contains(&quot;5324512515&quot;));
+        bloomFileter.add(&quot;5324512515&quot;);
+
+        //维护1亿个在线用户
+        for (int i = 1 ; i &lt; 100000000 ; i ++){
+            bloomFileter.add(String.valueOf(i));
+        }
+
+        long begin = System.currentTimeMillis();
+        System.out.println(begin);
+        System.out.println(bloomFileter.contains(&quot;5324512515&quot;));
+        long end = System.currentTimeMillis();
+        System.out.println(end);
+        System.out.println(&quot;判断5324512515是否在线使用了:&quot; + (begin - end));
+    }
+}
+</code></pre><p>这段代码是构建了一个10亿位的bitSet，然后把一亿个userId加入到了我们的布隆过滤器中，最近判断5324512515这个userId是否登录，打出代码的执行时间。</p>
+<pre><code>false
+1612149793467
+true
+1612149793467
+判断5324512515是否在线使用了:0
+</code></pre><p>BloomFileter这个类的实例，就占用了100多MB内存。</p>
+<p>看来布隆过滤器对于储存的效率确实很高</p>
+<h4 id="布隆过滤器的误识别问题"><a href="#布隆过滤器的误识别问题" class="headerlink" title="布隆过滤器的误识别问题"></a>布隆过滤器的误识别问题</h4><p>布隆过滤器的好处在于快速、省空间，但是有一定的误识别率，这个概率很小，要计算出现误识别的概率并不难，下面贴一段书上的话<br>假定布隆过滤器有m比特，里面有n个元素，每个元素对应k个信息指纹的hash函数，在这个布隆过滤器插入一个元素，那么比特位被设置成1的概率为1/m，它依然为0的概率为1-1/m，那么k个哈希函数都没有把他设置成1的概率为1-1/m的k次方，一个比特在插入了n个元素后，被设置为1的概率为1减1-1/m的kn次方，最后书上给出了一个公式，在这里就不贴了，就贴一个表吧，是m/n比值不同，以及K分别为不同的值得情况下的假阳性概率：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6328467-1aed750360b60627.png?imageMogr2/auto-orient/strip|imageView2/2/w/887/format/webp" alt="image"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6328467-ce0ed15e85001191.png?imageMogr2/auto-orient/strip|imageView2/2/w/547/format/webp" alt="image"></p>
+<p>可以得出一个结论，当我们搜索一个值的时候，若该值经过 K 个哈希函数运算后的任何一个索引位为 ”0“，那么该值肯定不在集合中。但如果所有哈希索引值均为 ”1“，则只能说该搜索的值可能存在集合中。</p>
+<p>事实上这是误报的情形，产生的原因是由于哈希碰撞导致的巧合而将不同的元素存储在相同的比特位上。幸运的是，布隆过滤器有一个可预测的误判率（FPP）：<br><img src="https://user-gold-cdn.xitu.io/2019/11/30/16eba609871807ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"></p>
+<ul>
+<li>n 是已经添加元素的数量；</li>
+<li>k 哈希的次数；</li>
+<li>m 布隆过滤器的长度（如比特数组的大小）；</li>
+</ul>
+<p><a href="https://segmentfault.com/a/1190000021136424" target="_blank" rel="noopener">布隆过滤器你值得拥有的开发利器</a></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/01/28/转-一次完整的HTTP事务是怎样一个过程？/" class="next-post btn btn-default" title='转-一次完整的HTTP事务是怎样一个过程？'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">转-一次完整的HTTP事务是怎样一个过程？</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon Feb 01 2021 11:14:33 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#布隆过滤器"><span class="toc-text">布隆过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#布隆过滤器的误识别问题"><span class="toc-text">布隆过滤器的误识别问题</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
