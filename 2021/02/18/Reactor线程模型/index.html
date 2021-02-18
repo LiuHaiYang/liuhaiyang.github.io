@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Reactor线程模型 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Reactor线程模型">
+            
+	            Reactor线程模型
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/02/18</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="Reactor是什么"><a href="#Reactor是什么" class="headerlink" title="Reactor是什么?"></a>Reactor是什么?</h3><pre><code>The reactor design_pattern is an event_handling pattern for handling service requests delivered concurrently to a service handler by one or more inputs. The service handler then demultiplexes the incoming requests and dispatches them synchronously to the associated request handlers.
+
+from wiki
+</code></pre><p>通过wiki中的定义我们可以发现Reactor的重点</p>
+<ol>
+<li>事件驱动</li>
+<li>可以处理一个或多个输入源</li>
+<li>通过多路复用将请求的事件分发给对应的处理器处理</li>
+</ol>
+<p>根据大神Doug Lea 在 《Scalable IO in Java 》中的介绍，Reacotr模型主要分为三个角色</p>
+<ol>
+<li>Reactor：把IO事件分配给对应的handler处理</li>
+<li>Acceptor：处理客户端连接事件</li>
+<li>Handler：处理非阻塞的任务</li>
+</ol>
+<h3 id="为什么使用Reactor？"><a href="#为什么使用Reactor？" class="headerlink" title="为什么使用Reactor？"></a>为什么使用Reactor？</h3><p><img src="https://pic3.zhimg.com/80/v2-5598826468eb205e6a7ba3354367c372_720w.jpg" alt="image"></p>
+<h3 id="传统阻塞IO模型的不足"><a href="#传统阻塞IO模型的不足" class="headerlink" title="传统阻塞IO模型的不足"></a>传统阻塞IO模型的不足</h3><ol>
+<li>每个连接都需要独立线程处理，当并发数大时，创建线程数多，占用资源</li>
+<li>采用阻塞IO模型，连接建立后，若当前线程没有数据可读，线程会阻塞在读操作上，造成资源浪费</li>
+</ol>
+<h3 id="针对传统阻塞IO模型的两个问题，可以采用如下的方案"><a href="#针对传统阻塞IO模型的两个问题，可以采用如下的方案" class="headerlink" title="针对传统阻塞IO模型的两个问题，可以采用如下的方案"></a>针对传统阻塞IO模型的两个问题，可以采用如下的方案</h3><ol>
+<li>基于池化思想，避免为每个连接创建线程，连接完成后将业务处理交给线程池处理</li>
+<li>基于IO复用模型，多个连接共用同一个阻塞对象，不用等待所有的连接。遍历到有新数据可以处理时，操作系统会通知程序，线程跳出阻塞状态，进行业务逻辑处理</li>
+</ol>
+<p>Reactor线程模型的思想就是基于IO复用和线程池的结合</p>
+<h3 id="Reactor线程模型分类"><a href="#Reactor线程模型分类" class="headerlink" title="Reactor线程模型分类"></a>Reactor线程模型分类</h3><p>根据Reactor的数量和处理资源的线程数量的不同，分为三类：</p>
+<ol>
+<li>单Reactor单线程模型</li>
+<li>单Reactor多线程模型</li>
+<li>多Reactor多线程模型</li>
+</ol>
+<h3 id="单Reactor单线程模型"><a href="#单Reactor单线程模型" class="headerlink" title="单Reactor单线程模型"></a>单Reactor单线程模型</h3><p>这种模型在Reactor中处理事件，并分发事件，如果是连接事件交给acceptor处理，如果是读写事件和业务处理就交给handler处理，但始终只有一个线程执行所有的事情<br><img src="https://pic3.zhimg.com/80/v2-a3a7f2b064f424fbb11e77f019123e62_720w.jpg" alt="image"></p>
+<p>该线程模型的不足</p>
+<ol>
+<li>仅用一个线程处理请求，对于多核资源机器来说是有点浪费的</li>
+<li>当处理读写任务的线程负载过高后，处理速度下降，事件会堆积，严重的会超时，可能导致客户端重新发送请求，性能越来越差</li>
+<li>单线程也会有可靠性的问题</li>
+</ol>
+<p>针对上面的种种不足，就有了下面的线程模型</p>
+<h3 id="单Reactor多线程模型"><a href="#单Reactor多线程模型" class="headerlink" title="单Reactor多线程模型"></a>单Reactor多线程模型</h3><p>这种模型和第一种模型到的主要区别是把业务处理从之前的单一线程脱离出来，换成线程池处理，也就是Reactor线程只处理连接事件和读写事件，业务处理交给线程池处理，充分利用多核机器的资源、提高性能并且增加可靠性</p>
+<p><img src="https://pic1.zhimg.com/80/v2-d60a5c2c930e3ec611855d387d2429ec_720w.jpg" alt="image"></p>
+<p>该线程模型的不足</p>
+<p>Reactor线程承担所有的事件，例如监听和响应，高并发场景下单线程存在性能问题</p>
+<h3 id="多Reactor多线程模型"><a href="#多Reactor多线程模型" class="headerlink" title="多Reactor多线程模型"></a>多Reactor多线程模型</h3><p>这种模型下和第二种模型相比是把Reactor线程拆分了mainReactor和subReactor两个部分，mainReactor只处理连接事件，读写事件交给subReactor来处理。业务逻辑还是由线程池来处理</p>
+<p><img src="https://pic2.zhimg.com/80/v2-ca0ee6f64ec8654ba143c30548874095_720w.jpg" alt="image"></p>
+<p>mainRactor只处理连接事件，用一个线程来处理就好。处理读写事件的subReactor个数一般和CPU数量相等，一个subReactor对应一个线程，业务逻辑由线程池处理</p>
+<p>这种模型使各个模块职责单一，降低耦合度，性能和稳定性都有提高<br>这种模型在许多项目中广泛应用，比如Netty的主从线程模型等</p>
+<h3 id="Reactor三种模式形象比喻"><a href="#Reactor三种模式形象比喻" class="headerlink" title="Reactor三种模式形象比喻"></a>Reactor三种模式形象比喻</h3><p>餐厅一般有接待员和服务员，接待员负责在门口接待顾客，服务员负责全程服务顾客<br>Reactor的三种线程模型可以用接待员和服务员类比</p>
+<p>单Reactor单线程模型：接待员和服务员是同一个人，一直为顾客服务。客流量较少适合<br>单Reactor多线程模型：一个接待员，多个服务员。客流量大，一个人忙不过来，由专门的接待员在门口接待顾客，然后安排好桌子后，由一个服务员一直服务，一般每个服务员负责一片中的几张桌子<br>多Reactor多线程模型：多个接待员，多个服务员。这种就是客流量太大了，一个接待员忙不过来了</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/02/01/Java布隆过滤器/" class="next-post btn btn-default" title='Java布隆过滤器'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Java布隆过滤器</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Thu Feb 18 2021 16:56:43 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactor是什么"><span class="toc-text">Reactor是什么?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么使用Reactor？"><span class="toc-text">为什么使用Reactor？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#传统阻塞IO模型的不足"><span class="toc-text">传统阻塞IO模型的不足</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#针对传统阻塞IO模型的两个问题，可以采用如下的方案"><span class="toc-text">针对传统阻塞IO模型的两个问题，可以采用如下的方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactor线程模型分类"><span class="toc-text">Reactor线程模型分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单Reactor单线程模型"><span class="toc-text">单Reactor单线程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单Reactor多线程模型"><span class="toc-text">单Reactor多线程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多Reactor多线程模型"><span class="toc-text">多Reactor多线程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactor三种模式形象比喻"><span class="toc-text">Reactor三种模式形象比喻</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
