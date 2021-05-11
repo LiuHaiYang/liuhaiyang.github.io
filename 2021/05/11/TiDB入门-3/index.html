@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>初识拉链表 | meet you</title>
+<title>TiDB入门-3 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="初识拉链表">
+        <h1 id="TiDB入门-3">
             
-	            初识拉链表
+	            TiDB入门-3
             
         </h1>
         <div class="post-meta">
@@ -159,43 +159,84 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/12/04</span>
+            <span class="date-meta">2021/05/11</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>888</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>做程序这么久了，其实在数据库这方面一直是一个菜鸟。以前学的东西比较多，学完之后也用不到慢慢的就遗忘了，业务中用到的也是最基本的，就是增删查改，所以一直在这方面也没什么进展。以前公司业务中数据库都是前辈们设计好的，有一些也是比较复杂的，所以我也没接触到，最近自己在做一些小的项目，从头到尾都得自己来，也是自己设计数据库，对于简单的业务也不需要花式的设计，设计完有幸让大佬帮我看下，大佬给我指出某些地方设计可以用拉链表，所以我就有时间对自己科普一下，进一步学习！</p>
-<hr>
-<p>以下都是各处搜集信息：</p>
+        <h2 id="TiDB-5-0"><a href="#TiDB-5-0" class="headerlink" title="TiDB 5.0"></a>TiDB 5.0</h2><p>5.0 版本中，专注数据库快速构建应用程序，无需担心性能，性能抖动，安全，高可用，容灾，SQL语句的性能问题排查问题。</p>
+<p>在 5.0 版本中，可以获得以下关键特性：</p>
 <ul>
-<li>拉链表是针对数据仓库设计中表存储数据的方式而定义的，顾名思义，所谓拉链，就是记录历史。记录一个事物从开始，一直到当前状态的所有变化的信息。</li>
-<li>拉链表实际上是一个数据的有效更新处理方法。在定义了对于该方法支持的几个字段后可以对数据进行处理</li>
-<li>在数据仓库中，经常会用历史数据和时间维度做数据分析。而保存历史数据最常见的方案是使用拉链表进行存储。</li>
-<li>拉链历史表，既能满足反应数据的历史状态，又可以最大程度的节省存储;</li>
-<li>dw_begin_date表示该条记录的生命周期开始时间，dw_end_date表示该条记录的生命周期结束时间;<br>dw_end_date = ‘9999-12-31’表示该条记录目前处于有效状态；如果查询当前所有有效的记录，则select * from order_his where dw_end_date = ‘9999-12-31’</li>
-<li>算法<ul>
-<li>采集当日全量数据到ND(NewDay)表；<ul>
-<li>可从历史表中取出昨日全量数据存储到OD(OldDay)表;</li>
+<li>TiDB 通过 TiFlash 节点引入了 MPP 架构。这使得大型表连接类查询可以由不同 TiFlash 节点共同分担完成。</li>
+<li>引入聚簇索引功能，提升数据库的性能。例如，TPC-C tpmC 的性能提升了 39%。</li>
+<li>开启异步提交事务功能，降低写入数据的延迟。例如：Sysbench 设置 64 线程测试 Update index 时, 平均延迟由 12.04 ms 降低到 7.01ms ，降低了 41.7%。</li>
+<li>通过提升优化器的稳定性及限制系统任务对 I/O、网络、CPU、内存等资源的占用，降低系统的抖动。例如：测试 8 小时，TPC-C 测试中 tpmC 抖动标准差的值小于等于 2%。</li>
+<li>通过完善调度功能及保证执行计划在最大程度上保持不变，提升系统的稳定性。</li>
+<li>引入 Raft Joint Consensus 算法，确保 Region 成员变更时系统的可用性。</li>
+<li>优化 EXPLAIN 功能、引入不可见索引等功能帮助提升 DBA 调试及 SQL 语句执行的效率。</li>
+<li>通过从 TiDB 备份文件到 Amazon S3、Google Cloud GCS，或者从 Amazon S3、Google Cloud GCS 恢复文件到 TiDB，确保企业数据的可靠性。</li>
+<li>提升从 Amazon S3 或者 TiDB/MySQL 导入导出数据的性能，帮忙企业在云上快速构建应用。例如：导入 1TiB TPC-C 数据性能提升了 40%，由 254 GiB/h 提升到 366 GiB/h。</li>
 </ul>
-</li>
-<li>(ND-OD)就是当日新增和变化的数据，也就是当天的增量，用W_I表示；</li>
-<li>(OD-ND)为状态到此结束需要封链的数据，用W_U表示；</li>
-<li>将W_I表的内容全部插入到历史表中，这些是新增记录，start_date为当天，而end_date为max值；</li>
-<li>对历史表进行W_U部份的更新操作，start_date保持不变，而end_date改为当天，也就是关链操作；</li>
+<h3 id="新功能"><a href="#新功能" class="headerlink" title="新功能"></a>新功能</h3><ul>
+<li>List 分区表 (List Partition)</li>
+<li>List COLUMNS 分区表 (List COLUMNS Partition)</li>
+<li>不可见索引（Invisible Indexes）</li>
+<li>EXCEPT 和 INTERSECT 操作符</li>
+<li>事务</li>
+<li>字符集和排序规则</li>
 </ul>
-</li>
+<h2 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li>数值类型：BIT、BOOL|BOOLEAN、SMALLINT、MEDIUMINT、INT|INTEGER、BIGINT、FLOAT、DOUBLE、DECIMAL。</li>
+<li>日期和时间类型：DATE、TIME、DATETIME、TIMESTAMP、YEAR。</li>
+<li>字符串类型：CHAR、VARCHAR、TEXT、TINYTEXT、MEDIUMTEXT、LONGTEXT、BINARY、VARBINARY、BLOB、TINYBLOB、MEDIUMBLOB、LONGBLOB、ENUM、SET。</li>
+<li>JSON 类型。</li>
 </ul>
-<hr>
-<p>好像今天加班又比较晚了，回家！<br><img src="https://images.pexels.com/photos/1524628/pexels-photo-1524628.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=350" alt="image"></p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><ul>
+<li>算术运算符、位运算符、比较运算符、逻辑运算符、日期和时间运算符等。</li>
+</ul>
+<h3 id="字符集及排序规则"><a href="#字符集及排序规则" class="headerlink" title="字符集及排序规则"></a>字符集及排序规则</h3><ul>
+<li>字符集：UTF8、UTF8MB4、BINARY、ASCII、LATIN1。</li>
+<li>排序规则：UTF8MB4_GENERAL_CI、UTF8MB4_UNICODE_CI、UTF8MB4_GENERAL_BIN、UTF8_GENERAL_CI、UTF8_UNICODE_CI、UTF8_GENERAL_BIN、BINARY。</li>
+</ul>
+<h3 id="SQL-语句"><a href="#SQL-语句" class="headerlink" title="SQL 语句"></a>SQL 语句</h3><ul>
+<li>完全支持标准的 Data Definition Language (DDL) 语句，例如：CREATE、DROP、ALTER、RENAME、TRUNCATE 等。</li>
+<li>完全支持标准的 Data Manipulation Language (DML) 语句，例如：INSERT、REPLACE、SELECT、Subqueries、UPDATE、LOAD DATA 等。</li>
+<li>完全支持标准的 Transactional and Locking 语句，例如：START TRANSACTION、COMMIT、ROLLBACK、SET TRANSACTION 等。</li>
+<li>完全支持标准的 Database Administration 语句，例如：SHOW、SET 等。</li>
+<li>完全支持标准的 Utility 语句，例如：DESCRIBE、EXPLAIN、USE 等。</li>
+<li>完全支持 SQL GROUP BY 和 ORDER BY 子语句。</li>
+<li>完全支持标准 SQL 语法的 LEFT OUTER JOIN 和 RIGHT OUTER JOIN。</li>
+<li>完全支持标准 SQL 要求的表和列别名。</li>
+</ul>
+<h3 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h3><ul>
+<li>支持 Range 分区。</li>
+<li>支持 Hash 分区。</li>
+</ul>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><ul>
+<li>支持普通视图。</li>
+</ul>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><ul>
+<li>支持非空约束。</li>
+<li>支持主键约束。</li>
+<li>支持唯一约束。</li>
+</ul>
+<h2 id="与-MySQL-兼容性对比"><a href="#与-MySQL-兼容性对比" class="headerlink" title="与 MySQL 兼容性对比"></a>与 MySQL 兼容性对比</h2><p>TiDB 100% 兼容 MySQL 5.7 协议、MySQL 5.7 常用的功能及语法。</p>
+<h3 id="不支持的功能特性"><a href="#不支持的功能特性" class="headerlink" title="不支持的功能特性"></a>不支持的功能特性</h3><ul>
+<li>存储过程与函数</li>
+<li>触发器</li>
+<li>事件</li>
+<li>自定义函数</li>
+<li>外键约束 </li>
+<li>临时表</li>
+<li>全文/空间函数与索引</li>
+<li>非 ascii/latin1/binary/utf8/utf8mb4 的字符集</li>
+<li>SYS schema</li>
+</ul>
 
     </div>
 
@@ -213,15 +254,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/12/05/心情不错/" class="pre-post btn btn-default" title='心情不错'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">心情不错</span>
-        </a>
     
-    
-        <a href="/2018/12/03/日常开发之抽奖/" class="next-post btn btn-default" title='日常开发之抽奖'>
+        <a href="/2021/05/07/TiDB入门-2/" class="next-post btn btn-default" title='TiDB入门-2'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">日常开发之抽奖</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">TiDB入门-2</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -234,7 +270,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Tue Dec 04 2018 22:04:16 GMT+0800',
+        id: 'Tue May 11 2021 21:18:42 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -258,7 +294,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TiDB-5-0"><span class="toc-text">TiDB 5.0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新功能"><span class="toc-text">新功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本功能"><span class="toc-text">基本功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符集及排序规则"><span class="toc-text">字符集及排序规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-语句"><span class="toc-text">SQL 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分区表"><span class="toc-text">分区表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图"><span class="toc-text">视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#约束"><span class="toc-text">约束</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与-MySQL-兼容性对比"><span class="toc-text">与 MySQL 兼容性对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不支持的功能特性"><span class="toc-text">不支持的功能特性</span></a></li></ol></li></ol>
         
     </div>
 </aside>
