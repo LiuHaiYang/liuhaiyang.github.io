@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>TiDB总结 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="TiDB总结">
+            
+	            TiDB总结
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title='数据库'>
+                        数据库
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/05/16</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="TiDB-介绍及整体架构"><a href="#TiDB-介绍及整体架构" class="headerlink" title="TiDB 介绍及整体架构"></a>TiDB 介绍及整体架构</h2><h3 id="TiDB-是什么？"><a href="#TiDB-是什么？" class="headerlink" title="TiDB 是什么？"></a>TiDB 是什么？</h3><p>TiDB 是一个分布式 NewSQL 数据库。它支持水平弹性扩展、ACID 事务、标准 SQL、MySQL 语法和 MySQL 协议，具有数据强一致的高可用特性，是一个不仅适合 OLTP 场景还适合 OLAP 场景的混合数据库。</p>
+<h3 id="TiDB-是基于-MySQL-开发的吗？"><a href="#TiDB-是基于-MySQL-开发的吗？" class="headerlink" title="TiDB 是基于 MySQL 开发的吗？"></a>TiDB 是基于 MySQL 开发的吗？</h3><p>不是，虽然 TiDB 支持 MySQL 语法和协议，但是 TiDB 是由 PingCAP 团队完全自主开发的产品。</p>
+<h3 id="TiDB、TiKV、Placement-Driver-PD-主要作用？"><a href="#TiDB、TiKV、Placement-Driver-PD-主要作用？" class="headerlink" title="TiDB、TiKV、Placement Driver (PD) 主要作用？"></a>TiDB、TiKV、Placement Driver (PD) 主要作用？</h3><ul>
+<li>TiDB 是 Server 计算层，主要负责 SQL 的解析、制定查询计划、生成执行器。</li>
+<li>TiKV 是分布式 Key-Value 存储引擎，用来存储真正的数据，简而言之，TiKV 是 TiDB 的存储引擎。</li>
+<li>PD 是 TiDB 集群的管理组件，负责存储 TiKV 的元数据，同时也负责分配时间戳以及对 TiKV 做负载均衡调度。</li>
+</ul>
+<h3 id="TiDB-易用性如何？"><a href="#TiDB-易用性如何？" class="headerlink" title="TiDB 易用性如何？"></a>TiDB 易用性如何？</h3><p>TiDB 使用起来很简单，可以将 TiDB 集群当成 MySQL 来用，你可以将 TiDB 用在任何以 MySQL 作为后台存储服务的应用中，并且基本上不需要修改应用代码，同时你可以用大部分流行的 MySQL 管理工具来管理 TiDB。</p>
+<h3 id="TiDB-和-MySQL-兼容性如何？"><a href="#TiDB-和-MySQL-兼容性如何？" class="headerlink" title="TiDB 和 MySQL 兼容性如何？"></a>TiDB 和 MySQL 兼容性如何？</h3><p>TiDB 目前还不支持触发器、存储过程、自定义函数、外键，除此之外，TiDB 支持绝大部分 MySQL 5.7 的语法。</p>
+<h3 id="TiDB-支持分布式事务吗？"><a href="#TiDB-支持分布式事务吗？" class="headerlink" title="TiDB 支持分布式事务吗？"></a>TiDB 支持分布式事务吗？</h3><ul>
+<li><p>支持。无论是一个地方的几个节点，还是跨多个数据中心的多个节点，TiDB 均支持 ACID 分布式事务。</p>
+</li>
+<li><p>TiDB 事务模型灵感源自 Google Percolator 模型，主体是一个两阶段提交协议，并进行了一些实用的优化。该模型依赖于一个时间戳分配器，为每个事务分配单调递增的时间戳，这样就检测到事务冲突。在 TiDB 集群中，PD 承担时间戳分配器的角色。</p>
+</li>
+</ul>
+<h3 id="TiDB-支持哪些编程语言？"><a href="#TiDB-支持哪些编程语言？" class="headerlink" title="TiDB 支持哪些编程语言？"></a>TiDB 支持哪些编程语言？</h3><p>只要支持 MySQL Client/Driver 的编程语言，都可以直接使用 TiDB。</p>
+<h3 id="TiDB-是否支持其他存储引擎？"><a href="#TiDB-是否支持其他存储引擎？" class="headerlink" title="TiDB 是否支持其他存储引擎？"></a>TiDB 是否支持其他存储引擎？</h3><p>是的，除了 TiKV 之外，TiDB 还支持一些流行的单机存储引擎，比如 GolevelDB、RocksDB、BoltDB 等。如果一个存储引擎是支持事务的 KV 引擎，并且能提供一个满足 TiDB 接口要求的 Client，即可接入 TiDB。</p>
+<h3 id="一个事务中的语句数量最大是多少？"><a href="#一个事务中的语句数量最大是多少？" class="headerlink" title="一个事务中的语句数量最大是多少？"></a>一个事务中的语句数量最大是多少？</h3><p>一个事务中的语句数量，默认限制最大为 5000 条。</p>
+<h3 id="数据删除后查询速度为何会变慢？"><a href="#数据删除后查询速度为何会变慢？" class="headerlink" title="数据删除后查询速度为何会变慢？"></a>数据删除后查询速度为何会变慢？</h3><p>大量删除数据后，会有很多无用的 key 存在，影响查询效率。可以尝试开启 Region Merge 功能</p>
+<h3 id="TiDB-中删除数据后会立即释放空间吗？"><a href="#TiDB-中删除数据后会立即释放空间吗？" class="headerlink" title="TiDB 中删除数据后会立即释放空间吗？"></a>TiDB 中删除数据后会立即释放空间吗？</h3><p>DELETE，TRUNCATE 和 DROP 都不会立即释放空间。对于 TRUNCATE 和 DROP 操作，在达到 TiDB 的 GC (garbage collection) 时间后（默认 10 分钟），TiDB 的 GC 机制会删除数据并释放空间。对于 DELETE 操作 TiDB 的 GC 机制会删除数据，但不会释放空间，而是当后续数据写入 RocksDB 且进行 compact 时对空间重新利用。</p>
+<h3 id="如何确定某张表是否需要做-analyze-？"><a href="#如何确定某张表是否需要做-analyze-？" class="headerlink" title="如何确定某张表是否需要做 analyze ？"></a>如何确定某张表是否需要做 analyze ？</h3><p>可以通过 show stats_healthy 来查看 Healthy 字段，一般小于等于 60 的表需要做 analyze。</p>
+<h3 id="如何将一个运行在-MySQL-上的应用迁移到-TiDB-上？"><a href="#如何将一个运行在-MySQL-上的应用迁移到-TiDB-上？" class="headerlink" title="如何将一个运行在 MySQL 上的应用迁移到 TiDB 上？"></a>如何将一个运行在 MySQL 上的应用迁移到 TiDB 上？</h3><p>TiDB 支持绝大多数 MySQL 语法，一般不需要修改代码。</p>
+<h3 id="数据删除最高效最快的方式？"><a href="#数据删除最高效最快的方式？" class="headerlink" title="数据删除最高效最快的方式？"></a>数据删除最高效最快的方式？</h3><p>在删除大量数据的时候，建议使用 Delete <em> from t where xx limit 5000（xx 建议在满足业务过滤逻辑下，尽量加上强过滤索引列或者直接使用主键选定范围，如 id &gt;= 5000</em>n+m and id &lt;= 5000*(n+1)+m 这样的方案，通过循环来删除，用 Affected Rows == 0 作为循环结束条件，这样避免遇到事务大小的限制。如果一次删除的数据量非常大，这种循环的方式会越来越慢，因为每次删除都是从前向后遍历，前面的删除之后，短时间内会残留不少删除标记（后续会被 GC 掉），影响后面的 Delete 语句。如果有可能，建议把 Where 条件细化。可以参考官网最佳实践。</p>
+<h3 id="TiDB-如何提高数据加载速度？"><a href="#TiDB-如何提高数据加载速度？" class="headerlink" title="TiDB 如何提高数据加载速度？"></a>TiDB 如何提高数据加载速度？</h3><ul>
+<li>目前已开发分布式导入工具 TiDB Lightning，需要注意的是数据导入过程中为了性能考虑，不会执行完整的事务流程，所以没办法保证导入过程中正在导入的数据的 ACID 约束，只能保证整个导入过程结束以后导入数据的 ACID 约束。因此适用场景主要为新数据的导入（比如新的表或者新的索引），或者是全量的备份恢复（先 Truncate 原表再导入）。</li>
+<li>TiDB 的数据加载与磁盘以及整体集群状态相关，加载数据时应关注该主机的磁盘利用率，TiClient Error/Backoff/Thread CPU 等相关 metric，可以分析相应瓶颈。 </li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/05/11/TiDB入门-3/" class="next-post btn btn-default" title='TiDB入门-3'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">TiDB入门-3</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Sun May 16 2021 15:13:59 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TiDB-介绍及整体架构"><span class="toc-text">TiDB 介绍及整体架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-是什么？"><span class="toc-text">TiDB 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-是基于-MySQL-开发的吗？"><span class="toc-text">TiDB 是基于 MySQL 开发的吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB、TiKV、Placement-Driver-PD-主要作用？"><span class="toc-text">TiDB、TiKV、Placement Driver (PD) 主要作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-易用性如何？"><span class="toc-text">TiDB 易用性如何？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-和-MySQL-兼容性如何？"><span class="toc-text">TiDB 和 MySQL 兼容性如何？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-支持分布式事务吗？"><span class="toc-text">TiDB 支持分布式事务吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-支持哪些编程语言？"><span class="toc-text">TiDB 支持哪些编程语言？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-是否支持其他存储引擎？"><span class="toc-text">TiDB 是否支持其他存储引擎？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个事务中的语句数量最大是多少？"><span class="toc-text">一个事务中的语句数量最大是多少？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据删除后查询速度为何会变慢？"><span class="toc-text">数据删除后查询速度为何会变慢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-中删除数据后会立即释放空间吗？"><span class="toc-text">TiDB 中删除数据后会立即释放空间吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何确定某张表是否需要做-analyze-？"><span class="toc-text">如何确定某张表是否需要做 analyze ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何将一个运行在-MySQL-上的应用迁移到-TiDB-上？"><span class="toc-text">如何将一个运行在 MySQL 上的应用迁移到 TiDB 上？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据删除最高效最快的方式？"><span class="toc-text">数据删除最高效最快的方式？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiDB-如何提高数据加载速度？"><span class="toc-text">TiDB 如何提高数据加载速度？</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
