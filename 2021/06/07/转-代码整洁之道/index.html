@@ -1,0 +1,461 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>转-代码整洁之道 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="转-代码整洁之道">
+            
+	            转-代码整洁之道
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/工具" title='工具'>
+                        工具
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/06/07</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <ul>
+<li><p>合适的命名</p>
+<pre><code>看看反例：
+
+// 手机号
+String phone = “13421800409”;
+// 获取地址
+private String getDiZhi();
+//修改密码
+private void modifyPassword(String password1 ,String password2)
+看看正例：
+
+// 手机号 mobileNo比phone更精确
+String mobileNo= “13421800409”;
+
+// 避免英文拼音混杂
+private String getAddress();
+
+// 参数的命名要区分意义
+private void modifyPassword(String oldPassowrd,String newPassword)
+</code></pre></li>
+<li><p>短小的方法</p>
+<pre><code>看看反例：
+
+//  获取个人信息
+Private UserDTO getUserDTO(Integer userId)
+{
+    //获取基本信息 
+    … 此处写了10行
+
+    //获取最近的一次订单信息
+    …  此处写了30行
+
+   // 获取钱包余额、可用优惠券张数等
+    ...   此处写了30行
+
+   return userDTO;
+}
+看看正例：
+
+//  获取个人信息
+Private UserDTO getUserDTO(Integer userId)
+{
+    //获取基本信息 
+    UserDTO userDTO= getUserBasicInfo(userId);
+
+    //获取最近的一次订单信息
+    userDTO.setUserLastOrder(getUserLastOrder(userId));
+
+    // 获取钱包、可用优惠券张数等
+    userDTO.setUserAccount(getUserAccount(userId));  
+    return userDTO;
+}
+
+Private  UserDTO getUserBasicInfo(userId);
+Private  UserLastOrder getUserLastOrder(userId);
+Private  UserAccount getUserAccount(userId);
+</code></pre></li>
+</ul>
+<ul>
+<li><p>减少if/else嵌套</p>
+<pre><code>看看反例：
+
+// 修改用户密码，这个例子只有3层嵌套，很温柔了
+public boolean modifyPassword(Integer userId, String oldPassword, String newPassword) {
+      if (userId != null &amp;&amp; StringUtils.isNotBlank(newPassword) &amp;&amp; SpringUtils.isNotBlank(oldPassword)) {
+    User user = getUserById(userId);
+    if(user != null) {
+         if(user.getPassword().equals(oldPassword) {
+              return updatePassword(userId, newPassword)
+         }
+    }
+      }
+}
+看看正例：
+
+// 修改用户密码 
+Public Boolean modifyPassword(Integer userId, String oldPassword, String newPassword) {
+     if (userId == null || StringUtils.isBlank(newPassword) || StringUtils.isBlank(oldPassword)) {
+            return false;
+     }
+     User user = getUserById(userId);
+     if(user == null) {
+           return false;
+      }
+     if(!user.getPassword().equals(oldPassword) {
+           return false;    
+     }
+     return updatePassword(userId, newPassword);
+}
+正例采用卫语句减少了嵌套，但是并非所有场景都适合这样改写。如果不适合，可以将关联性高的逻辑抽取成一个独立的方法减少嵌套
+</code></pre></li>
+</ul>
+<ul>
+<li><p>抽离try/catch</p>
+<pre><code>看看反例：
+
+//  获取个人信息
+Private UserDTO getUserDTO(Integer userId)
+{
+   try { 
+       //获取基本信息 
+       ... 此处写了10行
+       //获取最近的一次订单信息.
+       ...此处写了20行
+       // 获取钱包、可用优惠券张数等
+       ...此处写了20行
+    }catch (Exception e) {
+        logger.error(e);
+        return null;
+    }
+}
+   return userDTO;
+}
+看看正例：
+
+//  获取个人信息
+Private UserDTO getUserDTO(Integer userId)
+{
+    //获取基本信息 
+    UserDTO userDTO= getUserBasicInfo(userId);
+
+    //获取最近的一次订单信息
+    userDTO.setUserLastOrder(getUserLastOrder(userId));
+
+    // 获取钱包、可用优惠券张数等
+    userDTO.setUserAccount(getUserAccount(userId));  
+    return userDTO;
+}
+Private  UserDTO getUserBasicInfo(userId);
+Private  UserLastOrder getUserLastOrder(userId);
+Private  UserAccount getUserAccount(userId)｛
+      try{ // TODO } catch( Exception e) { //TODO}
+｝
+</code></pre></li>
+</ul>
+<ul>
+<li>封装多个参数</li>
+</ul>
+<pre><code>如果方法参数将超过3个，建议放在类中包装起来，否则再增加参数时，由于语义的强耦合会导致调用方语法错误。在后台管理中的分页查询接口，常常会有很多查询参数，而且有可能增加，封装起来是最好的。
+
+看看反例：
+
+// 分页查询订单 6个参数
+Public Page&lt;Order&gt; queryOrderByPage(Integer current,Integer size,String productName,Integer userId,Date startTime,Date endTime,Bigdecimal minAmount ,Bigdecimal maxAmount) {
+
+}
+看看正例：
+
+@Getter
+@Setter
+Public class OrderQueryDTO extends PageDTO {
+ private String productName;
+ private Integer userId;
+ private Date startTime;
+ private Date endTime;
+ private Bigdecimal minAmount ;
+ private Bigdecimal maxAmount;
+}
+// 分页查询订单 6个参数
+Public Page&lt;Order&gt; queryOrderByPage(OrderQueryDTO orderQueryDTO) {
+
+}
+</code></pre><p>-Apache Commons系列</p>
+<p>Apache Commons系列组件给我们提供了关于字符串、集合、IO操作等工具方法。这些组件是个大宝库，提供了不少轮子。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-f75a3f92e26abd000bef7ff65651886b_720w.jpg" alt="iamge"></p>
+<p>看看例子：</p>
+<pre><code>例1: 判断集合是否为空:
+CollectionUtils.isEmpty(null): true
+CollectionUtils.isEmpty(new ArrayList()): true
+CollectionUtils.isEmpty({a,b}): false
+
+例2: 判断集合是否不为空:
+CollectionUtils.isNotEmpty(null): false
+CollectionUtils.isNotEmpty(new ArrayList()): false
+CollectionUtils.isNotEmpty({a,b}): true
+
+例3：2个集合间的操作： 
+集合a: {1,2,3,3,4,5}
+集合b: {3,4,4,5,6,7}
+CollectionUtils.union(a, b)(并集): {1,2,3,3,4,4,5,6,7}
+CollectionUtils.intersection(a, b)(交集): {3,4,5}
+CollectionUtils.disjunction(a, b)(交集的补集): {1,2,3,4,6,7}
+CollectionUtils.disjunction(b, a)(交集的补集): {1,2,3,4,6,7}
+CollectionUtils.subtract(a, b)(A与B的差): {1,2,3}
+CollectionUtils.subtract(b, a)(B与A的差): {4,6,7}
+</code></pre>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/05/20/关于Double/" class="next-post btn btn-default" title='关于Double'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">关于Double</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon Jun 07 2021 19:59:23 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
