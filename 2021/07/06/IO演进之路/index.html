@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>python+opencv视频入门处理 | meet you</title>
+<title>IO演进之路 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="python+opencv视频入门处理">
+        <h1 id="IO演进之路">
             
-	            python+opencv视频入门处理
+	            IO演进之路
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title='python'>
-                        python
+                    <a href="/tags/java" title='java'>
+                        java
                     </a>
                 
             
@@ -159,72 +159,20 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/10/24</span>
+            <span class="date-meta">2021/07/06</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>986</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h4 id="工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"><a href="#工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。" class="headerlink" title="工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"></a>工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。</h4><hr>
-<p>环境： <code>Python3 opencv 3</code></p>
-<h4 id="入门代码记录"><a href="#入门代码记录" class="headerlink" title="入门代码记录"></a>入门代码记录</h4><pre><code># coding=utf-8
-import os
-import numpy as np
-from PIL import Image, ImageDraw
-import cv2
-import requests
-import json
+        <p>从操作系统实际调用角度（以CentOS Linux release 7.5操作系统为示例），力求追根溯源看IO的每一步操作到底发生了什么。</p>
+<pre><code>关于如何查看系统调用，Linux可以使用 strace 来查看任何软件的系统调动（这是个很好的分析学习方法）：strace -ff -o ./out java TestJava
+</code></pre><h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><h2 id="NIO（non-block）"><a href="#NIO（non-block）" class="headerlink" title="NIO（non block）"></a>NIO（non block）</h2><p>改进：使用NIO API，将阻塞变为非阻塞， 不需要大量线程。</p>
 
-videoCapture = cv2.VideoCapture(0)
-fps = videoCapture.get(cv2.CAP_PROP_FPS)
-size = (int(videoCapture.get(cv2.CAP_PROP_FRAME_WIDTH)),
-        int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-fourcc = cv2.VideoWriter_fourcc(&apos;M&apos;,&apos;J&apos;,&apos;P&apos;,&apos;G&apos;)
-
-while 1:
-    ret, img = videoCapture.read()
-    # frame_resize = cv2.resize(img, (640, 360), interpolation=cv2.INTER_AREA)
-    frame_resize = cv2.resize(img, (size[0], size[1]), interpolation=cv2.INTER_AREA)
-    cv2.imwrite(&quot;&quot;, frame_resize)
-
-    # 鉴别
-    try:
-        #AI 人脸识别接口
-        url = &apos;&apos;
-        data = {}
-
-        new_img = open(&quot;&quot;, &apos;rb&apos;)
-        f = {&quot;image&quot;: new_img}
-        result = requests.post(url, files=f, data=data)
-        requestdata = result.json()
-        fontface = cv2.FONT_HERSHEY_SIMPLEX
-        fontscale = 1
-        fontcolor = (255, 255, 255)
-        #识别后的视频中文字说明
-        #接口中数据处理
-        for per_info in requestdata[&apos;resultInfo&apos;]:
-            if per_info[&apos;score&apos;] &gt; 0.6:
-                cv2.putText(img, &apos;hello world!&apos;, (
-                int(x), int(y)),fontface, fontscale, fontcolor)
-    except Exception as e:
-        pass
-    #人体关键点 同理 画线
-
-    cv2.imshow(&apos;video&apos;, img)
-    key = cv2.waitKey(1)
-    if key == ord(&apos;q&apos;):
-        break
-videoCapture.release()
-cv2.destroyAllWindows()
-</code></pre>
     </div>
 
     <div class="post-footer">
@@ -241,15 +189,15 @@ cv2.destroyAllWindows()
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/10/26/20181026/" class="pre-post btn btn-default" title='20181026'>
+        <a href="/2021/07/06/用Netty写一个高性能的分布式服务框架？/" class="pre-post btn btn-default" title='用Netty写一个高性能的分布式服务框架？'>
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">20181026</span>
+            <span class="hidden-xs">用Netty写一个高性能的分布式服务框架？</span>
         </a>
     
     
-        <a href="/2018/10/22/20181022/" class="next-post btn btn-default" title='20181022'>
+        <a href="/2021/07/05/分库分表就能无限扩容吗/" class="next-post btn btn-default" title='分库分表就能无限扩容吗'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">20181022</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">分库分表就能无限扩容吗</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -262,7 +210,7 @@ cv2.destroyAllWindows()
 
 <script>
     var gitment = new Gitment({
-        id: 'Wed Oct 24 2018 14:46:21 GMT+0800',
+        id: 'Tue Jul 06 2021 14:27:46 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -286,7 +234,7 @@ cv2.destroyAllWindows()
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"><span class="toc-text">工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#入门代码记录"><span class="toc-text">入门代码记录</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BIO"><span class="toc-text">BIO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NIO（non-block）"><span class="toc-text">NIO（non block）</span></a></li></ol>
         
     </div>
 </aside>
