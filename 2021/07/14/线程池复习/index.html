@@ -1,0 +1,519 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>线程池复习 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="线程池复习">
+            
+	            线程池复习
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/java" title='java'>
+                        java
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/07/14</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><h2 id="通过Executors类提供的方法。"><a href="#通过Executors类提供的方法。" class="headerlink" title="通过Executors类提供的方法。"></a>通过Executors类提供的方法。</h2><h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><p>创建一个可缓存的线程池，若线程数超过处理所需，缓存一段时间后会回收，若线程数不够，则新建线程。</p>
+<pre><code>private static void createCachedThreadPool() {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i &lt; 10; i++) {
+            final int index = i;
+            executorService.execute(() -&gt; {
+                // 获取线程名称,默认格式:pool-1-thread-1
+                System.out.println(DateUtil.now() + &quot; &quot; + Thread.currentThread().getName() + &quot; &quot; + index);
+                // 等待2秒
+                sleep(2000);
+            });
+        }
+    }
+</code></pre><h3 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h3><p>创建一个固定大小的线程池，可控制并发的线程数，超出的线程会在队列中等待。</p>
+<pre><code>private static void createFixedThreadPool() {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        for (int i = 0; i &lt; 10; i++) {
+            final int index = i;
+            executorService.execute(() -&gt; {
+                // 获取线程名称,默认格式:pool-1-thread-1
+                System.out.println(DateUtil.now() + &quot; &quot; + Thread.currentThread().getName() + &quot; &quot; + index);
+                // 等待2秒
+                sleep(2000);
+            });
+        }
+    }
+</code></pre><h3 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h3><p>创建一个周期性的线程池，支持定时及周期性执行任务。</p>
+<pre><code>private static void createScheduledThreadPool() {
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
+        System.out.println(DateUtil.now() + &quot; 提交任务&quot;);
+        for (int i = 0; i &lt; 10; i++) {
+            final int index = i;
+            executorService.schedule(() -&gt; {
+                // 获取线程名称,默认格式:pool-1-thread-1
+                System.out.println(DateUtil.now() + &quot; &quot; + Thread.currentThread().getName() + &quot; &quot; + index);
+                // 等待2秒
+                sleep(2000);
+            }, 3, TimeUnit.SECONDS);
+        }
+    }
+</code></pre><p>设置了延迟3秒，所以提交后3秒才开始执行任务。因为这里设置核心线程数为3个，而线程不足会进入队列等待线程空闲，所以日志间隔2秒输出。</p>
+<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h3><p>创建一个单线程的线程池，可保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+<pre><code>private static void createSingleThreadPool() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        for (int i = 0; i &lt; 10; i++) {
+            final int index = i;
+            executorService.execute(() -&gt; {
+                // 获取线程名称,默认格式:pool-1-thread-1
+                System.out.println(DateUtil.now() + &quot; &quot; + Thread.currentThread().getName() + &quot; &quot; + index);
+                // 等待2秒
+                sleep(2000);
+            });
+        }
+    }
+</code></pre><h2 id="通过ThreadPoolExecutor类自定义。"><a href="#通过ThreadPoolExecutor类自定义。" class="headerlink" title="通过ThreadPoolExecutor类自定义。"></a>通过ThreadPoolExecutor类自定义。</h2><p>ThreadPoolExecutor类提供了4种构造方法，可根据需要来自定义一个线程池。</p>
+<pre><code>public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue&lt;Runnable&gt; workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) {
+        // 省略...
+    }
+</code></pre><h3 id="7个参数如下："><a href="#7个参数如下：" class="headerlink" title="7个参数如下："></a>7个参数如下：</h3><ul>
+<li><p>corePoolSize：核心线程数，线程池中始终存活的线程数。</p>
+</li>
+<li><p>maximumPoolSize: 最大线程数，线程池中允许的最大线程数。</p>
+</li>
+<li><p>keepAliveTime: 存活时间，线程没有任务执行时最多保持多久时间会终止。</p>
+</li>
+<li><p>unit: 单位，参数keepAliveTime的时间单位，7种可选。（TimeUnit.DAYS/天;TimeUnit.HOURS/小时;TimeUnit.MINUTES/分;TimeUnit.SECONDS/秒;TimeUnit.MILLISECONDS/毫秒;TimeUnit.MICROSECONDS/微妙;TimeUnit.NANOSECONDS/纳秒）</p>
+</li>
+<li><p>workQueue: 一个阻塞队列，用来存储等待执行的任务，均为线程安全，7种可选。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArrayBlockingQueue</td>
+<td>一个由数组结构组成的有界阻塞队列。</td>
+</tr>
+<tr>
+<td>LinkedBlockingQueue</td>
+<td>一个由链表结构组成的有界阻塞队列。</td>
+</tr>
+<tr>
+<td>SynchronousQueue</td>
+<td>一个不存储元素的阻塞队列，即直接提交给线程不保持它们。</td>
+</tr>
+<tr>
+<td>PriorityBlockingQueue</td>
+<td>一个支持优先级排序的无界阻塞队列。</td>
+</tr>
+<tr>
+<td>DelayQueue</td>
+<td>一个使用优先级队列实现的无界阻塞队列，只有在延迟期满时才能从中提取元素。</td>
+</tr>
+<tr>
+<td>LinkedTransferQueue</td>
+<td>一个由链表结构组成的无界阻塞队列。与SynchronousQueue类似，还含有非阻塞方法。</td>
+</tr>
+<tr>
+<td>LinkedBlockingDeque</td>
+<td>一个由链表结构组成的双向阻塞队列。</td>
+</tr>
+</tbody>
+</table>
+<p>较常用的是LinkedBlockingQueue和Synchronous。线程池的排队策略与BlockingQueue有关。</p>
+<ul>
+<li><p>threadFactory: 线程工厂，主要用来创建线程，默及正常优先级、非守护线程。</p>
+</li>
+<li><p>handler：拒绝策略，拒绝处理任务时的策略，4种可选，默认为AbortPolicy。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AbortPolicy</td>
+<td>拒绝并抛出异常。</td>
+</tr>
+<tr>
+<td>CallerRunsPolicy</td>
+<td>重试提交当前的任务，即再次调用运行该任务的execute()方法。</td>
+</tr>
+<tr>
+<td>DiscardOldestPolicy</td>
+<td>抛弃队列头部（最旧）的一个任务，并执行当前任务。</td>
+</tr>
+<tr>
+<td>DiscardPolicy</td>
+<td>抛弃当前任务。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>任务队列的策略</p>
+<ul>
+<li><p>直接提交。工作队列的默认选项是 SynchronousQueue，它将任务直接提交给线程而不保持它们。在此，如果不存在可用于立即运行任务的线程，则试图把任务加入队列将失败，因此会构造一个新的线程。此策略可以避免在处理可能具有内部依赖性的请求集时出现锁。直接提交通常要求无界 maximumPoolSizes 以避免拒绝新提交的任务。当命令以超过队列所能处理的平均数连续到达时，此策略允许无界线程具有增长的可能性。</p>
+</li>
+<li><p>无界队列。使用无界队列（例如，不具有预定义容量的 LinkedBlockingQueue）将导致在所有 corePoolSize 线程都忙时新任务在队列中等待。这样，创建的线程就不会超过 corePoolSize。（因此，maximumPoolSize 的值也就无效了。）当每个任务完全独立于其他任务，即任务执行互不影响时，适合于使用无界队列；例如，在 Web 页服务器中。这种排队可用于处理瞬态突发请求，当命令以超过队列所能处理的平均数连续到达时，此策略允许无界线程具有增长的可能性。</p>
+</li>
+<li><p>有界队列。当使用有限的 maximumPoolSizes 时，有界队列（如 ArrayBlockingQueue）有助于防止资源耗尽，但是可能较难调整和控制。队列大小和最大池大小可能需要相互折衷：使用大型队列和小型池可以最大限度地降低 CPU 使用率、操作系统资源和上下文切换开销，但是可能导致人工降低吞吐量。如果任务频繁阻塞（例如，如果它们是 I/O 边界），则系统可能为超过您许可的更多线程安排时间。使用小型队列通常要求较大的池大小，CPU 使用率较高，但是可能遇到不可接受的调度开销，这样也会降低吞吐量。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><ul>
+<li><p>当线程数小于核心线程数时，创建线程。</p>
+</li>
+<li><p>当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。</p>
+</li>
+<li><p>当线程数大于等于核心线程数，且任务队列已满：</p>
+<ul>
+<li><p>若线程数小于最大线程数，创建线程。</p>
+</li>
+<li><p>若线程数等于最大线程数，抛出异常，拒绝任务。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="优略比较"><a href="#优略比较" class="headerlink" title="优略比较"></a>优略比较</h2><p>说是5种方式的比较，其实就是2种方式的比较，为什么这么说？因为Executors类提供的4种方式，其底层其实都是通过ThreadPoolExecutor类来实现的。换句话说，就是Executors类工厂通过参数的组合，组装出了上面提到的4种类型线程池供不同场景使用。我们可以通过查看Executors类的源码来看看：</p>
+<ul>
+<li><p>newCachedThreadPool</p>
+<p>  public static ExecutorService newCachedThreadPool() {</p>
+<pre><code>    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                  60L, TimeUnit.SECONDS,
+                                  new SynchronousQueue&lt;Runnable&gt;());
+} 
+</code></pre></li>
+</ul>
+<p>因为SynchronousQueue队列不保持它们，直接提交给线程，相当于队列大小为0，而最大线程数为Integer.MAX_VALUE，所以线程不足时，会一直创建新线程，等到线程空闲时，又有60秒存活时间，从而实现了一个可缓存的线程池。</p>
+<ul>
+<li><p>newFixedThreadPool</p>
+<p>  public static ExecutorService newFixedThreadPool(int nThreads) {</p>
+<pre><code>return new ThreadPoolExecutor(nThreads, nThreads,
+                              0L, TimeUnit.MILLISECONDS,
+                              new LinkedBlockingQueue&lt;Runnable&gt;());
+</code></pre><p>   }</p>
+</li>
+</ul>
+<p>因为核心线程数与最大线程数相同，所以线程池的线程数是固定的，而且没有限制队列的大小，所以多余的任务均会被放到队列排队，从而实现一个固定大小，可控制并发数量的线程池。</p>
+<ul>
+<li><p>newScheduledThreadPool</p>
+<p>  public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {</p>
+<pre><code>    return new ScheduledThreadPoolExecutor(corePoolSize);
+}
+
+public ScheduledThreadPoolExecutor(int corePoolSize) {
+    super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
+          new DelayedWorkQueue());
+}
+</code></pre></li>
+</ul>
+<p>　　因为使用了延迟队列，只有在延迟期满时才能从中提取到元素，从而实现定时执行的线程池。而周期性执行是配合上层封装的其他类来实现的，可以看ScheduledExecutorService类的scheduleAtFixedRate方法。</p>
+<ul>
+<li><p>newSingleThreadExecutor</p>
+<p>  public static ExecutorService newSingleThreadExecutor() {</p>
+<pre><code>    return new FinalizableDelegatedExecutorService
+        (new ThreadPoolExecutor(1, 1,
+                                0L, TimeUnit.MILLISECONDS,
+                                new LinkedBlockingQueue&lt;Runnable&gt;()));
+}
+</code></pre></li>
+</ul>
+<p>因为核心线程数与最大线程数相同，均为1，所以线程池的线程数是固定的1个，而且没有限制队列的大小，所以多余的任务均会被放到队列排队，从而实现一个单线程按指定顺序执行的线程池。</p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><p>虽然看上去Executors类的封装，可以简化我们的使用，但事实上，阿里代码规范《阿里巴巴Java开发手册》中明确不建议使用Executors类提供的这4种方法：</p>
+<pre><code>【强制】线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。
+
+Executors返回的线程池对象的弊端如下:
+
+FixedThreadPool和SingleThreadPool：允许的请求队列长度为Integer.MAX_VALUE，可能会堆积大量的请求，从而导致OOM。
+
+CachedThreadPool和ScheduledThreadPool：允许的创建线程数量为Integer.MAX_VALUE，可能会创建大量的线程，从而导致OOM。
+</code></pre><p>应该使用ThreadPoolExecutor类来创建线程池，根据自己需要的场景来创建一个合适的线程池。</p>
+<h2 id="线程池的三种队列区别"><a href="#线程池的三种队列区别" class="headerlink" title="线程池的三种队列区别"></a>线程池的三种队列区别</h2><h3 id="SynchronousQueue"><a href="#SynchronousQueue" class="headerlink" title="SynchronousQueue"></a>SynchronousQueue</h3><pre><code>private static ExecutorService cachedThreadPool = new ThreadPoolExecutor(4, Runtime.getRuntime().availableProcessors() * 2, 0, TimeUnit.MILLISECONDS, new SynchronousQueue&lt;&gt;(), r -&gt; new Thread(r, &quot;ThreadTest&quot;));
+</code></pre><ul>
+<li><p>SynchronousQueue没有容量，是无缓冲等待队列，是一个不存储元素的阻塞队列，会直接将任务交给消费者，必须等队列中的添加元素被消费后才能继续添加新的元素。</p>
+</li>
+<li><p>拥有公平（FIFO）和非公平(LIFO)策略，非公平侧罗会导致一些数据永远无法被消费的情况？</p>
+</li>
+<li><p>使用SynchronousQueue阻塞队列一般要求maximumPoolSizes为无界(Integer.MAX_VALUE)，避免线程拒绝执行操作。</p>
+</li>
+</ul>
+<h3 id="LinkedBlockingQueue"><a href="#LinkedBlockingQueue" class="headerlink" title="LinkedBlockingQueue"></a>LinkedBlockingQueue</h3><pre><code>private static ExecutorService cachedThreadPool = new ThreadPoolExecutor(4, Runtime.getRuntime().availableProcessors() * 2, 0, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;&gt;(), r -&gt; new Thread(r, &quot;ThreadTest&quot;));
+</code></pre><p>LinkedBlockingQueue是一个无界缓存等待队列。</p>
+<p>当前执行的线程数量达到corePoolSize的数量时，剩余的元素会在阻塞队列里等待。（所以在使用此阻塞队列时maximumPoolSizes就相当于无效了），每个线程完全独立于其他线程。</p>
+<p>生产者和消费者使用独立的锁来控制数据的同步，即在高并发的情况下可以并行操作队列中的数据。</p>
+<p>注：这个队列需要注意的是，虽然通常称其为一个无界队列，但是可以人为指定队列大小，而且由于其用于记录队列大小的参数是int类型字段，所以通常意义上的无界其实就是队列长度为 Integer.MAX_VALUE，且在不指定队列大小的情况下也会默认队列大小为 Integer.MAX_VALUE，等同于如下：</p>
+<pre><code>private static ExecutorService cachedThreadPool = new ThreadPoolExecutor(4, Runtime.getRuntime().availableProcessors() * 2, 0, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;&gt;(Integer.MAX_VALUE), r -&gt; new Thread(r, &quot;ThreadTest&quot;));
+</code></pre><h3 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h3><pre><code>private static ExecutorService cachedThreadPool = new ThreadPoolExecutor(4, Runtime.getRuntime().availableProcessors() * 2, 0, TimeUnit.MILLISECONDS, new ArrayBlockingQueue&lt;&gt;(32), r -&gt; new Thread(r, &quot;ThreadTest&quot;));
+</code></pre><p>ArrayBlockingQueue是一个有界缓存等待队列，可以指定缓存队列的大小，当正在执行的线程数等于corePoolSize时，多余的元素缓存在ArrayBlockingQueue队列中等待有空闲的线程时继续执行，当ArrayBlockingQueue已满时，加入ArrayBlockingQueue失败，会开启新的线程去执行，当线程数已经达到最大的maximumPoolSizes时，再有新的元素尝试加入ArrayBlockingQueue时会执行拒绝策略。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/07/07/redis实现队列，延时队列/" class="next-post btn btn-default" title='redis实现队列，延时队列'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">redis实现队列，延时队列</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Wed Jul 14 2021 17:08:18 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建"><span class="toc-text">创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过Executors类提供的方法。"><span class="toc-text">通过Executors类提供的方法。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#newCachedThreadPool"><span class="toc-text">newCachedThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newFixedThreadPool"><span class="toc-text">newFixedThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newScheduledThreadPool"><span class="toc-text">newScheduledThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newSingleThreadExecutor"><span class="toc-text">newSingleThreadExecutor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过ThreadPoolExecutor类自定义。"><span class="toc-text">通过ThreadPoolExecutor类自定义。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7个参数如下："><span class="toc-text">7个参数如下：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行顺序"><span class="toc-text">执行顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优略比较"><span class="toc-text">优略比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建议"><span class="toc-text">建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程池的三种队列区别"><span class="toc-text">线程池的三种队列区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SynchronousQueue"><span class="toc-text">SynchronousQueue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LinkedBlockingQueue"><span class="toc-text">LinkedBlockingQueue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ArrayBlockingQueue"><span class="toc-text">ArrayBlockingQueue</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
