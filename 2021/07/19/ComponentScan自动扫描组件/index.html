@@ -251,6 +251,28 @@ useDefaultFilters = false)
 <li>metadata.hasAnnotation(this.annotationType.getName())，这是判断类上是否含有给定的注解，</li>
 <li>metadata.hasMetaAnnotation(this.annotationType.getName())，这是判断底层class是否含有给定的注解，而@StringRepository的底层确实包含了@Component，所以这里方法返回true。</li>
 </ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>AnnotationTypeFilter#match -&gt; matchSelf</p>
+<pre><code>protected boolean matchSelf(MetadataReader metadataReader) {
+    AnnotationMetadata metadata = metadataReader.getAnnotationMetadata();    // #1
+    return metadata.hasAnnotation(this.annotationType.getName()) ||    // #2
+            (this.considerMetaAnnotations &amp;&amp; metadata.hasMetaAnnotation(this.annotationType.getName()));    // #3
+}
+</code></pre><ul>
+<li>获取Class的注解元数据</li>
+<li>检查Class上是否有对应的annotationType</li>
+<li>检查Class的嵌套注解是否有对应的annotationType</li>
+</ul>
+<p>@Service，@Repository，@Controller注解上都标注了@Component注解，如果Class上使用了这些注解，3步骤是返回true的</p>
+<p>简单来说，Spring扫描对应目录下的class，生成BeanDefinition并注册到Spring上下文。最后构造bean的操作，是在AbstractApplicationContext#refresh方法中，调用finishBeanFactoryInitialization，构建热加载的单例bean时完成。</p>
+<h3 id="ComponentScan-常用的属性"><a href="#ComponentScan-常用的属性" class="headerlink" title="ComponentScan 常用的属性"></a>ComponentScan 常用的属性</h3><ul>
+<li>String[] value() default{}; // 指定包扫描路径</li>
+<li>Class&lt;?&gt;[] basePackagesClasses() default{}; // 扫描具体的类，可以支持同时指定多个类。</li>
+<li>boolean useDefaultFilters() default true; // 是否对含以下类开启检测，默认是开启的 @Component @Repository @Service @controller</li>
+<li>指定某些 Filter 扫描的类， 可以自定义</li>
+<li>排查过滤器扫描的类。</li>
+</ul>
+<p>@Component 使用此注解会被Spring加载到IOC容器中，@ComponentScan 扫描带 @Component 注解；注解的派生性 @Service</p>
+<p>详情可以看 ： <a href="https://segmentfault.com/a/1190000022710818?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022710818?utm_source=tag-newest</a></p>
 
     </div>
 
@@ -308,7 +330,7 @@ useDefaultFilters = false)
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ComponentScan"><span class="toc-text">ComponentScan</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么-Service-注解的类也被注册了呢？"><span class="toc-text">为什么 @Service 注解的类也被注册了呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加多种扫描规则"><span class="toc-text">添加多种扫描规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加自定义过滤规则"><span class="toc-text">添加自定义过滤规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索源码"><span class="toc-text">探索源码</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ComponentScan"><span class="toc-text">ComponentScan</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么-Service-注解的类也被注册了呢？"><span class="toc-text">为什么 @Service 注解的类也被注册了呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加多种扫描规则"><span class="toc-text">添加多种扫描规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加自定义过滤规则"><span class="toc-text">添加自定义过滤规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索源码"><span class="toc-text">探索源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ComponentScan-常用的属性"><span class="toc-text">ComponentScan 常用的属性</span></a></li></ol></li></ol>
         
     </div>
 </aside>
