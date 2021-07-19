@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Linux命令调用世界地图 | meet you</title>
+<title>ComponentScan自动扫描组件 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Linux命令调用世界地图">
+        <h1 id="ComponentScan自动扫描组件">
             
-	            Linux命令调用世界地图
+	            ComponentScan自动扫描组件
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/linux" title='linux'>
-                        linux
+                    <a href="/tags/java" title='java'>
+                        java
                     </a>
                 
             
@@ -159,21 +159,98 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/09/09</span>
+            <span class="date-meta">2021/07/19</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>1044</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h4 id="使用命令：-telnet-mapscii-me"><a href="#使用命令：-telnet-mapscii-me" class="headerlink" title="使用命令：  telnet mapscii.me"></a>使用命令：  <code>telnet mapscii.me</code></h4><p><img src="http://pe4icgsd5.bkt.clouddn.com/world.png" alt="世界地图"></p>
+        <h2 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="ComponentScan"></a>ComponentScan</h2><p>创建一个配置类，在配置类上添加 @ComponentScan 注解。该注解默认会扫描该类所在的包下所有的配置类，相当于之前的 <code>&lt;context:component-scan&gt;</code></p>
+<pre><code>import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan
+public class BeanConfig {
+
+}
+</code></pre><p>使用 ApplicationContext 的 getBeanDefinitionNames() 方法获取已经注册到容器中的 bean 的名称。</p>
+<h3 id="为什么-Service-注解的类也被注册了呢？"><a href="#为什么-Service-注解的类也被注册了呢？" class="headerlink" title="为什么 @Service 注解的类也被注册了呢？"></a>为什么 @Service 注解的类也被注册了呢？</h3><p>@ComponentScan 的一个 useDefaultFilters 属性的用法，该属性默认值为 true。</p>
+<p>spring 默认会自动发现被 @Component、@Repository、@Service 和 @Controller 标注的类，并注册进容器中。要达到只包含某些包的扫描效果，就必须将这个默认行为给禁用掉（在 @ComponentScan 中将 useDefaultFilters 设为 false 即可）。</p>
+<h3 id="添加多种扫描规则"><a href="#添加多种扫描规则" class="headerlink" title="添加多种扫描规则"></a>添加多种扫描规则</h3><ul>
+<li><p>如果使用的 jdk8，则可以直接添加多个 @ComponentScan 来添加多个扫描规则，但是在配置类中要加上 @Configuration 注解，否则无效。</p>
+<p>  package io.mieux.config;</p>
+<p>  import org.springframework.context.annotation.ComponentScan;<br>  import org.springframework.context.annotation.Configuration;</p>
+<p>  @ComponentScan(value = “io.mieux.controller”)<br>  @ComponentScan(value = “io.mieux.service”)<br>  @Configuration<br>  public class BeanConfig {</p>
+<p>  }</p>
+</li>
+<li><p>可以使用 @ComponentScans 来添加多个 @ComponentScan，从而实现添加多个扫描规则。同样，也需要加上 @Configuration 注解，否则无效。</p>
+<p>  package io.mieux.config;</p>
+<p>  import org.springframework.context.annotation.ComponentScan;<br>  import org.springframework.context.annotation.ComponentScans;<br>  import org.springframework.context.annotation.Configuration;</p>
+<p>  @ComponentScans(value = </p>
+<pre><code>{@ComponentScan(value = &quot;io.mieux.controller&quot;),
+@ComponentScan(value = &quot;io.mieux.service&quot;)})
+</code></pre><p>  @Configuration<br>  public class BeanConfig {</p>
+<p>  }</p>
+</li>
+</ul>
+<h3 id="添加自定义过滤规则"><a href="#添加自定义过滤规则" class="headerlink" title="添加自定义过滤规则"></a>添加自定义过滤规则</h3><p>在前面使用过 @Filter 注解，里面的 type 属性是一个 FilterType 的枚举类型：</p>
+<pre><code>public enum FilterType {
+
+    ANNOTATION,
+    ASSIGNABLE_TYPE,
+    ASPECTJ,
+    REGEX,
+    CUSTOM
+
+}
+</code></pre><p>使用 CUSTOM 类型，就可以实现自定义过滤规则</p>
+<ul>
+<li><p>首先创建一个实现 TypeFilter 接口的 CustomTypeFilter 类，并实现其 match 方法。</p>
+<p>  package io.mieux.config;</p>
+<p>  import org.springframework.core.io.Resource;<br>  import org.springframework.core.type.AnnotationMetadata;<br>  import org.springframework.core.type.ClassMetadata;<br>  import org.springframework.core.type.classreading.MetadataReader;<br>  import org.springframework.core.type.classreading.MetadataReaderFactory;<br>  import org.springframework.core.type.filter.TypeFilter;</p>
+<p>  import java.io.IOException;</p>
+<p>  public class CustomTypeFilter implements TypeFilter {</p>
+<pre><code>@Override
+public boolean match(MetadataReader metadataReader,
+                     MetadataReaderFactory metadataReaderFactory) throws IOException {
+
+    // 获取当前扫描到的类的注解元数据
+    AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
+    // 获取当前扫描到的类的元数据
+    ClassMetadata classMetadata = metadataReader.getClassMetadata();
+    // 获取当前扫描到的类的资源信息
+    Resource resource = metadataReader.getResource();
+
+    if (classMetadata.getClassName().contains(&quot;Co&quot;)) {
+        return true;
+    }
+
+    return false;
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p>这里简单对扫描到的类名进行判断，如果类名包含”Co“的就符合条件，也就会注入到容器中。</p>
+<ul>
+<li><p>对 BeanConfig 进行修改，指定过滤类型为 Custom 类型，并指定 value 为 CustomTypeFilter.class。</p>
+<p>  package io.mieux.config;</p>
+<p>  import org.springframework.context.annotation.ComponentScan;<br>  import org.springframework.context.annotation.FilterType;</p>
+<p>  @ComponentScan(value = “io.mieux”,</p>
+<pre><code>includeFilters = {@ComponentScan.Filter(type = FilterType.CUSTOM, value = {CustomTypeFilter.class})},
+useDefaultFilters = false)
+</code></pre><p>  public class BeanConfig {<br>  }</p>
+</li>
+</ul>
+<h2 id="探索源码"><a href="#探索源码" class="headerlink" title="探索源码"></a>探索源码</h2><p>只要注解里面含有@Component，就会被Spring扫描，并注册。为什么会这么呢？</p>
+<p>实现的match()方法返回true。从方法名猜测只要类中包含注解@Component或者@ManageBean就会匹配成功。下面继续深入源码分析。</p>
+<p>只有两个方法：</p>
+<ul>
+<li>metadata.hasAnnotation(this.annotationType.getName())，这是判断类上是否含有给定的注解，</li>
+<li>metadata.hasMetaAnnotation(this.annotationType.getName())，这是判断底层class是否含有给定的注解，而@StringRepository的底层确实包含了@Component，所以这里方法返回true。</li>
+</ul>
 
     </div>
 
@@ -191,15 +268,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/10/21/Kubernetes/" class="pre-post btn btn-default" title='Kubernetes'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Kubernetes</span>
-        </a>
     
-    
-        <a href="/2018/09/04/5年后会怎样/" class="next-post btn btn-default" title='5年后会怎样'>
+        <a href="/2021/07/19/MySQL索引背后的数据结构及算法原理/" class="next-post btn btn-default" title='MySQL索引背后的数据结构及算法原理-转'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">5年后会怎样</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">MySQL索引背后的数据结构及算法原理-转</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -212,7 +284,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Sun Sep 09 2018 20:52:09 GMT+0800',
+        id: 'Mon Jul 19 2021 20:21:21 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -236,7 +308,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用命令：-telnet-mapscii-me"><span class="toc-text">使用命令：  telnet mapscii.me</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ComponentScan"><span class="toc-text">ComponentScan</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么-Service-注解的类也被注册了呢？"><span class="toc-text">为什么 @Service 注解的类也被注册了呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加多种扫描规则"><span class="toc-text">添加多种扫描规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加自定义过滤规则"><span class="toc-text">添加自定义过滤规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索源码"><span class="toc-text">探索源码</span></a></li></ol>
         
     </div>
 </aside>
