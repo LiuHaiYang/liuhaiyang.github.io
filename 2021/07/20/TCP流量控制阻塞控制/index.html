@@ -169,7 +169,12 @@
     </div>
     
     <div class="post-body post-content">
-        <h2 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h2><h2 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h2><p>在某段时间，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变坏，这种情况就叫做网络拥塞。</p>
+        <h2 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h2><h3 id="什么是流量控制？"><a href="#什么是流量控制？" class="headerlink" title="什么是流量控制？"></a>什么是流量控制？</h3><p>如果发送者发送数据过快，接收者来不及接收，那么就会有分组丢失。为了避免分组丢失，控制发送者的发送速度，使得接收者来得及接收，这就是流量控制。</p>
+<h3 id="流量控制的目的？"><a href="#流量控制的目的？" class="headerlink" title="流量控制的目的？"></a>流量控制的目的？</h3><p>流量控制根本目的是防止分组丢失，它是构成TCP可靠性的一方面。</p>
+<h3 id="如何实现流量控制？"><a href="#如何实现流量控制？" class="headerlink" title="如何实现流量控制？"></a>如何实现流量控制？</h3><p>由滑动窗口协议（连续ARQ协议）实现。滑动窗口协议既保证了分组无差错、有序接收，也实现了流量控制。主要的方式就是接收方返回的 ACK 中会包含自己的接收窗口的大小，并且利用大小来控制发送方的数据发送。</p>
+<h3 id="流量控制引发的死锁？怎么避免死锁的发生？"><a href="#流量控制引发的死锁？怎么避免死锁的发生？" class="headerlink" title="流量控制引发的死锁？怎么避免死锁的发生？"></a>流量控制引发的死锁？怎么避免死锁的发生？</h3><p>当发送者收到了一个窗口为0的应答，发送者便停止发送，等待接收者的下一个应答。但是如果这个窗口不为0的应答在传输过程丢失，发送者一直等待下去，而接收者以为发送者已经收到该应答，等待接收新数据，这样双方就相互等待，从而产生死锁。</p>
+<p>为了避免流量控制引发的死锁，TCP使用了持续计时器。每当发送者收到一个零窗口的应答后就启动该计时器。时间一到便主动发送报文询问接收者的窗口大小。若接收者仍然返回零窗口，则重置该计时器继续等待；若窗口不为0，则表示应答报文丢失了，此时重置发送窗口后开始发送，这样就避免了死锁的产生。</p>
+<h2 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h2><p>在某段时间，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变坏，这种情况就叫做网络拥塞。</p>
 <p>在计算机网络中数位链路容量（即带宽）、交换结点中的缓存和处理机等，都是网络的资源。</p>
 <p>若出现拥塞而不进行控制，整个网络的吞吐量将随输入负荷的增大而下降。</p>
 <p><img src="https://res-static.hc-cdn.cn/fms/img/aaa58c465f11043fb7f34e91b0c841061603441882874.png" alt="image"></p>
@@ -200,6 +205,8 @@
 <p>假设该报文丢失，发送方便不会发送针对该报文的确认报文给发送方，发送方还可以将发送窗口内的4号数据报文段发送出去，接收方收到后，发现这不是按序到达的报文段，因此给发送方发送针对2号报文段的重复确认，表明我现在希望收到的是3号报文段，但是我没有收到3号报文段，而收到了未按序到达的报文段，发送方还可以将发送窗口中的5号报文段发送出去,接收方收到后，发现这不是按序到达的报文段，因此给发送方发送针对2号报文段的重复确认，表明我现在希望收到的是3号报文段，但是我没有收到3号报文段，而收到了未按序到达的报文段,，发送方还可以将发送窗口内的最后一个数据段即6号数据报文段发送出去，接收方收到后，发现这不是按序到达的报文段，因此给发送方发送针对2号报文段的重复确认，表明我现在希望收到的是3号报文段，但是我没有收到3号报文段，而收到了未按序到达的报文段，</p>
 <p>此时，发送方收到了累计3个连续的针对2号报文段的重复确认，立即重传3号报文段，接收方收到后，给发送方发回针对6号报文的确认，表明，序号到6为至的报文都收到了，这样就不会造成发送方对3号报文的超时重传，而是提早收到了重传。</p>
 <p><img src="https://res-static.hc-cdn.cn/fms/img/6f3f8b7ce12edccb505959bf272228641603441882876.png" alt="image"><br><img src="https://res-static.hc-cdn.cn/fms/img/e25a4a79b538197e69c7356766d688861603441882876.png" alt="image"><br><img src="https://res-static.hc-cdn.cn/fms/img/a7741d3223791e04828b06cf566a6bf71603441882876.png" alt="image"></p>
+<h2 id="拥塞控制和流量控制的区别"><a href="#拥塞控制和流量控制的区别" class="headerlink" title="拥塞控制和流量控制的区别"></a>拥塞控制和流量控制的区别</h2><p>拥塞控制：拥塞控制是作用于网络的，它是防止过多的数据注入到网络中，避免出现网络负载过大的情况；常用的方法就是：（ 1 ）慢开始、拥塞避免（ 2 ）快重传、快恢复。</p>
+<p>流量控制：流量控制是作用于接收者的，它是控制发送者的发送速度从而使接收者来得及接收，防止分组丢失的。</p>
 
     </div>
 
@@ -257,7 +264,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP流量控制"><span class="toc-text">TCP流量控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP拥塞控制"><span class="toc-text">TCP拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-的四种拥塞控制算法"><span class="toc-text">TCP 的四种拥塞控制算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例如下："><span class="toc-text">示例如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#慢开始"><span class="toc-text">慢开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拥塞避免"><span class="toc-text">拥塞避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速重传"><span class="toc-text">快速重传</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP流量控制"><span class="toc-text">TCP流量控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是流量控制？"><span class="toc-text">什么是流量控制？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流量控制的目的？"><span class="toc-text">流量控制的目的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何实现流量控制？"><span class="toc-text">如何实现流量控制？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流量控制引发的死锁？怎么避免死锁的发生？"><span class="toc-text">流量控制引发的死锁？怎么避免死锁的发生？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP拥塞控制"><span class="toc-text">TCP拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-的四种拥塞控制算法"><span class="toc-text">TCP 的四种拥塞控制算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例如下："><span class="toc-text">示例如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#慢开始"><span class="toc-text">慢开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拥塞避免"><span class="toc-text">拥塞避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速重传"><span class="toc-text">快速重传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拥塞控制和流量控制的区别"><span class="toc-text">拥塞控制和流量控制的区别</span></a></li></ol>
         
     </div>
 </aside>
