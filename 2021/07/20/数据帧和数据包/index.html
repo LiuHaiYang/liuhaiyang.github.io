@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>数据帧和数据包 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="数据帧和数据包">
+            
+	            数据帧和数据包
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/网络" title='网络'>
+                        网络
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/07/20</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="数据帧"><a href="#数据帧" class="headerlink" title="数据帧"></a>数据帧</h2><h3 id="什么是数据帧？"><a href="#什么是数据帧？" class="headerlink" title="什么是数据帧？"></a>什么是数据帧？</h3><p>所谓的“数据帧（Data frame）”，就是“数据链路层”的协议数据单元，它包括三部分：帧头、数据部分、帧尾。其中，帧头和帧尾包含一些必要的控制信息，比如同步信息、地址信息、差错控制信息等；数据部分则包含网络层传下来的数据，比如“IP数据包”等等。</p>
+<p>在发送端，数据链路层把网络层传下来的数据封装成“帧”，然后发送到链路上去；在接收端，数据链路层把收到的帧中的数据提取出并交给网络层。不同的数据链路层协议对应着不同的数据帧，所以数据帧有多种，比如“PPP帧、MAC帧”等，其具体格式也不尽相同。</p>
+<h2 id="数据帧的格式（MAC帧的格式为例）"><a href="#数据帧的格式（MAC帧的格式为例）" class="headerlink" title="数据帧的格式（MAC帧的格式为例）"></a>数据帧的格式（MAC帧的格式为例）</h2><p><img src="http://cache.yisu.com/upload/admin/customer_case_img/2019-11-11/1573467925.png" alt="image"></p>
+<h3 id="MAC帧的“帧头”"><a href="#MAC帧的“帧头”" class="headerlink" title="MAC帧的“帧头”"></a>MAC帧的“帧头”</h3><p>包括三个字段。前两个字段分别为6字节长的“目的地址字段”和“源地址字段”，目的地址字段，包含目的MAC地址信息；源地址字段，包含源MAC地址信息。第三个字段为2字节的类型字段，里面包含的信息用来标示上一层使用的是什么协议，以便接收端把收到的MAC帧的数据部分上交给上一层的这个协议。例如：当类型字段的值是0x0800时，就表示上层使用的是IP数据报；若类型字段的值为0x8137，则表示该帧是由Novell IPX 发过来的。</p>
+<h3 id="MAC帧的“数据部分”"><a href="#MAC帧的“数据部分”" class="headerlink" title="MAC帧的“数据部分”"></a>MAC帧的“数据部分”</h3><p>只有一个字段，其长度在46到1500字节之间，包含的信息是网络层下来的数据。</p>
+<h3 id="MAC帧的“帧尾”"><a href="#MAC帧的“帧尾”" class="headerlink" title="MAC帧的“帧尾”"></a>MAC帧的“帧尾”</h3><p>只有一个字段，为4字节长，包含的信息是“帧校验序列FCS”（用于判断所接收到的帧是否发生错误）。</p>
+<h2 id="数据包"><a href="#数据包" class="headerlink" title="数据包"></a>数据包</h2><h3 id="什么是数据包？"><a href="#什么是数据包？" class="headerlink" title="什么是数据包？"></a>什么是数据包？</h3><p>包(Packet)是TCP/IP协议通信传输中的数据单位，一般也称“数据包”。</p>
+<p>IP协议是工作在OSI参考模型的第三层(网络层)，而TCP协议则是工作在OSI参考模型的第四层(传输层)上。</p>
+<p>数据帧，工作在OSI参考模型的第二层(数据链路层)。上一层的数据内容由下一层来传输，所以在局域网中，“包”是包含在“帧”里的。</p>
+<p>在网络通信中，单个消息被划分为多个数据块，这些数据块称为“包”，它包含发送者和接收者的地址信息。这些包然后沿着不同的路径，在一个或多个网络中传输，并且在目的地重新组合。</p>
+<h3 id="数据包的格式"><a href="#数据包的格式" class="headerlink" title="数据包的格式"></a>数据包的格式</h3><p>数据包主要由“目的IP地址”、“源IP地址”、“净载数据”等部分构成，包括“包头”和“包体”。包头是固定长度，包体的长度不定，各字段长度固定，双方的“请求数据包”和“应答数据包”的包头结构是一致的，不同的是包体的定义。</p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>OSI参考模型的各层传输的数据和控制信息具有多种格式，常用的信息格式包括帧、数据包、数据报、段、消息、元素和数据单元。</p>
+<p>信息交换发生在对等OSI层之间，在源端机中每一层把控制信息附加到数据中，而目的机器的每一层则对接收到的信息进行分析，并从数据中移去控制信息，下面是各信息单元的说明：</p>
+<ul>
+<li>数据帧（Frame）：是一种信息单位，它的起始点和目的点都是数据链路层。</li>
+<li>数据包（Packet）：也是一种信息单位，它的起始和目的地是网络层。</li>
+<li>数据报（Datagram）：通常是指起始点和目的地都使用无连接网络服务的的网络层的信息单元。</li>
+<li>段（Segment）：通常是指起始点和目的地都是传输层的信息单元。</li>
+<li>消息（message）：是指起始点和目的地都在网络层以上（经常在应用层）的信息单元。</li>
+<li>元素（cell）是一种固定长度的信息，它的起始点和目的地都是数据链路层。元素通常用于异步传输模式（ATM）和交换多兆位数据服务（SMDS）网络等交换环境。</li>
+<li>数据单元（data unit）指许多信息单元。常用的数据单元有服务数据单元（SDU）、协议数据单元（PDU）。SDU是在同一机器上的两层之间传送信息。PDU是发送机器上每层的信息发送到接收机器上的相应层（同等层间交流用的）。</li>
+</ul>
+<p>Packet（数据包）封装的基本单元，它穿越网络层和数据链路层的分解面。通常一个Packet映射成一个Frame，但也有例外：即当数据链路层执行拆分或将几个Packet合成一个Frame的时候。</p>
+<h3 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h3><p>OSI模型有7层，1~7层分别是：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。OSI模型在逻辑上可分为两个部分：低层的1~4层关注的是原始数据的传输；高层的5~7层关注的是网络下的应用程序。 我们可以用一个形象一些的例子对数据包的概念加以说明：我们在邮局邮寄产品时，虽然产品本身带有自己的包装盒，但是在邮寄的时候只用产品原包装盒来包装显然是不行的。必须把内装产品的包装盒放到一个邮局指定的专用纸箱里，这样才能够邮寄。这里，产品包装盒相当于数据包，里面放着的产品相当于可用的数据，而专用纸箱就相当于帧，且一个帧中只有一个数据包。</p>
+<h3 id="体系结构上区分他们："><a href="#体系结构上区分他们：" class="headerlink" title="体系结构上区分他们："></a>体系结构上区分他们：</h3><p>一般说来，数据链路层发出的数据包称为frame，地址是链路层的地址，如mac地址；网络层发出的数据包称为packet，地址是网络层地址，如ip地址；传输层发出的数据包称为segment/datagram，地址是传输层地址，如TCP的端口号。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/07/21/OSI七层模型及对应的网络协议/" class="pre-post btn btn-default" title='OSI七层模型及对应的网络协议'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">OSI七层模型及对应的网络协议</span>
+        </a>
+    
+    
+        <a href="/2021/07/20/再过一次TCP协议三次握手四次挥手的详解过程/" class="next-post btn btn-default" title='再过一次TCP协议三次握手四次挥手的详解过程'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">再过一次TCP协议三次握手四次挥手的详解过程</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Tue Jul 20 2021 21:02:24 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据帧"><span class="toc-text">数据帧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是数据帧？"><span class="toc-text">什么是数据帧？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据帧的格式（MAC帧的格式为例）"><span class="toc-text">数据帧的格式（MAC帧的格式为例）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC帧的“帧头”"><span class="toc-text">MAC帧的“帧头”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC帧的“数据部分”"><span class="toc-text">MAC帧的“数据部分”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC帧的“帧尾”"><span class="toc-text">MAC帧的“帧尾”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据包"><span class="toc-text">数据包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是数据包？"><span class="toc-text">什么是数据包？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据包的格式"><span class="toc-text">数据包的格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展"><span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分层"><span class="toc-text">分层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#体系结构上区分他们："><span class="toc-text">体系结构上区分他们：</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>OSI七层模型及对应的网络协议 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="OSI七层模型及对应的网络协议">
+            
+	            OSI七层模型及对应的网络协议
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/网络" title='网络'>
+                        网络
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/07/21</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="OSI-七层模型"><a href="#OSI-七层模型" class="headerlink" title="OSI 七层模型"></a>OSI 七层模型</h3><p>OSI七层协议模型主要是：应用层（Application）、表示层（Presentation）、会话层（Session）、传输层（Transport）、网络层（Network）、数据链路层（Data Link）、物理层（Physical）。</p>
+<h3 id="五层体系结构"><a href="#五层体系结构" class="headerlink" title="五层体系结构"></a>五层体系结构</h3><p>五层体系结构包括：应用层、运输层、网络层、数据链路层和物理层。 </p>
+<p>五层协议只是OSI和TCP/IP的综合，实际应用还是TCP/IP的四层结构。为了方便可以把下两层称为网络接口层。</p>
+<h3 id="三种模型结构"><a href="#三种模型结构" class="headerlink" title="三种模型结构"></a>三种模型结构</h3><p><img src="https://res-static.hc-cdn.cn/fms/img/e7b78e97c2a2fb3540d96ff7769cc6451603799025224" alt="image"></p>
+<p><img src="https://res-static.hc-cdn.cn/fms/img/405c6d447dc8d8c169b2655b7cc124551603799025224" alt="image"></p>
+<h3 id="各层作用"><a href="#各层作用" class="headerlink" title="各层作用"></a>各层作用</h3><h4 id="物理层：比特，主要定义物理设备标准，这一层的数据叫做比特。"><a href="#物理层：比特，主要定义物理设备标准，这一层的数据叫做比特。" class="headerlink" title="物理层：比特，主要定义物理设备标准，这一层的数据叫做比特。"></a>物理层：比特，主要定义物理设备标准，这一层的数据叫做比特。</h4><h4 id="数据链路层：-帧，-定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。"><a href="#数据链路层：-帧，-定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。" class="headerlink" title="数据链路层： 帧， 定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。"></a>数据链路层： 帧， 定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。</h4><h4 id="网络层：-数据包，网络中的两个主机系统之间提供连接和路径选择。"><a href="#网络层：-数据包，网络中的两个主机系统之间提供连接和路径选择。" class="headerlink" title="网络层： 数据包，网络中的两个主机系统之间提供连接和路径选择。"></a>网络层： 数据包，网络中的两个主机系统之间提供连接和路径选择。</h4><h4 id="运输层：-报文段-用户数据报，-定义了一些传输数据的协议和端口号。"><a href="#运输层：-报文段-用户数据报，-定义了一些传输数据的协议和端口号。" class="headerlink" title="运输层： 报文段/用户数据报， 定义了一些传输数据的协议和端口号。"></a>运输层： 报文段/用户数据报， 定义了一些传输数据的协议和端口号。</h4><pre><code>- TCP（transmission control protocol –传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据） 
+- UDP（user datagram protocol–用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）。 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组。常常把这一层数据叫做段。 
+</code></pre><h4 id="会话层，通过运输层（端口号：传输端口与接收端口）建立数据传输的通路。"><a href="#会话层，通过运输层（端口号：传输端口与接收端口）建立数据传输的通路。" class="headerlink" title="会话层，通过运输层（端口号：传输端口与接收端口）建立数据传输的通路。"></a>会话层，通过运输层（端口号：传输端口与接收端口）建立数据传输的通路。</h4><h4 id="表示层：-可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。"><a href="#表示层：-可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。" class="headerlink" title="表示层： 可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。"></a>表示层： 可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。</h4><h4 id="应用层：-报文"><a href="#应用层：-报文" class="headerlink" title="应用层： 报文"></a>应用层： 报文</h4>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/07/20/数据帧和数据包/" class="next-post btn btn-default" title='数据帧和数据包'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">数据帧和数据包</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Wed Jul 21 2021 10:44:06 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#OSI-七层模型"><span class="toc-text">OSI 七层模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五层体系结构"><span class="toc-text">五层体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三种模型结构"><span class="toc-text">三种模型结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各层作用"><span class="toc-text">各层作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#物理层：比特，主要定义物理设备标准，这一层的数据叫做比特。"><span class="toc-text">物理层：比特，主要定义物理设备标准，这一层的数据叫做比特。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据链路层：-帧，-定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。"><span class="toc-text">数据链路层： 帧， 定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络层：-数据包，网络中的两个主机系统之间提供连接和路径选择。"><span class="toc-text">网络层： 数据包，网络中的两个主机系统之间提供连接和路径选择。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运输层：-报文段-用户数据报，-定义了一些传输数据的协议和端口号。"><span class="toc-text">运输层： 报文段/用户数据报， 定义了一些传输数据的协议和端口号。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#会话层，通过运输层（端口号：传输端口与接收端口）建立数据传输的通路。"><span class="toc-text">会话层，通过运输层（端口号：传输端口与接收端口）建立数据传输的通路。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表示层：-可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。"><span class="toc-text">表示层： 可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用层：-报文"><span class="toc-text">应用层： 报文</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
