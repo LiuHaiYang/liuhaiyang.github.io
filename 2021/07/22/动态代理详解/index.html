@@ -172,12 +172,13 @@
         <h2 id="java的三种代理"><a href="#java的三种代理" class="headerlink" title="java的三种代理"></a>java的三种代理</h2><h3 id="静态代理（类似于装饰者模式）"><a href="#静态代理（类似于装饰者模式）" class="headerlink" title="静态代理（类似于装饰者模式）"></a>静态代理（类似于装饰者模式）</h3><h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><h3 id="Cglib代理-基于继承的方式实现"><a href="#Cglib代理-基于继承的方式实现" class="headerlink" title="Cglib代理(基于继承的方式实现)"></a>Cglib代理(基于继承的方式实现)</h3><h2 id="java-动态代理"><a href="#java-动态代理" class="headerlink" title="java 动态代理"></a>java 动态代理</h2><p>代理模式是常见的一种java设计模式，特征是代理类与委托类实现了同样的接口，代理类主要负责为委托类预处理、过滤、转发，以及事后处理等。代理类与委托类之间通常会存在关联关系，一个代理类的实例与它的委托类的实例是关联的。代理类的实例本身是并不真正关心被调用方法的内部逻辑，而是会通过内部访问调用 委托类的实例真正实现了的方法，来为调用者提供服务。</p>
 <p>有代理的话，在访问实际对象时，是通过代理实例来访问、调用委托类方法的，代理模式就是在访问实际对象时引入一定程度的间接性，因为这种间接性，可以附加多种用途。</p>
 <p>动态代理对比静态代理，最大的特点是代理类是在程序运行时生成的，并非在编译期生成，能做的事情也多了，自然风险也高了。</p>
-<p>动态代理对比静态代理，最大的特点是代理类是在程序运行时生成的，并非在编译期生成，能做的事情也多了，自然风险也高了。</p>
-<p>动态代理最简单的用法，用一个比较接近生活的例子：中午，饿了的室友 委托 持家有道的你 去点外卖</p>
+<p>动态代理最简单的用法，用一个比较接近生活的例子：中午，饿了的室友 委托 持家有道的你 去点外卖。</p>
 <p>InvocationHandler是一个接口，由代理实例内部的invocation handler实现的接口。每个代理实例都有一个关联的invocation handler。当代理实例上调用方法时，method.invoke(baseImpl, args)，此方法将被编码并织入到代理实例内部的 invocation handler实现的invoke方法中。</p>
 <h3 id="原理总结"><a href="#原理总结" class="headerlink" title="原理总结"></a>原理总结</h3><p>用大白话的方式讲： 有一个类InvocationHandler，它的性质类似一个中介，中介类构建时持有了委托对象，所以可以在它的invoke方法中调用了委托对象实现接口的具体方法。当外部调用这个InvocationHandler的invoke方法时，对 invoke 的调用最终都转为对委托对象的方法调用。</p>
 <p>创建明面上负责代理的代理实例时，在内存中动态生成的类不但继承了Proxy，也实现了与委托对象相同的接口，因此代理实例可以调用此接口的方法，然后通过持有的中介类对象来调用中介类对象的invoke方法，最终达到代理实例执行了委托者的方法。</p>
-<h2 id="spring-动态代理"><a href="#spring-动态代理" class="headerlink" title="spring 动态代理"></a>spring 动态代理</h2><p>JDK提供了java.lang.reflect.InvocationHandler接口和 java.lang.reflect.Proxy类，这两个类相互配合，入口是Proxy，所以我们先聊它。Proxy有个静态方法：getProxyClass(ClassLoader, interfaces)，只要你给它传入类加载器和一组接口，它就给你返回代理Class对象。用通俗的话说，getProxyClass()这个方法，会从你传入的接口Class中，“拷贝”类结构信息到一个新的Class对象中，但新的Class对象带有构造器，是可以创建对象的。打个比方，一个大内太监（接口Class），空有一身武艺（类信息），但是无法传给后人。现在江湖上有个妙手神医（Proxy类），发明了克隆大法（getProxyClass），不仅能克隆太监的一身武艺，还保留了小DD（构造器）…（这到底是道德の沦丧，还是人性的扭曲，欢迎走进动态代理）所以，一旦我们明确接口，完全可以通过接口的Class对象，创建一个代理Class，通过代理Class即可创建代理对象</p>
+<h2 id="spring-动态代理"><a href="#spring-动态代理" class="headerlink" title="spring 动态代理"></a>spring 动态代理</h2><p>JDK提供了java.lang.reflect.InvocationHandler接口和 java.lang.reflect.Proxy类，这两个类相互配合，入口是Proxy。</p>
+<p>Proxy有个静态方法：getProxyClass(ClassLoader, interfaces)，只要你给它传入类加载器和一组接口，它就给你返回代理Class对象。用通俗的话说，getProxyClass()这个方法，会从你传入的接口Class中，“拷贝”类结构信息到一个新的Class对象中，但新的Class对象带有构造器，是可以创建对象的。</p>
+<p>打个比方：一个大内太监（接口Class），空有一身武艺（类信息），但是无法传给后人。现在江湖上有个妙手神医（Proxy类），发明了克隆大法（getProxyClass），不仅能克隆太监的一身武艺，还保留了小DD（构造器）…（这到底是道德の沦丧，还是人性的扭曲，欢迎走进动态代理）所以，一旦我们明确接口，完全可以通过接口的Class对象，创建一个代理Class，通过代理Class即可创建代理对象。</p>
 
     </div>
 
@@ -194,6 +195,11 @@
 </article>
 
 <div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/08/06/JVM-1/" class="pre-post btn btn-default" title='JVM-1'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">JVM-1</span>
+        </a>
     
     
         <a href="/2021/07/21/OSI七层模型及对应的网络协议/" class="next-post btn btn-default" title='OSI七层模型及对应的网络协议'>

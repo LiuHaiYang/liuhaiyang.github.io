@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>JVM-1 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="JVM-1">
+            
+	            JVM-1
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/jvm" title='jvm'>
+                        jvm
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/08/06</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="什么是-JVM"><a href="#什么是-JVM" class="headerlink" title="什么是 JVM"></a>什么是 JVM</h2><p>java virtual Machine - java 程序的运行环境（java 二进制字节码的运行环境）</p>
+<p>好处；</p>
+<ul>
+<li>一次编写，到处运行</li>
+<li>自动化内存管理，垃圾回收功能</li>
+<li>数组下标越界检查</li>
+<li>多态：使用虚方法调用的机制实现了多态</li>
+</ul>
+<p>比较：</p>
+<ul>
+<li>JVM </li>
+<li>JRE</li>
+<li>JDK</li>
+</ul>
+<p><img src="https://z3.ax1x.com/2021/08/06/fmywZR.jpg" alt="image"></p>
+<h2 id="常见的-JVM"><a href="#常见的-JVM" class="headerlink" title="常见的 JVM"></a>常见的 JVM</h2><p>JVM 是一套规范</p>
+<p>此课程参照 HotSpot</p>
+<h2 id="学习线路"><a href="#学习线路" class="headerlink" title="学习线路"></a>学习线路</h2><p><img src="https://z3.ax1x.com/2021/08/06/fm6jje.md.jpg" alt="fm6jje.md.jpg"></p>
+<h2 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h2><ul>
+<li>程序计数器</li>
+<li>虚拟栈</li>
+<li>本地方法区</li>
+<li>堆</li>
+<li>方法区</li>
+</ul>
+<h3 id="程序计数器-program-Counter-Register-程序计数器（物理体现：寄存器）"><a href="#程序计数器-program-Counter-Register-程序计数器（物理体现：寄存器）" class="headerlink" title="程序计数器 program Counter Register 程序计数器（物理体现：寄存器）"></a>程序计数器 program Counter Register 程序计数器（物理体现：寄存器）</h3><ul>
+<li>作用： 记住下一个jvm 指令的执行地址</li>
+</ul>
+<p><img src="https://z3.ax1x.com/2021/08/06/fmWNQK.md.png" alt="fmWNQK.md.png"></p>
+<ul>
+<li>特点<ul>
+<li>线程私有的（时间片的概念 （不断的切换 线程进行运行指令），每个线程都有自己的程序计数器）</li>
+<li>不会有内存溢出（规范规定）</li>
+</ul>
+</li>
+</ul>
+<h3 id="虚拟机栈-（线程时运行时的内存空间）"><a href="#虚拟机栈-（线程时运行时的内存空间）" class="headerlink" title="虚拟机栈 （线程时运行时的内存空间）"></a>虚拟机栈 （线程时运行时的内存空间）</h3><pre><code>压栈， 先进后出
+栈帧， 一个栈帧代表一次方法的调用，每个方法需要的内存。包含 参数，局部变量，返回地址。
+运行一个方法就把 对应的栈帧放入到栈中，运行结束后拿出，如果关联其他方法，则其他方法栈帧继续压入（如递归）
+</code></pre><ul>
+<li>每个线程运行时所需的内存，称为 虚拟机栈</li>
+<li>每个栈 由 多个栈针（Frame） 组成，对应着每次方法调用时所占用的内存</li>
+<li>每个线程只能由一个活动栈帧，对应着当前正在执行的那个方法。</li>
+</ul>
+<h4 id="问题辨析"><a href="#问题辨析" class="headerlink" title="问题辨析"></a>问题辨析</h4><ol>
+<li>垃圾回收是否涉及栈内存？</li>
+</ol>
+<p>不需要，栈帧内存，在每次方法处理完之后，会弹出栈，会自动回收，不需要垃圾回收。（垃圾回收只会回收堆内存中的无用对象）</p>
+<ol start="2">
+<li>栈内存分配越大越好吗？</li>
+</ol>
+<p>可以虚拟参数指定（-Xss size 默认 1024kb）</p>
+<p>不是，越大，则会线程数变小。物理内存是固定的。越大可以有益于递归的调用，会影响线程数目。</p>
+<ol start="3">
+<li><p>方法内的局部变量是否线程安全？</p>
+<p> 私有的不用考虑线程安全。（判断是否是线程安全：1） 局部变量 2） 是否逃离了方法的管理 ）</p>
+</li>
+</ol>
+<ul>
+<li>如果方法内局部变量没有逃离方法的作用访问， 是线程安全的</li>
+<li>如果局部变量是引用对象，且逃离了作用访问，就需要考虑线程安全问题了</li>
+</ul>
+<h4 id="栈内存溢出-（StackOverflowError）-可调栈大小"><a href="#栈内存溢出-（StackOverflowError）-可调栈大小" class="headerlink" title="栈内存溢出 （StackOverflowError） 可调栈大小"></a>栈内存溢出 （StackOverflowError） 可调栈大小</h4><ul>
+<li>栈帧过多，（栈大小固定，栈帧多，放不下）如递归调用</li>
+<li>栈帧过大，</li>
+</ul>
+<p>demo: json 转换时 打破 循环引用，在一方进行中断， @JsonIgnore 可以忽略这个属性的转换。</p>
+<h4 id="线程诊断（工具的使用）"><a href="#线程诊断（工具的使用）" class="headerlink" title="线程诊断（工具的使用）"></a>线程诊断（工具的使用）</h4><ul>
+<li>cpu 占用过多</li>
+</ul>
+<p>系统定位： top 定位 进程的占用cpu 过高， 用 ps 进行定位线程占用过高。 ps H -eo pid,tid | grep 进程ip<br>java 定位：jstack 进程ip 。可以获取所有的 线程，用ps 后的线程id（十进制） 进行确定线程 id （十六进制） 可以定位到运行的状态及出问题的源代码行数。</p>
+<ul>
+<li>程序运行很行时间没结果<br>java 定位：jstack 进程ip。可以有死锁的一些线程提示。</li>
+</ul>
+<h3 id="本地方法栈（本地方法提供的空间）"><a href="#本地方法栈（本地方法提供的空间）" class="headerlink" title="本地方法栈（本地方法提供的空间）"></a>本地方法栈（本地方法提供的空间）</h3><ul>
+<li>本地方法，不是由 java 实现的方法。因为有一些c /c++ 的方法。</li>
+<li>会非常的多。</li>
+</ul>
+<h3 id="堆-（线程共享区域）"><a href="#堆-（线程共享区域）" class="headerlink" title="堆 （线程共享区域）"></a>堆 （线程共享区域）</h3><ul>
+<li>通过 new 关键字，创建的对象都会使用堆内存</li>
+<li>是线程共享的，堆中对象都需要考虑线程安全的问题</li>
+<li>有垃圾回收机制（不再被引用的对象会被回收）</li>
+</ul>
+<h4 id="堆内存溢出"><a href="#堆内存溢出" class="headerlink" title="堆内存溢出"></a>堆内存溢出</h4><ul>
+<li>一直有标记，不能进行垃圾回收</li>
+<li>outOfMemoryError java heap space</li>
+<li>设置 堆大小 -Xms8M</li>
+</ul>
+<h4 id="堆内存诊断"><a href="#堆内存诊断" class="headerlink" title="堆内存诊断"></a>堆内存诊断</h4><ol>
+<li>jps工具：查看当前系统中有哪些 java 进程</li>
+<li>jmap 工具： 查看堆内存占用情况</li>
+<li>jconsle 工具： 图形界面的，多功能的检测工具，可以连续监测 （线程 ，cpu，堆）</li>
+</ol>
+<pre><code>system.gc() // 主动进行垃圾回收
+jps 查看有哪些进程
+jmap -heap 进程id  查看内存快照信息
+</code></pre><p>案例： </p>
+<p>垃圾回收后，内存占用仍然很高</p>
+<pre><code>jps
+jmap pid 
+jconsole 
+</code></pre><p>jvisualvm: 可视化的工具查看虚拟机，可以查看 堆快照，查看 对象，查看元素，分析原因。</p>
+<h3 id="方法区-内存"><a href="#方法区-内存" class="headerlink" title="方法区 内存"></a>方法区 内存</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>所有虚拟机线程的共享区域 <ul>
+<li>类结构 变量， 方法数据， 特殊方法 （类相关的信息）</li>
+<li>运行时常量池</li>
+</ul>
+</li>
+<li>在虚拟机启动时被创建。逻辑上是 堆的 一部分。永久代（1.6） 是 jdk 1.8 之前的实现方法，之后是 移除到本地空地内存。</li>
+<li>也会导致内存溢出  的错误</li>
+</ul>
+<h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><p><img src="https://z3.ax1x.com/2021/08/06/fuFbtg.md.png" alt="fuFbtg.md.png"></p>
+<h4 id="方法区内存溢出问题"><a href="#方法区内存溢出问题" class="headerlink" title="方法区内存溢出问题"></a>方法区内存溢出问题</h4><ul>
+<li>设置元空间内存溢出 ：-XX:MaxmetaspaceSize=8m</li>
+<li>1.6 溢出 是 永久代内存溢出错误， 1.8 以后是元空间不足内存溢出错误</li>
+</ul>
+<h4 id="场景：-动态的类加载技术"><a href="#场景：-动态的类加载技术" class="headerlink" title="场景： 动态的类加载技术"></a>场景： 动态的类加载技术</h4><ul>
+<li>spring。代理 cglib 中会有涉及</li>
+<li>mybatis</li>
+</ul>
+<h4 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h4><ul>
+<li>常量池：就是一张表，虚拟机指令根据这张表找到要执行的类名，方法名，参数类型等信息</li>
+<li>运行时常量池：常量池是 <code>*.class</code> 文件中的，当该类被加载，他的常量池信息就会被放入运行时常量池，并把这里面的符号地址变为真是的地址。</li>
+</ul>
+<p>常量池，为 <code>#2 #3</code> 这些提供常量符号。</p>
+<p>成员变量</p>
+<p><img src="https://z3.ax1x.com/2021/08/06/fuZYRg.md.png" alt="fuZYRg.md.png"></p>
+<p>代码 编译成 二进制字节码 （类基本信息，常量池，类方法定义，包含了虚拟机指令）</p>
+<p>虚拟机指令， 三条指令，每个指令去常量池找。然后指令进行正常的执行。</p>
+<p><img src="https://z3.ax1x.com/2021/08/06/fuZPq1.md.png" alt="fuZPq1.md.png"></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/08/06/JVM-2/" class="pre-post btn btn-default" title='JVM-2'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">JVM-2</span>
+        </a>
+    
+    
+        <a href="/2021/07/22/动态代理详解/" class="next-post btn btn-default" title='动态代理详解'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">动态代理详解</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Fri Aug 06 2021 11:15:35 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-JVM"><span class="toc-text">什么是 JVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的-JVM"><span class="toc-text">常见的 JVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习线路"><span class="toc-text">学习线路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存结构"><span class="toc-text">内存结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#程序计数器-program-Counter-Register-程序计数器（物理体现：寄存器）"><span class="toc-text">程序计数器 program Counter Register 程序计数器（物理体现：寄存器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈-（线程时运行时的内存空间）"><span class="toc-text">虚拟机栈 （线程时运行时的内存空间）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题辨析"><span class="toc-text">问题辨析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#栈内存溢出-（StackOverflowError）-可调栈大小"><span class="toc-text">栈内存溢出 （StackOverflowError） 可调栈大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程诊断（工具的使用）"><span class="toc-text">线程诊断（工具的使用）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地方法栈（本地方法提供的空间）"><span class="toc-text">本地方法栈（本地方法提供的空间）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆-（线程共享区域）"><span class="toc-text">堆 （线程共享区域）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#堆内存溢出"><span class="toc-text">堆内存溢出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆内存诊断"><span class="toc-text">堆内存诊断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法区-内存"><span class="toc-text">方法区 内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组成"><span class="toc-text">组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区内存溢出问题"><span class="toc-text">方法区内存溢出问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景：-动态的类加载技术"><span class="toc-text">场景： 动态的类加载技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时常量池"><span class="toc-text">运行时常量池</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
