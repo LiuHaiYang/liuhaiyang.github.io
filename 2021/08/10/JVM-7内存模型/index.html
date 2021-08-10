@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>python+opencv视频入门处理 | meet you</title>
+<title>JVM-7内存模型 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="python+opencv视频入门处理">
+        <h1 id="JVM-7内存模型">
             
-	            python+opencv视频入门处理
+	            JVM-7内存模型
             
         </h1>
         <div class="post-meta">
@@ -146,10 +146,6 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title='python'>
-                        python
-                    </a>
-                
             
         </span>
     </span>
@@ -159,72 +155,17 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/10/24</span>
+            <span class="date-meta">2021/08/10</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>1021</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h4 id="工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"><a href="#工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。" class="headerlink" title="工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"></a>工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。</h4><hr>
-<p>环境： <code>Python3 opencv 3</code></p>
-<h4 id="入门代码记录"><a href="#入门代码记录" class="headerlink" title="入门代码记录"></a>入门代码记录</h4><pre><code># coding=utf-8
-import os
-import numpy as np
-from PIL import Image, ImageDraw
-import cv2
-import requests
-import json
-
-videoCapture = cv2.VideoCapture(0)
-fps = videoCapture.get(cv2.CAP_PROP_FPS)
-size = (int(videoCapture.get(cv2.CAP_PROP_FRAME_WIDTH)),
-        int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-fourcc = cv2.VideoWriter_fourcc(&apos;M&apos;,&apos;J&apos;,&apos;P&apos;,&apos;G&apos;)
-
-while 1:
-    ret, img = videoCapture.read()
-    # frame_resize = cv2.resize(img, (640, 360), interpolation=cv2.INTER_AREA)
-    frame_resize = cv2.resize(img, (size[0], size[1]), interpolation=cv2.INTER_AREA)
-    cv2.imwrite(&quot;&quot;, frame_resize)
-
-    # 鉴别
-    try:
-        #AI 人脸识别接口
-        url = &apos;&apos;
-        data = {}
-
-        new_img = open(&quot;&quot;, &apos;rb&apos;)
-        f = {&quot;image&quot;: new_img}
-        result = requests.post(url, files=f, data=data)
-        requestdata = result.json()
-        fontface = cv2.FONT_HERSHEY_SIMPLEX
-        fontscale = 1
-        fontcolor = (255, 255, 255)
-        #识别后的视频中文字说明
-        #接口中数据处理
-        for per_info in requestdata[&apos;resultInfo&apos;]:
-            if per_info[&apos;score&apos;] &gt; 0.6:
-                cv2.putText(img, &apos;hello world!&apos;, (
-                int(x), int(y)),fontface, fontscale, fontcolor)
-    except Exception as e:
-        pass
-    #人体关键点 同理 画线
-
-    cv2.imshow(&apos;video&apos;, img)
-    key = cv2.waitKey(1)
-    if key == ord(&apos;q&apos;):
-        break
-videoCapture.release()
-cv2.destroyAllWindows()
-</code></pre>
+        
     </div>
 
     <div class="post-footer">
@@ -241,15 +182,10 @@ cv2.destroyAllWindows()
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/10/26/20181026/" class="pre-post btn btn-default" title='20181026'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">20181026</span>
-        </a>
     
-    
-        <a href="/2018/10/22/20181022/" class="next-post btn btn-default" title='20181022'>
+        <a href="/2021/08/09/JVM-6/" class="next-post btn btn-default" title='JVM-6'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">20181022</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">JVM-6</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -262,7 +198,7 @@ cv2.destroyAllWindows()
 
 <script>
     var gitment = new Gitment({
-        id: 'Wed Oct 24 2018 14:46:21 GMT+0800',
+        id: 'Tue Aug 10 2021 15:17:48 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -286,7 +222,7 @@ cv2.destroyAllWindows()
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。"><span class="toc-text">工作中用到了opencv，使用其对视频的处理，把视频每一帧的处理为图片，然后使用项目中的AI接口对其进行处理，实现视频实时的人体关键点的处理和人脸识别的功能。初期延迟大，卡顿的较大，效果不是很好。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#入门代码记录"><span class="toc-text">入门代码记录</span></a></li></ol>
+            <p>暂无目录</p>
         
     </div>
 </aside>
