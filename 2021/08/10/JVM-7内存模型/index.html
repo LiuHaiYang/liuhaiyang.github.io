@@ -146,6 +146,10 @@
         <span class="tags-meta">
             
                 
+                    <a href="/tags/jvm" title='jvm'>
+                        jvm
+                    </a>
+                
             
         </span>
     </span>
@@ -165,7 +169,67 @@
     </div>
     
     <div class="post-body post-content">
-        
+        <h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p>【java 内存模型】 是 Java Memory Mdel （JMM）的意思。 JMM 定义了一套在多线程读写共享数据时（成员变量，数组）时，对数据的可见性，有序性和原子性的规则和保障。</p>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p>多线程，会因为指令交错而产生错误的结果。主要因为 更新丢失 （某次指令计算后未完成更新）被其他线程更新。</p>
+<p>用 synchronized 进行保证。monitor 是进行监控的，第一个线程过来后进行加锁（owner ），其他线程就执行不了（会阻塞，在entryList 排队），等待第一个线程执行结束（通知monotor），释放锁（monitorexit），其他的再争抢锁。</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p><img src="https://ae05.alicdn.com/kf/Hfd9a38bfc2b54eada419206e8fe37acb3.png" alt="image.png"></p>
+<p>volatile 是可以保证可见性的。</p>
+<p>synchronized 语句块是即可以保证代码块的原子性，也同时可以保证代码块内变量的可见性，但缺点是 synchronized 是属于重量级操作，性能相对更低。</p>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><p>在指令运行时会有 【指令重排】 时JIT 编译器在运行时的一些优化。部分代码的执行顺序的调整。</p>
+<p>volation 修饰的变量，可以禁止指令重排。</p>
+<p><img src="https://ae05.alicdn.com/kf/H70fe2897ae27456f9f0a3b316079a1c7N.png" alt="image.png"></p>
+<p>以上的实现特点是：</p>
+<ul>
+<li>懒惰实例化</li>
+<li>首次使用 getInstance 才使用 synchronized 加锁，后续使用时无需加锁</li>
+</ul>
+<p>在多线程环境下，上面代码是有问题的。</p>
+<p><img src="https://ae05.alicdn.com/kf/H0fbe60fc3a7640a1960adae00564b3726.png" alt="image.png"></p>
+<p>happens-before 规定了哪些写操作对其他线程的读操作可见，他是可见性与有序性的一套规则总结。</p>
+<h3 id="CAS-与-原子类"><a href="#CAS-与-原子类" class="headerlink" title="CAS 与 原子类"></a>CAS 与 原子类</h3><p>乐观锁 和 悲观锁</p>
+<ul>
+<li>cas 是基于乐观锁的思想： 最乐观的估计，不怕别的线程来修改共享的变量，就算是改了也没关系，再重试。</li>
+<li>synchronized 是基于悲观锁的思想： 最悲观的估计，得防着其他线程来修改共享变量，我上了锁你们都别想修改，我改完了 解锁后你们才有机会。</li>
+</ul>
+<h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>cas 配合 volation 使用的。</p>
+<p>可称之为 无锁并发，不加锁的。</p>
+<p><img src="https://ae04.alicdn.com/kf/H7d6211f8e3ac4f24a614aee63cc30bbdj.png" alt="image.png"></p>
+<ul>
+<li>因为没有使用 synchronized ,所以线程不会陷入阻塞，这是效率提升的因素之一</li>
+<li>但如果竞争激烈，可以想到重试必然频繁发生，反而效率会受影响</li>
+</ul>
+<p>CAS 底层依赖与一个 Unsafe 类（通过反射调用）来直接调用操作系统底层的 CAS 指令。</p>
+<h4 id="原子类"><a href="#原子类" class="headerlink" title="原子类"></a>原子类</h4><p>juc 中提供了原子操作类，可以提供线程安全的操作，例如，AtomicInteger AtomicBoolean 等，他们底层就是采用 CAS 技术 + volatie 来实现的。</p>
+<h3 id="synchronized-优化"><a href="#synchronized-优化" class="headerlink" title="synchronized 优化"></a>synchronized 优化</h3><p>java HotSpot 虚拟机中，每个对象都有对象头，（包括class 指针 和 mark Word） 。 Mark word 平时存储这个对象 的 哈嘻码，分代年龄， 当加锁时，这些信息根据情况呗替代为 标记位，线程锁记录指针，重量级锁指针，线程 ID 等内容。</p>
+<p>优化前还是偏重量级的，在优化之后性能可能比 cas 更好。</p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p><img src="https://ae05.alicdn.com/kf/H18568edf508e44d2a8b5482859a217f9k.png" alt="image.png"></p>
+<p>轻量级锁的加锁的过程：</p>
+<p>每个线程的栈帧都会包含一个锁记录的结构，内部可以存储锁定对象的Mark word。</p>
+<h4 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h4><p>如果在尝试加轻量级锁的过程中， CAS 操作无法成功，这时一种情况就是有其他线程为此对象加上了轻量级锁(有竞争)，这时就需要进行锁膨胀，将轻量级锁变为重量级锁。</p>
+<h4 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h4><p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功，（即这时候持锁线程已经退出了，同步块，释放了锁） 这时当前线程就可以避免阻塞。</p>
+<p>在 java 6 之后自旋锁时自适应的，比如对象刚刚的一次自旋操作成功过，那么认为这次自旋成功的可能性会高，就会多自旋几次；反之，就少自旋甚至不自旋。总之，比较智能。</p>
+<ul>
+<li>自旋会占用 cpu 时间，单核cpu 自旋就是浪费，多核 cpu 自旋才能发挥优势。</li>
+<li>好比等红灯时汽车是不是熄火，不熄火相当于自旋（等待时间短了划算），熄火了相当于阻塞，（等待的时间长了划算）</li>
+<li>java 7 之后不能控制是否开启自旋功能。</li>
+</ul>
+<p>自旋成功：线程2 多次自旋后，线程1 已经执行完，释放了锁，线程2 就直接加锁。<br>自旋失败： 线程2 多次自旋后，线程1长时间执行，多次重试后失败，进行阻塞。即自旋失败。</p>
+<h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><p><img src="https://ae04.alicdn.com/kf/H9a0c4291fedf4c5fb46548de0a0cb661B.png" alt="image.png"></p>
+<h4 id="其他优化"><a href="#其他优化" class="headerlink" title="其他优化"></a>其他优化</h4><ul>
+<li>减少上锁时间： 同步代码块中尽量短</li>
+<li><p>减少锁的粒度： 将一个锁拆分为多个锁提高并发度：</p>
+<ul>
+<li>ConcurrentHashmap</li>
+<li>LongAdder 分为 base 和cells两部分。</li>
+<li>LinkedBlockingQueue 入队和出队 使用不同的锁。相对于Linked BlockingArray 只有一个锁效率更高。</li>
+</ul>
+</li>
+<li><p>锁粗化：可以对多 sync 进行 优化，粗化为一次。</p>
+</li>
+<li>锁消除：JVM 会进行代码的逃逸分析，例如某个加锁对象时方法内局部变量，不会被其他线程所访问到，这时候就会被即时编译器忽略掉所有的同步（加锁）操作。</li>
+<li>读写分离</li>
+</ul>
+
     </div>
 
     <div class="post-footer">
@@ -222,7 +286,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内存模型"><span class="toc-text">内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原子性"><span class="toc-text">原子性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可见性"><span class="toc-text">可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有序性"><span class="toc-text">有序性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS-与-原子类"><span class="toc-text">CAS 与 原子类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CAS"><span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原子类"><span class="toc-text">原子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized-优化"><span class="toc-text">synchronized 优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#轻量级锁"><span class="toc-text">轻量级锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁膨胀"><span class="toc-text">锁膨胀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重量级锁"><span class="toc-text">重量级锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#偏向锁"><span class="toc-text">偏向锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他优化"><span class="toc-text">其他优化</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
