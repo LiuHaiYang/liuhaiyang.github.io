@@ -233,7 +233,91 @@
 <li>每个线程只能有一个活动栈帧，对应着正在执行的那个方法</li>
 </ul>
 <p><img src="https://ae04.alicdn.com/kf/Hbd3dfe3940a04f8bae630f24c650d3780.png" alt="image.png"></p>
-<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2>
+<h4 id="线程上下文切换"><a href="#线程上下文切换" class="headerlink" title="线程上下文切换"></a>线程上下文切换</h4><p><img src="https://ae03.alicdn.com/kf/Hdff4eec5d0524208ba975c6ed87a3f76Q.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/Hb18a45b6248c45eab871b87ab8bc42c2Z.png" alt="image.png"></p>
+<p>线程上下文切换会保存前线程的所有信息（局部变量，栈帧，返回地址等等），再去执行下一个线程。</p>
+<h4 id="线程中常见方法"><a href="#线程中常见方法" class="headerlink" title="线程中常见方法"></a>线程中常见方法</h4><h4 id="run-amp-start"><a href="#run-amp-start" class="headerlink" title="run&amp;start"></a>run&amp;start</h4><p><img src="https://ae06.alicdn.com/kf/Hfa48823589d54eef874e6ea9cb2746f6K.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/Hdc6a11de6bfb46998dc9a3d33bd7c98ax.png" alt="image.png"></p>
+<ul>
+<li>run ：  调用run 的话，方式还是在主线程中调用的，未实现异步等效果，与线程无关。</li>
+<li><p>start：启动线程必须用start。无法多次调用，</p>
+<p>  线程状态： start 之前是 NEW ，之后是 RUNNABLE</p>
+</li>
+</ul>
+<h4 id="sleep-amp-yield"><a href="#sleep-amp-yield" class="headerlink" title="sleep&amp;yield"></a>sleep&amp;yield</h4><ul>
+<li><p>sleep ：</p>
+<ul>
+<li>调用sleep 会让当前线程从Running 进入 Time Waiting 状态</li>
+<li>其他线程可以使用 interrupt 方法打断正在睡眠的线程，这时 sleep 方法会抛出 InterruptedException</li>
+<li>睡眠结束后的线程未必立刻得到执行</li>
+<li>建议用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性。</li>
+</ul>
+</li>
+<li><p>yield（让出CPU使用权）</p>
+<ul>
+<li>调用 yield 会让当前线程 Running 进入 Runnable 状态，然后调度执行其他优先级的线程。如果这时没有同优先级的线程，那么不能保证让当前线程暂停的效果。</li>
+<li>具体的实现依赖于操作系统的任务调度器。</li>
+</ul>
+</li>
+</ul>
+<pre><code>程序优先级
+线程优先级会提示(hint)调度器优先调度该线程，但它仅仅是一个提示，调度器可以忽略它。
+如果 cpu 比较忙，那么优先级高的线程会获得更多的时间片，但cpu 空闲时，优先级几乎没用。
+</code></pre><h4 id="sleep-实现"><a href="#sleep-实现" class="headerlink" title="sleep 实现"></a>sleep 实现</h4><p><img src="https://ae06.alicdn.com/kf/H8a69e8de56c84c6aa3478aad850f6277m.png" alt="image.png"></p>
+<h4 id="join-方法"><a href="#join-方法" class="headerlink" title="join 方法"></a>join 方法</h4><p>等待线程运行结束 <code>t.join()</code> 等待 t 线程的结束，运行到这会卡住。</p>
+<p>获取多个其他线程的结果，只需调用其他多个线程的 join 即可。</p>
+<p>有时效的 join 。 t.join(n), n 等待时间。  小于实际则 直接返回，大于直接，则执行完就返回，不会多等待。</p>
+<h4 id="interrupt"><a href="#interrupt" class="headerlink" title="interrupt"></a>interrupt</h4><p>打断 sleep， wait， join 的线程，会有打断过的标记。</p>
+<p>打断阻塞状态：</p>
+<ul>
+<li>打断 sleep 的线程，会清空打断状态，（正常情况，有打断，打断标记是 真， sleep 的打断标记是 false）</li>
+</ul>
+<p>打断非阻塞状态：</p>
+<p>打断正常运行的线程：</p>
+<p><img src="https://ae03.alicdn.com/kf/H75e519067eeb4e84b94dfc4ef3705edfD.png" alt="image.png"></p>
+<p>打断标记的用途，优雅的退出。</p>
+<p>利用interrupt 的 设计模式：</p>
+<p>两阶段终止模式（Two phase Termination）</p>
+<p>在线程 t1 中 如何优雅的终止线程 t2？ 【优雅】指的是给 t2 一个料理后事的机会。</p>
+<p><img src="https://ae05.alicdn.com/kf/Ha842e48c411640ef90636bbd815a13d1w.png" alt="image.png"></p>
+<p>设计思路 &amp; code：</p>
+<p><img src="https://ae05.alicdn.com/kf/Hbc029cbc504a43859d23604e90456d0cw.png" alt="image.png"></p>
+<p>打断 park 线程：</p>
+<p>打断 park 线程，不会清空打断状态。</p>
+<h4 id="不推荐的方法"><a href="#不推荐的方法" class="headerlink" title="不推荐的方法"></a>不推荐的方法</h4><p>不推荐使用的方法，这些方法已过时，容易破坏代码块，造成线程死锁。</p>
+<pre><code>stop()     停止线程运行
+suspend()  挂起(暂停)线程运行
+resume()   恢复线程运行
+</code></pre><h4 id="主线程与守护线程"><a href="#主线程与守护线程" class="headerlink" title="主线程与守护线程"></a>主线程与守护线程</h4><p>默认情况下，Java 进行需要等到所有线程都运行结束，才会结束。有一种特殊的线程叫做守护线程，只要其它的非守护线程运行结束了，即使守护线程的代码还没有执行结束完，也会强制结束。</p>
+<p>注意：</p>
+<pre><code>垃圾回收器线程就是一种守护线程
+Tomcat 中 Acceptor 和 Poller 线程都是守护线程，所以 Tomcat 接收到 shutdown 命令后，不会等待他们处理完当前请求。
+</code></pre><h4 id="线程的的五种状态"><a href="#线程的的五种状态" class="headerlink" title="线程的的五种状态"></a>线程的的五种状态</h4><p><img src="https://ae04.alicdn.com/kf/H2bbd2ba4bef9495fb0dc0e24317edb7d0.png" alt="image.png"></p>
+<ul>
+<li>【初始状态】 仅是在语言层面上创建了线程对象，还未与操作系统线程关联</li>
+<li>【可运行状态】 （就绪状态） 指该线程已经被创建，（与操作系统线程关联），可以由CPU 调度执行</li>
+<li>【运行状态】 指获取CPU 时间片运行中的状态<ul>
+<li>当CPU 时间片用完，会从【运行状态】转换至【可运行状态】，会导致线程的上下文切换</li>
+</ul>
+</li>
+<li>【阻塞状态】<ul>
+<li>如果调用了阻塞API， 如 BIO 读写文件，这时候线程实际不会用到CPU，会导致线程上下文切换，进入【阻塞状态】</li>
+<li>等 BIO 操作完成，会由操作系统唤醒阻塞的线程，转换至【可运行状态】</li>
+<li>与【可运行状态】的区别是，对【阻塞状态】的线程来说只要他们一直不唤醒，调度器就一直不会考虑调度他们</li>
+</ul>
+</li>
+<li>【终止状态】 表示线程已经执行完毕，生命周期已经结束，不会再转换为其他状态。</li>
+</ul>
+<h4 id="线程的的六种状态"><a href="#线程的的六种状态" class="headerlink" title="线程的的六种状态"></a>线程的的六种状态</h4><p><img src="https://ae02.alicdn.com/kf/H8da6a833c5394ceda86fe77335db5439y.png" alt="image.png"></p>
+<ul>
+<li>NEW 线程刚被创建，但是还没有调用 start() 方法</li>
+<li><p>RUNNABLE 当调用 start() 方法之后，注意，Java API 层面的RUNNABLE 状态涵盖了 操作系统 层面的【可运行状态】【运行状态】【阻塞状态】 （由于BIO导致的线程阻塞，在Java里面无法区分，仍然认为是可运行的）</p>
+</li>
+<li><p>BLOCKED、 WAITING、 TIMED_WAITTING 都是 Java API 层面对 【阻塞状态】 的细分，后面会在状态转换详述</p>
+</li>
+<li>TERMINATED 当线程代码运行结束</li>
+</ul>
+
     </div>
 
     <div class="post-footer">
@@ -249,6 +333,11 @@
 </article>
 
 <div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/08/21/并发编程-2/" class="pre-post btn btn-default" title='并发编程-2'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">并发编程-2</span>
+        </a>
     
     
         <a href="/2021/08/10/JVM-7内存模型/" class="next-post btn btn-default" title='JVM-7内存模型'>
@@ -290,7 +379,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#进程和线程"><span class="toc-text">进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#进程和线程-1"><span class="toc-text">进程和线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二者对比"><span class="toc-text">二者对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并行和并发"><span class="toc-text">并行和并发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#并发：（单核）线程轮流使用CPU，-concurrent。-微观串行，宏观并行。"><span class="toc-text">并发：（单核）线程轮流使用CPU， concurrent。 微观串行，宏观并行。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并行：多核都可以调度运行线程，这个时候可以是并行的。"><span class="toc-text">并行：多核都可以调度运行线程，这个时候可以是并行的。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程"><span class="toc-text">线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建和运行线程"><span class="toc-text">创建和运行线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看线程和进程的方法"><span class="toc-text">查看线程和进程的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows"><span class="toc-text">windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux"><span class="toc-text">linux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java"><span class="toc-text">java</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程-API"><span class="toc-text">线程 API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程状态"><span class="toc-text">线程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#栈与栈帧"><span class="toc-text">栈与栈帧</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程"><span class="toc-text">进程</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#进程和线程"><span class="toc-text">进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#进程和线程-1"><span class="toc-text">进程和线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二者对比"><span class="toc-text">二者对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并行和并发"><span class="toc-text">并行和并发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#并发：（单核）线程轮流使用CPU，-concurrent。-微观串行，宏观并行。"><span class="toc-text">并发：（单核）线程轮流使用CPU， concurrent。 微观串行，宏观并行。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并行：多核都可以调度运行线程，这个时候可以是并行的。"><span class="toc-text">并行：多核都可以调度运行线程，这个时候可以是并行的。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程"><span class="toc-text">线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建和运行线程"><span class="toc-text">创建和运行线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看线程和进程的方法"><span class="toc-text">查看线程和进程的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows"><span class="toc-text">windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux"><span class="toc-text">linux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java"><span class="toc-text">java</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程-API"><span class="toc-text">线程 API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程状态"><span class="toc-text">线程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#栈与栈帧"><span class="toc-text">栈与栈帧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程上下文切换"><span class="toc-text">线程上下文切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程中常见方法"><span class="toc-text">线程中常见方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#run-amp-start"><span class="toc-text">run&amp;start</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sleep-amp-yield"><span class="toc-text">sleep&amp;yield</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sleep-实现"><span class="toc-text">sleep 实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#join-方法"><span class="toc-text">join 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#interrupt"><span class="toc-text">interrupt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不推荐的方法"><span class="toc-text">不推荐的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主线程与守护线程"><span class="toc-text">主线程与守护线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程的的五种状态"><span class="toc-text">线程的的五种状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程的的六种状态"><span class="toc-text">线程的的六种状态</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>

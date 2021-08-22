@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>并发编程-2 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="并发编程-2">
+            
+	            并发编程-2
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/并发编程" title='并发编程'>
+                        并发编程
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/08/21</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h1><h2 id="共享问题"><a href="#共享问题" class="headerlink" title="共享问题"></a>共享问题</h2><p>程序中有两个线程 自增 5000 次和自减 5000 次，结果有可能不是 0</p>
+<p>结果分析：</p>
+<p>结果是正数，负数，0。 因为 Java 中 对静态变量的自增，自减并不是原子操作，要彻底的理解，必须从字节码来进行分析。</p>
+<p>例如： i++;  i– 单行代码产生的JVM 字节码指令是两个操作。</p>
+<p><img src="https://ae04.alicdn.com/kf/H00aca400b0054a06a40a7fa0a30a30ac7.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/H96f31cfb7ee64aa096a75564bde70f50D.png" alt="image.png"></p>
+<p>单线程是按顺序执行的不会产生上述的问题。</p>
+<p>多线程会有上下文的切换，引起指令的交错，导致了多线程访问共享内存的线程安全问题。</p>
+<h3 id="临界区："><a href="#临界区：" class="headerlink" title="临界区："></a>临界区：</h3><ul>
+<li>一个程序运行多个线程本身是没有问题的</li>
+<li>问题出在线程访问共享资源<ul>
+<li>多个线程读共享资源其实也是没有问题</li>
+<li>在多个线程对共享资源读写操作时发生指令交错，就会出现问题</li>
+</ul>
+</li>
+<li>一段代码内如果存在对共享资源的多线程读写操作，称这段代码块为临界区</li>
+</ul>
+<h3 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h3><p>多个线程在临界区内执行，由于代码的执行序列不同，而导致结果无法预测，称之为<strong>竞态条件</strong></p>
+<h2 id="synchroized"><a href="#synchroized" class="headerlink" title="synchroized"></a>synchroized</h2><p><strong>应用之互斥</strong></p>
+<p>为了避免临界区的竞态条件发生，有多种手段可以达到目的。</p>
+<ul>
+<li>阻塞式的解决方案，Synchronized Lock</li>
+<li>非阻塞式的解决方案，原子变量</li>
+</ul>
+<p>Synchronized 阻塞式的解决共享问题，即俗称【对象锁】，它采用互斥的方式让同一时刻至多只有一个线程持有【对象锁】，其他线程在想获取这个【对象锁】 时就会阻塞住，这样就能保证拥有锁的线程可以安全的执行临界区内的代码，不用担心线程上下文切换。</p>
+<p>注意： 虽然java 中互斥和同步都可以采用 synchronized 关键字来完成，但他们还是有区别的。</p>
+<ul>
+<li>互斥是保证临界区的竞态条件发生，同一时刻只能有一个线程执行临界区代码</li>
+<li>同步是由于线程执行的先后，顺序不同，需要一个线程等待其他线程运行到某个点</li>
+</ul>
+<p><img src="https://ae05.alicdn.com/kf/H6014d37c70364991a5d56791802ad29al.png" alt="image.png"></p>
+<p>synchronized 实际是用对象锁保证了 临界区内代码的原子性，临界区的代码对外是不可分割的，不会被线程切换所打断。</p>
+<p><img src="https://ae04.alicdn.com/kf/H3de8d1e658304a1f97e1daceb53dd410q.png" alt="image.png"></p>
+<p>面向对象的思想改进</p>
+<p><img src="https://ae01.alicdn.com/kf/H0c90e05527094bbfa0be22f84f8109b1h.png" alt="image.png"></p>
+<h2 id="方法上的-synchronized"><a href="#方法上的-synchronized" class="headerlink" title="方法上的 synchronized"></a>方法上的 synchronized</h2><ul>
+<li>成员方法上</li>
+<li>静态方法上</li>
+</ul>
+<p><img src="https://ae06.alicdn.com/kf/Hb4edff0a842549aca75d7990b0fc4884e.png" alt="image.png"></p>
+<ul>
+<li>不加 synchroized 的方法： 就是不排队，（好比翻窗户进去的） 不能保证原子性</li>
+</ul>
+<h3 id="线程八锁"><a href="#线程八锁" class="headerlink" title="线程八锁"></a>线程八锁</h3><h2 id="线程安全分析"><a href="#线程安全分析" class="headerlink" title="线程安全分析"></a>线程安全分析</h2><p><img src="https://ae05.alicdn.com/kf/H99ef81ed36954e0cb642ff7ff4f17149B.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H0f6e50c962f943918290fab1b16372eeW.png" alt="image.png"></p>
+<h3 id="局部变量线程安全分析"><a href="#局部变量线程安全分析" class="headerlink" title="局部变量线程安全分析"></a>局部变量线程安全分析</h3><p><img src="https://ae01.alicdn.com/kf/Hf73cf661352a48e19e0492eee4a213bdf.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/Ha638caee60bf4e0bb3dc2b6606160452r.png" alt="image.png"></p>
+<p><img src="https://ae06.alicdn.com/kf/Hcfe0e6cd6b0c4981b804734af04a65cdr.png" alt="image.png"></p>
+<h3 id="常见线程安全类"><a href="#常见线程安全类" class="headerlink" title="常见线程安全类"></a>常见线程安全类</h3><p>String、Integer 、  StringBuffer、  Random、 Vector、  HashTable、  java.util.concurrent 包下的类</p>
+<p>这里说的线程安全是指，多个线程调用他们同一个实例的某个方法时，是线程安全的，也可以理解为，他们每个方法是原子的，注意他们多个方法的组合不是原子的，</p>
+<h4 id="不可变类"><a href="#不可变类" class="headerlink" title="不可变类"></a>不可变类</h4><p><img src="https://ae06.alicdn.com/kf/H6cef3e627d7e4fa6a7ab3a69b6580879b.png" alt="image.png"></p>
+<p>Java String类为什么是final的？</p>
+<ol>
+<li><p>为了实现字符串池</p>
+</li>
+<li><p>为了线程安全</p>
+</li>
+<li><p>为了实现String可以创建HashCode不可变性</p>
+</li>
+</ol>
+<p>final的用途，在分析String为什么要用final修饰，final可以修饰类，方法和变量，并且被修饰的类或方法，被final修饰的类不能被继承，即它不能拥有自己的子类，被final修饰的方法不能被重写， final修饰的变量，无论是类属性、对象属性、形参还是局部变量，都需要进行初始化操作。</p>
+<p>在了解final的用途后，在看String为什么要被final修饰：主要是为了”安全性“和”效率“的缘故。</p>
+<h2 id="Monitor（锁）"><a href="#Monitor（锁）" class="headerlink" title="Monitor（锁）"></a>Monitor（锁）</h2><ul>
+<li>对象头</li>
+<li>对象成员变量</li>
+</ul>
+<p><img src="https://ae06.alicdn.com/kf/H5215e285da284d30a6601b1a22fd8624n.png" alt="image.png"></p>
+<p><img src="https://ae05.alicdn.com/kf/Ha3372cb5634847f8a800a92ab1b3a8c1g.png" alt="image.png"></p>
+<p>hashcode： 哈希码   age： 分代年龄   biased_lock:0  : 代表是不是偏向锁    01：代表加锁状态</p>
+<p>java synchroized 锁底层的原理： monitor</p>
+<p>monitor 被翻译为监视器 或管程</p>
+<p>每个 java 对象都可以关联一个 Monitor 对象，如果使用 synchronized 给对象上锁（重量级）之后，该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针。</p>
+<p><img src="https://ae05.alicdn.com/kf/H77acc197cb7d412ca0fed57499859d0ei.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/Hb31cdcbeb7934f75a5bef87eb019c027z.png" alt="WechatIMG238.jpeg"></p>
+<p><img src="https://ae04.alicdn.com/kf/Hcff96ffeb7354067bccd80624fe4b8a8N.png" alt="image.png"></p>
+<h2 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h2><p>原理之 Synchroized</p>
+<p><img src="https://ae06.alicdn.com/kf/H67617b569ef14092836d909bba6a65c4F.png" alt="image.png"></p>
+<p><img src="https://ae06.alicdn.com/kf/H1c513f0fb96149a79d7a28d2e4a659636.png" alt="image.png"></p>
+<p>轻量级锁： 当有竞争时还会升级为重量级锁。</p>
+<h3 id="小故事"><a href="#小故事" class="headerlink" title="小故事"></a>小故事</h3><p><img src="https://ae05.alicdn.com/kf/H65b68c879e8a4bfa974b312dbb1a1789u.png" alt="image.png"></p>
+<p><img src="https://ae05.alicdn.com/kf/H73e259d8b8484fe5984aa5824946d82b9.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H62fdda0a200449b8bc11a301bdcbf19eS.png" alt="image.png"></p>
+<h3 id="Synchronized-原理学习"><a href="#Synchronized-原理学习" class="headerlink" title="Synchronized  原理学习"></a>Synchronized  原理学习</h3><p>轻量级锁：<br>使用场景： 如果一个对象虽然有多个线程访问但是多个线程访问的时间是错开的（也就是没有竞争），那么可以使用轻量级锁来优化。</p>
+<p>轻量级锁对使用者是透明的，即语法仍然是 synchroized</p>
+<p>轻量级锁，加锁，锁重入，解锁</p>
+<p><img src="https://ae04.alicdn.com/kf/Haca387de5ce64407a45d487bf023df62R.png" alt="image.png"></p>
+<p><img src="https://ae05.alicdn.com/kf/Hf51ee8998b0e4581b3d77fad0b40869fA.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/H461e4a2912b745b09b88c396e233d103T.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/H93b449320c8847449e6c4bc25e5f65ae2.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H98b4a4e274c64c2c994ac27c594c238bp.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/Hb47087f6d4b946b6a7b65f5ec8ce2376X.png" alt="image.png"></p>
+<p>锁膨胀</p>
+<p><img src="https://ae05.alicdn.com/kf/He4f0df03c9b74ce5bce0ef1c8c6a8256J.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H25abe27c4f63407fa77b1815a81145dec.png" alt="image.png"></p>
+<h3 id="自旋优化："><a href="#自旋优化：" class="headerlink" title="自旋优化："></a>自旋优化：</h3><p>重量级锁的优化，多核cpu 才有意义</p>
+<p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功（即这时候持锁线程已经退出了同步块，释放了锁），这时当前线程就可以避免阻塞。</p>
+<p><img src="https://ae05.alicdn.com/kf/Hc52a4a47cfb3453cbde077325aaa19b29.png" alt="image.png"></p>
+<p><img src="https://ae06.alicdn.com/kf/Hd6ddc93553b840e1925b665af2345673T.png" alt="image.png"></p>
+<h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>轻量级锁没有竞争时（就自己这个线程），每次重入仍然需要执行CAS 操作。</p>
+<p>Java 6 中引入了偏向锁来做进一步优化；只有第一次使用CAS 将线程ID，设置到对象的Mark Word 头，之后发现这个线程ID 是自己的就表示没有竞争，不用重新CAS。 以后只要不发生竞争，这个对象就归线程所有。</p>
+<p><img src="https://ae05.alicdn.com/kf/H3cf3693c340642a4aa6863ee66b2362bm.png" alt="image.png"></p>
+<h3 id="偏向状态："><a href="#偏向状态：" class="headerlink" title="偏向状态："></a>偏向状态：</h3><p><img src="https://ae02.alicdn.com/kf/H3e471dee691f4cbfb6a22152f8cfd70by.png" alt="image.png"></p>
+<ol>
+<li>偏向锁的延迟特性，不是立即加锁的。</li>
+<li>测试偏向锁，前 54 位是线程id</li>
+</ol>
+<h3 id="撤销偏向锁"><a href="#撤销偏向锁" class="headerlink" title="撤销偏向锁"></a>撤销偏向锁</h3><ul>
+<li>调用了 hashcode</li>
+</ul>
+<p>因为存不下，就会撤销了</p>
+<p><img src="https://ae06.alicdn.com/kf/Haf5908a3577d41ff9404ec68ee016578Q.png" alt="image.png"></p>
+<ul>
+<li>其他线程使用对象</li>
+</ul>
+<p>会将偏向锁升级为轻量级锁</p>
+<ul>
+<li>调用wait/notify</li>
+</ul>
+<p>wait/notify 只有重量级锁有，调用时会把锁（不管是偏向还是轻量）都会升级为重量级锁。</p>
+<h3 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h3><p>如果对象虽然被多个线程访问，但没有竞争，这时偏向了线程T1的对象仍然有机会偏向T2，重偏向会重置对象的ThreadID</p>
+<p>当撤销偏向锁阀值超过 20 次后，jvm 会觉得，我是不是偏向错了，于是会给这些对象加锁时重新偏向至加锁线程</p>
+<h3 id="批量撤销"><a href="#批量撤销" class="headerlink" title="批量撤销"></a>批量撤销</h3><p>当撤销偏向锁阀值超过 40 次，jvm 会这样觉得，自己确实偏向错了，根本就不该偏向。于是整个类的所有对象都会变为不可偏向的，新建的对象也是不可偏向的。</p>
+<h3 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h3><p>java 解释 + 编译</p>
+<p>因为有 JIT 即时编译器，对字节码进一步优化，对热点代码的优化，其中会对局部变量进行判断是否逃离了作用的范围，如果加锁代码块没有逃离（不可能被共享），加锁没什么意义， 可以会对锁进行消除。</p>
+<p>这个配置默认是打开的，也是可以去掉的。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/08/22/并发编程-3/" class="pre-post btn btn-default" title='并发编程-3'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">并发编程-3</span>
+        </a>
+    
+    
+        <a href="/2021/08/11/并发编程-1/" class="next-post btn btn-default" title='并发编程-1'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">并发编程-1</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Sat Aug 21 2021 14:44:38 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#管程"><span class="toc-text">管程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#共享问题"><span class="toc-text">共享问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#临界区："><span class="toc-text">临界区：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#竞态条件"><span class="toc-text">竞态条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchroized"><span class="toc-text">synchroized</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法上的-synchronized"><span class="toc-text">方法上的 synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#线程八锁"><span class="toc-text">线程八锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全分析"><span class="toc-text">线程安全分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#局部变量线程安全分析"><span class="toc-text">局部变量线程安全分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见线程安全类"><span class="toc-text">常见线程安全类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#不可变类"><span class="toc-text">不可变类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitor（锁）"><span class="toc-text">Monitor（锁）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Synchronized"><span class="toc-text">Synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小故事"><span class="toc-text">小故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronized-原理学习"><span class="toc-text">Synchronized  原理学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自旋优化："><span class="toc-text">自旋优化：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#偏向锁"><span class="toc-text">偏向锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#偏向状态："><span class="toc-text">偏向状态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销偏向锁"><span class="toc-text">撤销偏向锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量重偏向"><span class="toc-text">批量重偏向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量撤销"><span class="toc-text">批量撤销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁消除"><span class="toc-text">锁消除</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
