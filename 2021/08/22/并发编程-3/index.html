@@ -169,7 +169,33 @@
     </div>
     
     <div class="post-body post-content">
-        <h2 id="wait-notify"><a href="#wait-notify" class="headerlink" title="wait/notify"></a>wait/notify</h2><h2 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h2><h2 id="活跃性"><a href="#活跃性" class="headerlink" title="活跃性"></a>活跃性</h2><h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2>
+        <h2 id="wait-notify"><a href="#wait-notify" class="headerlink" title="wait/notify"></a>wait/notify</h2><h3 id="小故事"><a href="#小故事" class="headerlink" title="小故事"></a>小故事</h3><p><img src="https://ae04.alicdn.com/kf/Hd8a0d8b992f045f98321068557cd4841l.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H9a07d0804e204fd183e9cf901a1addb97.png" alt="image.png"></p>
+<h3 id="原理-wait-notify"><a href="#原理-wait-notify" class="headerlink" title="原理 wait/notify"></a>原理 wait/notify</h3><p><img src="https://ae05.alicdn.com/kf/H205757b45fa44ae59f634c60d2d95af6X.png" alt="image.png"></p>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><ul>
+<li>obj.wait() 让进入 object 监视器的线程 到 waitSet 等待。obj.wait(time) ，obj.wait(time,纳秒) 纳秒是假的，会在 time 的基础上加 1</li>
+<li>obj.notify() 在 object 上正在 waitSet 等待的线程中挑一个唤醒</li>
+<li>obj.notifyAll()在 object 上正在 waitSet 等待的线程全部唤醒</li>
+</ul>
+<p>他们都是线程之间进行协作的手段，都属于Object 对象的方法。必须获得此对象的锁（即成为 Owner ） 才能调用这些方法。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>sleep 和 wait 的区别：</p>
+<ul>
+<li>sleep 是 线程 方法， wait 是 Object 方法</li>
+<li>sleep 不需要强制 和 synchroized 配合使用，而 wait 是配合使用的</li>
+<li><p>sleep 在睡眠的同时，不会释放锁对象，而 wait 会释放锁对象</p>
+</li>
+<li><p>状态是一样的 timed_waiting</p>
+</li>
+</ul>
+<p>notify 可能会虚假叫醒，因为是随机挑一个线程。可以使用notifyAll 唤醒所有，每个等待线程的 判断逻辑处需要设置为 while 来判断 钥匙是否送到的逻辑。（保护性的while 循环）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">synchroized(lock)&#123;</span><br><span class="line">	while(条件不成立)&#123;</span><br><span class="line">		lock.wait();</span><br><span class="line">	&#125;</span><br><span class="line">	// 继续干活</span><br><span class="line">&#125;</span><br><span class="line">// 另一个线程</span><br><span class="line"></span><br><span class="line">synchroized(lock)&#123;</span><br><span class="line">	lock.notifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设计模式：保护性暂停"><a href="#设计模式：保护性暂停" class="headerlink" title="设计模式：保护性暂停"></a>设计模式：保护性暂停</h2><p><img src="https://ae05.alicdn.com/kf/H19547e839aac4c8595819f4f51d6f9b7h.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/Hbedebfe652f54621a67cc463401624d3D.png" alt="image.png"></p>
+<p>一个线程等待另一个线程的结果。</p>
+<p>join： 一个线程等待另一个线程的结束。</p>
+<p>用的方法都是一样的，GuardedObject 保护性暂停，同步设计模式。</p>
+<h3 id="原理之-join（带时间参，不带时间参）"><a href="#原理之-join（带时间参，不带时间参）" class="headerlink" title="原理之 join（带时间参，不带时间参）"></a>原理之 join（带时间参，不带时间参）</h3><p><img src="https://ae05.alicdn.com/kf/H75bc04ea2f3f417282d688eb2ec6d5bdM.png" alt="image.png"></p>
+<h2 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h2><h2 id="活跃性"><a href="#活跃性" class="headerlink" title="活跃性"></a>活跃性</h2><h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2>
     </div>
 
     <div class="post-footer">
@@ -226,7 +252,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-notify"><span class="toc-text">wait/notify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程状态转换"><span class="toc-text">线程状态转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#活跃性"><span class="toc-text">活跃性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lock"><span class="toc-text">Lock</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-notify"><span class="toc-text">wait/notify</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小故事"><span class="toc-text">小故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-wait-notify"><span class="toc-text">原理 wait/notify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-text">API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式：保护性暂停"><span class="toc-text">设计模式：保护性暂停</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理之-join（带时间参，不带时间参）"><span class="toc-text">原理之 join（带时间参，不带时间参）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程状态转换"><span class="toc-text">线程状态转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#活跃性"><span class="toc-text">活跃性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lock"><span class="toc-text">Lock</span></a></li></ol>
         
     </div>
 </aside>
