@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>并发编程-4 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="并发编程-4">
+            
+	            并发编程-4
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/并发编程" title='并发编程'>
+                        并发编程
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/08/25</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="Park-amp-Unpark"><a href="#Park-amp-Unpark" class="headerlink" title="Park&amp;Unpark"></a>Park&amp;Unpark</h2><p><img src="https://ae03.alicdn.com/kf/H9f52b2ea1aff4994ab56bd5246ae658f2.png" alt="image.png"></p>
+<p>Park 的状态就是 wait ，无限的等待。</p>
+<p>unpark 既可以在 park 之前也可以在 unpark 之后调用。</p>
+<p>如果先 unpark 了， 再调用 park 不会在等待。</p>
+<p><img src="https://ae04.alicdn.com/kf/H8c62a9cfcde8452fa0f4adb09d78592ft.png" alt="image.png"></p>
+<h3 id="park-amp-unpark-原理"><a href="#park-amp-unpark-原理" class="headerlink" title="park&amp;unpark 原理"></a>park&amp;unpark 原理</h3><p>java 层面看不到，c++ 实现的。</p>
+<p><img src="/Users/liuhaiyang25/Documents/Hdfbd12ec0997429ea5a3e72d2bde5eb9l.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/Hd9e145ef016a47e49ed19654e63b15a4X.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H07813f6c3d90493d921873f9a90c24f5d.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/H493bdc84053446b2971fe53a0e0ac972p.png" alt="image.png"></p>
+<h2 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h2><p><img src="https://ae02.alicdn.com/kf/H5b99c777363448a3a607d5718aa220719.png" alt="企业咚咚20210826202909.jpg"></p>
+<p><img src="https://ae04.alicdn.com/kf/Hb7ca35dfdab04287879aa52d0a78432fO.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H64a6d96706424b578274586d6e5fd9671.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/H180f5675c37848ff9719c30dd112e8fbP.png" alt="image.png"></p>
+<p><img src="https://ae05.alicdn.com/kf/H8632c21acd154160b8fd302fd333ad46D.png" alt="image.png"></p>
+<h2 id="多把锁"><a href="#多把锁" class="headerlink" title="多把锁"></a>多把锁</h2><p><img src="https://ae03.alicdn.com/kf/H9a63636713b94138b2555ca5d1887c07w.png" alt="image.png"></p>
+<p><img src="https://ae05.alicdn.com/kf/H2a16e22f3c94483985c6b79caf8a560fs.png" alt="image.png"></p>
+<h2 id="活跃性"><a href="#活跃性" class="headerlink" title="活跃性"></a>活跃性</h2><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p><img src="https://ae05.alicdn.com/kf/Hdb9ea72cf3d7461ca8afe1ee60c55b49d.png" alt="image.png"></p>
+<p>定位死锁：可以使用 jconsole 工具，或者使用 jps 定位 进程 id，在用 jstack 定位死锁。</p>
+<p><img src="https://ae03.alicdn.com/kf/Hd265ef7ea74449e093bf7c63105666f9T.png" alt="image.png"></p>
+<h3 id="活锁"><a href="#活锁" class="headerlink" title="活锁"></a>活锁</h3><p><img src="https://ae05.alicdn.com/kf/Hf264a4e05a6b4e5f929e09c2d7435eda3.png" alt="image.png"></p>
+<h3 id="饥饿"><a href="#饥饿" class="headerlink" title="饥饿"></a>饥饿</h3><p><img src="https://ae04.alicdn.com/kf/He08204f9b4bc41f89e46bccdda24b574t.png" alt="image.png"></p>
+<h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><p><img src="https://ae04.alicdn.com/kf/H0eb0b891a7984b999d3e97de82a594efW.png" alt="image.png"></p>
+<p>可以反复加锁。</p>
+<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">reentrantLock.lock()</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="comment">//临界区</span></span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line"><span class="comment">// 释放区</span></span><br><span class="line">reentrantLock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="可重入"><a href="#可重入" class="headerlink" title="可重入"></a>可重入</h3><p>是指同一个线程如果首次获得了这把锁，那么因为它是这把锁的拥有者，因此有权利再次获得这把锁。</p>
+<p>如果是不可重入锁，那么第二次获得锁时，自己也会被锁挡住。</p>
+<h3 id="可打断"><a href="#可打断" class="headerlink" title="可打断"></a>可打断</h3><p>在等待时 可以用 interapet 打断。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">lock.lock() <span class="comment">//是不能打断的</span></span><br><span class="line"></span><br><span class="line">lock.lockInterruptibly() <span class="comment">//是可以打断的</span></span><br></pre></td></tr></table></figure>
+<h3 id="锁超时"><a href="#锁超时" class="headerlink" title="锁超时"></a>锁超时</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可打断</span></span><br><span class="line">lock.tryLock() <span class="comment">//尝试获取锁，立即返回</span></span><br><span class="line"></span><br><span class="line">lock.tryLock(n,时间单位) <span class="comment">//在时间内尝试获取锁</span></span><br><span class="line">lock.unlock()</span><br></pre></td></tr></table></figure>
+<h3 id="解决科学家就餐问题"><a href="#解决科学家就餐问题" class="headerlink" title="解决科学家就餐问题"></a>解决科学家就餐问题</h3><p>旧版本 synchronized 拿不到锁，一直等待</p>
+<p><img src="https://ae02.alicdn.com/kf/Hf2c868e0a9d84bc28f3c0d2233e84b67b.png" alt="image.png"></p>
+<p>新版本 lock.tryLock()</p>
+<p><img src="https://ae01.alicdn.com/kf/Ha9a9a011aa7741459b8e0c5979471fa7K.png" alt="image.png"></p>
+<p>筷子既是筷子，也可以当作锁来进行使用。</p>
+<p><img src="https://ae03.alicdn.com/kf/H5a30117c071048a682ad2342e72fae36X.png" alt="image.png"></p>
+<h3 id="公平锁"><a href="#公平锁" class="headerlink" title="公平锁"></a>公平锁</h3><p>synchroized 是公平锁的</p>
+<p>ReentrantLock 默认是不公平的，不公平的是进行争抢的，改为公平的则是先进先获得锁。</p>
+<p><img src="https://ae01.alicdn.com/kf/He850ccec9243482f9593f1aaafc8bb13L.png" alt="image.png"></p>
+<p>公平锁一般没有必要，会降低并发度。</p>
+<h3 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h3><p><img src="https://ae04.alicdn.com/kf/H849e82bc12f840c89e525a023050550eU.png" alt="image.png"></p>
+<h2 id="同步模式之顺序控制"><a href="#同步模式之顺序控制" class="headerlink" title="同步模式之顺序控制"></a>同步模式之顺序控制</h2><p>先打印 2 再打印 1</p>
+<ul>
+<li>synchroized 实现</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/H859603add70b491fbafe80798d90cbb9h.png" alt="image.png"></p>
+<ul>
+<li>reentrantLock 实现 awit 和唤醒</li>
+</ul>
+<ul>
+<li>park&amp;unpark</li>
+</ul>
+<p><img src="https://ae03.alicdn.com/kf/H3a97c2aa0e0b4a2a8e82062e2fa2aabbt.png" alt="image.png"></p>
+<h3 id="设计模式，交替输出"><a href="#设计模式，交替输出" class="headerlink" title="设计模式，交替输出"></a>设计模式，交替输出</h3><ul>
+<li>方法一</li>
+</ul>
+<p><img src="https://ae03.alicdn.com/kf/H64c9da1063f040e3bf24c7fe5d505b9d0.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/Heb1ead22ac314f9580a9ab2d3378c9257.png" alt="image.png"></p>
+<ul>
+<li><p>方法二 reentrantLock</p>
+<p><img src="https://ae04.alicdn.com/kf/H30c336b340694227a657971b1f0cbffay.png" alt="image.png"></p>
+</li>
+<li><p>方法三 park</p>
+</li>
+</ul>
+<p><img src="https://ae05.alicdn.com/kf/Ha6ce6b5e7a924056bc8f17b72cb87eecs.png" alt="image.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="https://ae04.alicdn.com/kf/Hb6b6ff0bec114e1e8130457545e5e084c.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/H41cb79c78a214dc3b9b7b032102a8410H.png" alt="image.png"></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/08/22/并发编程-3/" class="next-post btn btn-default" title='并发编程-3'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">并发编程-3</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Wed Aug 25 2021 21:25:41 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Park-amp-Unpark"><span class="toc-text">Park&amp;Unpark</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#park-amp-unpark-原理"><span class="toc-text">park&amp;unpark 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程状态转换"><span class="toc-text">线程状态转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多把锁"><span class="toc-text">多把锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#活跃性"><span class="toc-text">活跃性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#死锁"><span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#活锁"><span class="toc-text">活锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#饥饿"><span class="toc-text">饥饿</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ReentrantLock"><span class="toc-text">ReentrantLock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可重入"><span class="toc-text">可重入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可打断"><span class="toc-text">可打断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁超时"><span class="toc-text">锁超时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决科学家就餐问题"><span class="toc-text">解决科学家就餐问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公平锁"><span class="toc-text">公平锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件变量"><span class="toc-text">条件变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步模式之顺序控制"><span class="toc-text">同步模式之顺序控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计模式，交替输出"><span class="toc-text">设计模式，交替输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

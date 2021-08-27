@@ -195,7 +195,13 @@
 <p>join： 一个线程等待另一个线程的结束。</p>
 <p>用的方法都是一样的，GuardedObject 保护性暂停，同步设计模式。</p>
 <h3 id="原理之-join（带时间参，不带时间参）"><a href="#原理之-join（带时间参，不带时间参）" class="headerlink" title="原理之 join（带时间参，不带时间参）"></a>原理之 join（带时间参，不带时间参）</h3><p><img src="https://ae05.alicdn.com/kf/H75bc04ea2f3f417282d688eb2ec6d5bdM.png" alt="image.png"></p>
-<h2 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h2><h2 id="活跃性"><a href="#活跃性" class="headerlink" title="活跃性"></a>活跃性</h2><h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><img src="https://ae06.alicdn.com/kf/Hcab194e10cbe4e7e942206db4c56127cL.png" alt="image.png"></p>
+<p>解藕 结果产生者和结果消费者。</p>
+<p><img src="https://ae06.alicdn.com/kf/H5e8169b0d87143f1b0bf64e2f9deeef9T.png" alt="image.png"></p>
+<h2 id="设计模式：生产者-amp-消费者模式"><a href="#设计模式：生产者-amp-消费者模式" class="headerlink" title="设计模式：生产者&amp;消费者模式"></a>设计模式：生产者&amp;消费者模式</h2><p><img src="https://ae02.alicdn.com/kf/Hfcbc6ddda5344931aeb43ce20e335ad3S.png" alt="image.png"></p>
+<p>代码实现：</p>
+<p><img src="https://ae06.alicdn.com/kf/H7ed3743f1f3642ce81f474c7891c4991k.png" alt="image.png"><br><img src="https://ae05.alicdn.com/kf/H5eeac509df2b4bfcb7b8c5f4fcca24ef8.png" alt="image.png"><br><img src="https://ae05.alicdn.com/kf/H2b9a088d8f714ef794da96e972b630c8Y.png" alt="image.png"></p>
+
     </div>
 
     <div class="post-footer">
@@ -211,6 +217,11 @@
 </article>
 
 <div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/08/25/并发编程-4/" class="pre-post btn btn-default" title='并发编程-4'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">并发编程-4</span>
+        </a>
     
     
         <a href="/2021/08/21/并发编程-2/" class="next-post btn btn-default" title='并发编程-2'>
@@ -252,7 +263,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-notify"><span class="toc-text">wait/notify</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小故事"><span class="toc-text">小故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-wait-notify"><span class="toc-text">原理 wait/notify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-text">API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式：保护性暂停"><span class="toc-text">设计模式：保护性暂停</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理之-join（带时间参，不带时间参）"><span class="toc-text">原理之 join（带时间参，不带时间参）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程状态转换"><span class="toc-text">线程状态转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#活跃性"><span class="toc-text">活跃性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lock"><span class="toc-text">Lock</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-notify"><span class="toc-text">wait/notify</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小故事"><span class="toc-text">小故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-wait-notify"><span class="toc-text">原理 wait/notify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-text">API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式：保护性暂停"><span class="toc-text">设计模式：保护性暂停</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理之-join（带时间参，不带时间参）"><span class="toc-text">原理之 join（带时间参，不带时间参）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展"><span class="toc-text">扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式：生产者-amp-消费者模式"><span class="toc-text">设计模式：生产者&amp;消费者模式</span></a></li></ol>
         
     </div>
 </aside>
