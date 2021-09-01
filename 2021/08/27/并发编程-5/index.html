@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>并发编程-5 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="并发编程-5">
+            
+	            并发编程-5
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/并发编程" title='并发编程'>
+                        并发编程
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/08/27</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="第-5章-（JMM）"><a href="#第-5章-（JMM）" class="headerlink" title="第 5章 （JMM）"></a>第 5章 （JMM）</h2><p>共享模型之内存</p>
+<hr>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><hr>
+<p>Monitor 主要关注的是访问共享变量时，保证临界区代码的原子性</p>
+<p><img src="https://ae02.alicdn.com/kf/Haf349d73bd694c469bd6af872cf433ffD.png" alt="image.png"></p>
+<p>主存：所有线程都共享的数据，静态成员变量，成员变量。</p>
+<p>工作内存： 每个线程私有的数据，局部变量。</p>
+<h2 id="可见性-1"><a href="#可见性-1" class="headerlink" title="可见性"></a>可见性</h2><p>现象：退不出去的循环</p>
+<p><img src="https://ae02.alicdn.com/kf/H04e1224c45ed4905b30cb9dc4b1e2c6fC.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H9df88cdef9a84a96bb6fd52ac5db1fe7h.png" alt="image.png"><img src="https://ae01.alicdn.com/kf/H0b1c94ad594c470b9545b3146b642468D.png" alt="image.png"></p>
+<p>解决方案：</p>
+<p>变量 加 volatile，线程不会从缓存中去取值，效率有所损失，保证了数据的可见性。</p>
+<p>它可以用来修饰成员变量和静态成员变量，他可以避免线程从自己的工作缓存中查找变量的值，必须到主存中获取他的值，线程操作 volatile 变量都是直接操作主存的。</p>
+<p>方法一：轻量级的，可见性</p>
+<p><img src="https://ae05.alicdn.com/kf/Hd679882099ba4b52894b330616344c677.png" alt="image.png"></p>
+<p>方法二：重量级的</p>
+<p><img src="https://ae02.alicdn.com/kf/H4df57fec2f5748be84a87bd66649b66cx.png" alt="image.png"></p>
+<h2 id="可见性-vs-原子性"><a href="#可见性-vs-原子性" class="headerlink" title="可见性  vs 原子性"></a>可见性  vs 原子性</h2><p>volatile 只能保证了可见性，数据是最新的值，但是保证不了原子性，不能解决指令的交错。</p>
+<p><img src="https://ae04.alicdn.com/kf/H626fdbd7e2e34ad39d85e0d65cb4f7352.png" alt="image.png"><img src="https://ae02.alicdn.com/kf/He3e5ab6bf947482d9117b7f1acd3b5734.png" alt="image.png"></p>
+<p>打印语句加锁了。</p>
+<h3 id="两阶段终止-volatile"><a href="#两阶段终止-volatile" class="headerlink" title="两阶段终止-volatile"></a>两阶段终止-volatile</h3><p><img src="https://ae05.alicdn.com/kf/H4a4ca7853f0542c99e3d7e5b600fa4faQ.png" alt="image.png"></p>
+<h3 id="同步模式-Balking"><a href="#同步模式-Balking" class="headerlink" title="同步模式-Balking"></a>同步模式-Balking</h3><p><img src="https://ae02.alicdn.com/kf/Hc073e91ad0874c8592a5ae9e4650e045W.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/H62bfcc0b761648f482496eb739c4be51p.png" alt="image.png"></p>
+<p>同一代码块的变量的可见性 用 synchroized 保证。</p>
+<p>不同代码块中变量的可见性用 vilatile 来保证。</p>
+<p><img src="https://ae05.alicdn.com/kf/H34ed07a784d64e0cbc7bc1728f8cabeaj.png" alt="image.png"></p>
+<p>懒惰初始化。</p>
+<h3 id="有序性-1"><a href="#有序性-1" class="headerlink" title="有序性"></a>有序性</h3><p><img src="https://ae04.alicdn.com/kf/Hbde3d8b0856046f2a2c3b3223683de07k.png" alt="image.png"></p>
+<h3 id="指令重排序优化"><a href="#指令重排序优化" class="headerlink" title="指令重排序优化"></a>指令重排序优化</h3><p>提高CPU 指令级别的并发度，提高并发吞吐量，单线程不会有影响，只会影响在多线程。</p>
+<p>是JIT编译器运行时的一些优化。</p>
+<p>volatie 可以防止（禁止）指令重排序，不把主存的数据缓存到运行内存。</p>
+<p><img src="https://ae04.alicdn.com/kf/He8498b672ee14d3baa4980a796b271feu.png" alt="image.png"></p>
+<h3 id="支持流水线的处理器"><a href="#支持流水线的处理器" class="headerlink" title="支持流水线的处理器"></a>支持流水线的处理器</h3><p>也不是分级越多越好</p>
+<p><img src="https://ae05.alicdn.com/kf/H783e57d14e12465f9ea391f4520387bc4.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H92bd11b9bfb041719d43361ac8de3269c.png" alt="image.png"></p>
+<h2 id="volatile-原理"><a href="#volatile-原理" class="headerlink" title="volatile 原理"></a>volatile 原理</h2><p>volatile 的底层实现原理是内存屏障，Memory barrier (Memory Fence)</p>
+<ul>
+<li>对 volatile 变量的写指令会加入写屏障</li>
+<li>对 volatile 变量的读指令前会加入读屏障</li>
+</ul>
+<p><img src="https://ae02.alicdn.com/kf/Hd9879688179b4c9fa3879a294a9b26f7r.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/Ha17db351fe91483895f6c61a7f1ab9da5.png" alt="image.png"></p>
+<p><img src="https://ae05.alicdn.com/kf/H5666e1a7495b4650afb243d4041dfbcfE.png" alt="image.png"></p>
+<p>synchroized 是可以保证原子性，可见性，有序性。共享变量完全被 sync 保护。 如果不是完全的，还是有可能被 重排序，不能阻止。</p>
+<h2 id="double-checked-locking-问题"><a href="#double-checked-locking-问题" class="headerlink" title="double-checked locking 问题"></a>double-checked locking 问题</h2><p>首次访问会同步，而之后的使用没有 sync</p>
+<p><img src="https://ae03.alicdn.com/kf/H83a647feab374a42b8ba308d64a60ce0L.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/He8114579a8b54233b661677d773858e9U.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/Hde1617551f3f4de18de7c08c131afa810.png" alt="image.png"></p>
+<p><img src="https://ae04.alicdn.com/kf/Hd7a496503cac48d8bc3c8d67b912c255I.png" alt="企业咚咚20210831210800.jpg"></p>
+<h2 id="double-checked-locking-解决"><a href="#double-checked-locking-解决" class="headerlink" title="double-checked locking 解决"></a>double-checked locking 解决</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton INSTANCE = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hfa963ea2c24c407e9dd40a55444b89e2i.png" alt="image.png"></p>
+<h2 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h2><p>Happens-before 规定了 对共享变量的写操作对其它线程的读操作可见，它是可见性与有序性的一套规则总结。</p>
+<p><img src="https://ae01.alicdn.com/kf/Hcc1bb076cf3847fd920679cb999fd59b9.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H285aeb07471244139b0665f0beb8f769Q.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/H85a9b54c44df4b3ba091434207365a41B.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/Hb51cdbccb4614b94bf64cb910619c1acj.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H4253a041ad7d4649bba53a9a4c028057l.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H58ac557185954662a6e2e6857f0e168dz.png" alt="image.png"></p>
+<h2 id="线程安全单例"><a href="#线程安全单例" class="headerlink" title="线程安全单例"></a>线程安全单例</h2><p><img src="https://ae03.alicdn.com/kf/H78cceda30a014c87be1b4a890f260d0cv.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/H177ab68bb5024d99957a1990d9220a98d.png" alt="企业咚咚20210901153259.jpg"></p>
+<p><img src="https://ae03.alicdn.com/kf/H31d8ae1d694a4613aa7f0fefec43c2a0H.png" alt="企业咚咚20210901161847.jpg"></p>
+<p><img src="https://ae04.alicdn.com/kf/Hf1e262f9372841a3b999ca2e16506964b.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H076d9a7bc9b14415a09742aa8e14f9e2u.png" alt="企业咚咚20210901162740.jpg"></p>
+<p><img src="https://ae04.alicdn.com/kf/H89592f3191d54c1cb2b03946bdb038f4s.png" alt="企业咚咚20210901163528.jpg"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="https://ae04.alicdn.com/kf/H07b20890ae7a4f3a9093aec1ef12e6724.png" alt="企业咚咚20210901172021.jpg"></p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2021/09/01/并发编程-6/" class="pre-post btn btn-default" title='并发编程-6'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">并发编程-6</span>
+        </a>
+    
+    
+        <a href="/2021/08/25/并发编程-4/" class="next-post btn btn-default" title='并发编程-4'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">并发编程-4</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Fri Aug 27 2021 18:23:35 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-5章-（JMM）"><span class="toc-text">第 5章 （JMM）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原子性"><span class="toc-text">原子性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可见性"><span class="toc-text">可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有序性"><span class="toc-text">有序性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可见性-1"><span class="toc-text">可见性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可见性-vs-原子性"><span class="toc-text">可见性  vs 原子性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#两阶段终止-volatile"><span class="toc-text">两阶段终止-volatile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步模式-Balking"><span class="toc-text">同步模式-Balking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有序性-1"><span class="toc-text">有序性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令重排序优化"><span class="toc-text">指令重排序优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持流水线的处理器"><span class="toc-text">支持流水线的处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile-原理"><span class="toc-text">volatile 原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#double-checked-locking-问题"><span class="toc-text">double-checked locking 问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#double-checked-locking-解决"><span class="toc-text">double-checked locking 解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#happens-before"><span class="toc-text">happens-before</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全单例"><span class="toc-text">线程安全单例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
