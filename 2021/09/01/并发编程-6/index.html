@@ -146,6 +146,10 @@
         <span class="tags-meta">
             
                 
+                    <a href="/tags/并发编程" title='并发编程'>
+                        并发编程
+                    </a>
+                
             
         </span>
     </span>
@@ -165,7 +169,64 @@
     </div>
     
     <div class="post-body post-content">
-        
+        <h2 id="第-6-章-共享模型之无锁"><a href="#第-6-章-共享模型之无锁" class="headerlink" title="第 6 章 共享模型之无锁"></a>第 6 章 共享模型之无锁</h2><ul>
+<li>CAS 与 volatile 结合使用</li>
+<li>原子整数</li>
+<li>原子引用</li>
+<li>原子累加器</li>
+<li>Unsafe</li>
+</ul>
+<hr>
+<h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p>无锁进行处理</p>
+<p><img src="https://ae03.alicdn.com/kf/Ha8f9ad919d194d3aacc7091ae9b50504Q.png" alt="image.png"></p>
+<p>其中的关键是compareAndSet 他的简称就是 CAS （也有 compare And Swap） 它必须是原子操作。</p>
+<p>核心就是不断的不断的尝试，直到成功了。</p>
+<p><img src="https://ae04.alicdn.com/kf/Hddbba8c437194f15a41de8cd7d6ca606x.png" alt="企业咚咚20210901180221.jpg"></p>
+<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p><img src="https://ae05.alicdn.com/kf/Hadeea53e090c4105beae789d542448c8R.png" alt="企业咚咚20210901180641.jpg"></p>
+<h2 id="为什么无锁效率高"><a href="#为什么无锁效率高" class="headerlink" title="为什么无锁效率高"></a>为什么无锁效率高</h2><p><img src="https://ae03.alicdn.com/kf/H898d33b900db474d893b9bd718e5237eS.png" alt="image.png"></p>
+<h2 id="CAS-的特点"><a href="#CAS-的特点" class="headerlink" title="CAS 的特点"></a>CAS 的特点</h2><p><img src="https://ae03.alicdn.com/kf/Hc542cc73024045a596d58a4bd71ab211b.png" alt="image.png"></p>
+<h2 id="原子整数"><a href="#原子整数" class="headerlink" title="原子整数"></a>原子整数</h2><p>JUC 并发包 提供原子操作的类</p>
+<ul>
+<li>AtomicBoolean</li>
+<li>AtomicInteger</li>
+<li>AtomicLong</li>
+</ul>
+<p><img src="https://ae04.alicdn.com/kf/Ha021042d692245f38a59671004d0285ec.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H47e9efc5737d4d8b9f246136d78a5763e.png" alt="image.png"></p>
+<h2 id="原子引用"><a href="#原子引用" class="headerlink" title="原子引用"></a>原子引用</h2><ul>
+<li>AtomicReference</li>
+<li>AtomicMarkableReference</li>
+<li>AtomicStampedReference</li>
+</ul>
+<p><img src="https://ae02.alicdn.com/kf/H73804ef3aaa34392b6bf263de9ca2889J.png" alt="image.png"></p>
+<h3 id="安全实现-使用CAS"><a href="#安全实现-使用CAS" class="headerlink" title="安全实现-使用CAS"></a>安全实现-使用CAS</h3><p><img src="https://ae05.alicdn.com/kf/H1909cc948840417d94e3adf3943dbc3fr.png" alt="image.png"></p>
+<h2 id="原子数组"><a href="#原子数组" class="headerlink" title="原子数组"></a>原子数组</h2><ul>
+<li>AtomicIntegerArray</li>
+<li>AtomicLongArray</li>
+<li>AtomicReferenceArray</li>
+</ul>
+<p><img src="https://ae05.alicdn.com/kf/H67b2d900eadc4a23a23fb13fb60b981fv.png" alt="image.png"></p>
+<h2 id="字段更新器"><a href="#字段更新器" class="headerlink" title="字段更新器"></a>字段更新器</h2><p>某个对象里面的属性或成员变量</p>
+<ul>
+<li>AtomicReferenceFieldUpdater</li>
+<li>AtomicIntegerFieldUpdater</li>
+<li>AtomicLongFieldUpdater</li>
+</ul>
+<p><img src="https://ae05.alicdn.com/kf/H0f03bc3e5bdf4c5c8c149bdb47989b682.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H41a77f145fdd4a5e812d8f5b168e027fJ.png" alt="image.png"></p>
+<h2 id="原子累加器"><a href="#原子累加器" class="headerlink" title="原子累加器"></a>原子累加器</h2><h3 id="原子累加器比较"><a href="#原子累加器比较" class="headerlink" title="原子累加器比较"></a>原子累加器比较</h3><p>LongAccumulator LongAdder 专门做累加的，比较之前的 atomic increment 等性能要高很多。</p>
+<p><img src="https://ae03.alicdn.com/kf/H83e51d8337b84e8997cd61775a3ebfb0L.png" alt="image.png"></p>
+<p>性能提升的原因很简单，就是在有竞争时，设置多个累加的单元，Thread-0 累加 cell[0] （累加单元，跟CPU 核心数有关，不能超过）,而 thread-1 累加 cell[1] …. 最后将结果汇总。这样他们在累加时操作的不同的 Cell 变量。 因此 减少了 CAS 重试失败，从而提高了性能。</p>
+<p><img src="https://ae01.alicdn.com/kf/H893dcdce5471499c92551d7ed550f02eC.png" alt="image.png"></p>
+<h2 id="缓存结构"><a href="#缓存结构" class="headerlink" title="缓存结构"></a>缓存结构</h2><p><img src="https://ae05.alicdn.com/kf/Hed15b1a2a1284072a642ec3dcc905cecd.png" alt="企业咚咚20210907154528.jpg"></p>
+<p><img src="https://ae03.alicdn.com/kf/H3b2050ef54974264b4693887d238133ft.png" alt="image.png"></p>
+<h3 id="伪共享"><a href="#伪共享" class="headerlink" title="伪共享"></a>伪共享</h3><p><img src="https://ae02.alicdn.com/kf/H57b9f655c3e54a7f9db914df29333b26W.png" alt="image.png"></p>
+<p>不会造成缓存行的失效。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 防止缓存行伪共享</span></span><br><span class="line"><span class="meta">@sun</span>.misc.contnded</span><br></pre></td></tr></table></figure>
+<h2 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h2><p>Unsafe 对象提供了非常底层的，操作内存，线程的方法、 Unsafe 对象不能直接调用，只能通过反射获得。</p>
+<p><img src="https://ae04.alicdn.com/kf/Ha06e421f3bde44d694fb4009cdd71062T.png" alt="image.png"></p>
+<h3 id="原子整数类的实现"><a href="#原子整数类的实现" class="headerlink" title="原子整数类的实现"></a>原子整数类的实现</h3><p><img src="https://ae04.alicdn.com/kf/H6766d1ebd3cb489f931ebca843b6e020R.png" alt="image.png"></p>
+
     </div>
 
     <div class="post-footer">
@@ -222,7 +283,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-6-章-共享模型之无锁"><span class="toc-text">第 6 章 共享模型之无锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS"><span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile"><span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么无锁效率高"><span class="toc-text">为什么无锁效率高</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS-的特点"><span class="toc-text">CAS 的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原子整数"><span class="toc-text">原子整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原子引用"><span class="toc-text">原子引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全实现-使用CAS"><span class="toc-text">安全实现-使用CAS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原子数组"><span class="toc-text">原子数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字段更新器"><span class="toc-text">字段更新器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原子累加器"><span class="toc-text">原子累加器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原子累加器比较"><span class="toc-text">原子累加器比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存结构"><span class="toc-text">缓存结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#伪共享"><span class="toc-text">伪共享</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unsafe"><span class="toc-text">Unsafe</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原子整数类的实现"><span class="toc-text">原子整数类的实现</span></a></li></ol></li></ol>
         
     </div>
 </aside>
