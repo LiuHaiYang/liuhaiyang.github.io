@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>使用gunicorn部署flask项目 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="使用gunicorn部署flask项目">
+            
+	            使用gunicorn部署flask项目
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/python" title='python'>
+                        python
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/09/13</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="WSGI-协议"><a href="#WSGI-协议" class="headerlink" title="WSGI 协议"></a>WSGI 协议</h2><p>Web框架致力于如何生成HTML代码，而Web服务器用于处理和响应HTTP请求。Web框架和Web服务器之间的通信，需要一套双方都遵守的接口协议。WSGI协议就是用来统一这两者的接口的。</p>
+<h2 id="WSGI-容器"><a href="#WSGI-容器" class="headerlink" title="WSGI 容器"></a>WSGI 容器</h2><p>常用的WSGI容器有Gunicorn和uWSGI，但Gunicorn直接用命令启动，不需要编写配置文件，相对uWSGI要容易很多，所以这里我也选择用Gunicorn作为容器。</p>
+<h2 id="gunicorn介绍"><a href="#gunicorn介绍" class="headerlink" title="gunicorn介绍"></a>gunicorn介绍</h2><p>gunicorn是一个python Wsgi http server，只支持在Unix系统上运行，来源于Ruby的unicorn项目。Gunicorn使用prefork master-worker模型（在gunicorn中，master被称为arbiter），能够与各种wsgi web框架协作。</p>
+<h2 id="gunicorn安装"><a href="#gunicorn安装" class="headerlink" title="gunicorn安装"></a>gunicorn安装</h2><p>gunicorn安装非常简单，使用命令pip install gunicorn即可。一般使用它，主要是为使用其异步的worker模型，还需要安装对应的异步模块。</p>
+<pre><code>$ pip install greenlet # 使用异步必须安装
+$ pip install eventlet # 使用eventlet workers
+$ pip install gevent   # 使用gevent workers
+</code></pre><h2 id="启动参数"><a href="#启动参数" class="headerlink" title="启动参数"></a>启动参数</h2><p>gunicorn通常使用的参数如下：</p>
+<pre><code>-c CONFIG, --config=CONFIG
+# 设定配置文件。
+-b BIND, --bind=BIND
+# 设定服务需要绑定的端口。建议使用HOST:PORT。
+-w WORKERS, --workers=WORKERS
+# 设置工作进程数。建议服务器每一个核心可以设置2-4个。
+-k MODULE
+# 选定异步工作方式使用的模块。
+</code></pre><p>在shell中输入你的启动配置，比如：</p>
+<pre><code>$ gunicorn -w 3 -b 127.0.0.1:8080 app:app
+# 此处app:app中，第一个app为flask项目实例所在的包，第二个app为生成的flask项目实例
+</code></pre><h3 id="gunicorn-k-参数详解-（worker-type）"><a href="#gunicorn-k-参数详解-（worker-type）" class="headerlink" title="gunicorn -k 参数详解 （worker type）"></a>gunicorn -k 参数详解 （worker type）</h3><pre><code>worker_class
+-k STRTING, --worker-class STRTING
+</code></pre><p>要使用的工作模式，默认为sync。</p>
+<p>可引用以下常见类型“字符串”作为捆绑类：</p>
+<pre><code>sync
+eventlet：需要下载eventlet&gt;=0.9.7
+gevent：需要下载gevent&gt;=0.13
+tornado：需要下载tornado&gt;=0.2
+gthread
+gaiohttp：需要python 3.4和aiohttp&gt;=0.21.5
+</code></pre><p>分三种：</p>
+<p>sync 底层协作是每一个请求都是由一个 process 处理的。<br>gthread 是每个请求都是由一个 thread 处理。<br>eventlet、gevent、tarnado 底层利用了 非同步 IO。让一个 process 在等待 IO 回应时继续处理下个请求。</p>
+<h3 id="总结来说"><a href="#总结来说" class="headerlink" title="总结来说"></a>总结来说</h3><p> eventlet 和 gevent 非同步 IO 性能较好，能够适应高并发的压力。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/09/08/并发编程-7/" class="next-post btn btn-default" title='并发编程-7'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">并发编程-7</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon Sep 13 2021 20:58:55 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WSGI-协议"><span class="toc-text">WSGI 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WSGI-容器"><span class="toc-text">WSGI 容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gunicorn介绍"><span class="toc-text">gunicorn介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gunicorn安装"><span class="toc-text">gunicorn安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动参数"><span class="toc-text">启动参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn-k-参数详解-（worker-type）"><span class="toc-text">gunicorn -k 参数详解 （worker type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结来说"><span class="toc-text">总结来说</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
