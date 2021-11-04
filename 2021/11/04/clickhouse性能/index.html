@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>nginx安装随记（mac） | meet you</title>
+<title>clickhouse性能 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="nginx安装随记（mac）">
+        <h1 id="clickhouse性能">
             
-	            nginx安装随记（mac）
+	            clickhouse性能
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/linux" title='linux'>
-                        linux
+                    <a href="/tags/数据库" title='数据库'>
+                        数据库
                     </a>
                 
             
@@ -159,36 +159,24 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/01/11</span>
+            <span class="date-meta">2021/11/04</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>1027</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h3 id="1-brew"><a href="#1-brew" class="headerlink" title="1. brew"></a>1. brew</h3><p>brew又叫Homebrew，是Mac中的一款软件包管理工具，通过brew可以很方便的在Mac中安装软件或者是卸载软件.<br>一般Mac电脑会默认安装有brew.</p>
-<h3 id="2-常用指令如下"><a href="#2-常用指令如下" class="headerlink" title="2. 常用指令如下"></a>2. 常用指令如下</h3><p>brew 搜索软件<br>brew search nginx</p>
-<p>brew 安装软件<br>brew install nginx</p>
-<p>brew 卸载软件<br>brew uninstall nginx</p>
-<p>brew 升级<br>sudo brew update</p>
-<p>查看安装信息(经常用到, 比如查看安装目录等)<br>sudo brew info nginx</p>
-<p>查看已经安装的软件<br>brew list</p>
-<p>安装完以后，可以在终端输出的信息里看到一些配置路径：</p>
-<pre><code>/usr/local/etc/nginx/nginx.conf （配置文件路径）
-/usr/local/var/www （服务器默认路径）
-/usr/local/Cellar/nginx/1.6.2 （貌似是安装路径）
-</code></pre><h3 id="3-brew安装nginx"><a href="#3-brew安装nginx" class="headerlink" title="3. brew安装nginx"></a>3. brew安装nginx</h3><p>安装nginx<br>可以用brew很方便地安装nginx.<br>sudo brew install nginx<br>启动nginx服务<br>sudo brew services start nginx<br>利用<a href="http://localhost:8080进行访问" target="_blank" rel="noopener">http://localhost:8080进行访问</a>,</p>
-<h3 id="4-操作"><a href="#4-操作" class="headerlink" title="4. 操作"></a>4. 操作</h3><p>查看nginx版本<br>nginx -v<br>关闭nginx服务<br>sudo brew services stop nginx<br>另外几个比较方便的指令</p>
-<p>重新加载nginx<br>nginx -s reload<br>停止nginx<br>nginx -s stop</p>
-<hr>
-<p><img src="https://images.pexels.com/photos/1769301/pexels-photo-1769301.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500" alt="image"></p>
+        <h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>ClickHouse表现出了比同类可比较产品更优的性能。</p>
+<p><img src="https://ae03.alicdn.com/kf/Hd882756e4a07495f9d3e96eea26f099cQ.png" alt="image.png"></p>
+<p><img src="https://ae03.alicdn.com/kf/H86646b5ed2cc4af9accaf2f6baf7df3cC.png" alt="image.png"></p>
+<h3 id="单个大查询的吞吐量"><a href="#单个大查询的吞吐量" class="headerlink" title="单个大查询的吞吐量"></a>单个大查询的吞吐量</h3><p>吞吐量可以使用每秒处理的行数或每秒处理的字节数来衡量。如果数据被放置在page cache中，则一个不太复杂的查询在单个服务器上大约能够以2-10GB／s（未压缩）的速度进行处理（对于简单的查询，速度可以达到30GB／s）。如果数据没有在page cache中的话，那么速度将取决于你的磁盘系统和数据的压缩率。例如，如果一个磁盘允许以400MB／s的速度读取数据，并且数据压缩率是3，则数据的处理速度为1.2GB/s。这意味着，如果你是在提取一个10字节的列，那么它的处理速度大约是1-2亿行每秒。</p>
+<p>对于分布式处理，处理速度几乎是线性扩展的，但这受限于聚合或排序的结果不是那么大的情况下。</p>
+<h3 id="处理短查询的延迟时间"><a href="#处理短查询的延迟时间" class="headerlink" title="处理短查询的延迟时间"></a>处理短查询的延迟时间</h3><p>如果一个查询使用主键并且没有太多行(几十万)进行处理，并且没有查询太多的列，那么在数据被page cache缓存的情况下，它的延迟应该小于50毫秒(在最佳的情况下应该小于10毫秒)。 否则，延迟取决于数据的查找次数。如果你当前使用的是HDD，在数据没有加载的情况下，查询所需要的延迟可以通过以下公式计算得知： 查找时间（10 ms） <em> 查询的列的数量 </em> 查询的数据块的数量。</p>
+<h3 id="处理大量短查询的吞吐量"><a href="#处理大量短查询的吞吐量" class="headerlink" title="处理大量短查询的吞吐量"></a>处理大量短查询的吞吐量</h3><p>在相同的情况下，ClickHouse可以在单个服务器上每秒处理数百个查询（在最佳的情况下最多可以处理数千个）。但是由于这不适用于分析型场景。因此我们建议每秒最多查询100次。</p>
+<h3 id="数据的写入性能"><a href="#数据的写入性能" class="headerlink" title="数据的写入性能"></a>数据的写入性能</h3><p>每次写入不少于1000行的批量写入，或每秒不超过一个写入请求。当使用tab-separated格式将一份数据写入到MergeTree表中时，写入速度大约为50到200MB/s。如果写入的数据每行为1Kb，那么写入的速度为50，000到200，000行每秒。如果行更小，那么写入速度将更高。为了提高写入性能，可以使用多个INSERT进行并行写入，这将带来线性的性能提升。</p>
 
     </div>
 
@@ -206,15 +194,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2019/01/15/日常一图/" class="pre-post btn btn-default" title='日常一图'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">日常一图</span>
-        </a>
     
-    
-        <a href="/2019/01/07/2018总结/" class="next-post btn btn-default" title='2018总结'>
+        <a href="/2021/11/03/clickhouse特性/" class="next-post btn btn-default" title='clickhouse特性'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">2018总结</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">clickhouse特性</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -227,7 +210,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Fri Jan 11 2019 17:19:47 GMT+0800',
+        id: 'Thu Nov 04 2021 11:21:29 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -251,7 +234,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-brew"><span class="toc-text">1. brew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-常用指令如下"><span class="toc-text">2. 常用指令如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-brew安装nginx"><span class="toc-text">3. brew安装nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-操作"><span class="toc-text">4. 操作</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#性能"><span class="toc-text">性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单个大查询的吞吐量"><span class="toc-text">单个大查询的吞吐量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理短查询的延迟时间"><span class="toc-text">处理短查询的延迟时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理大量短查询的吞吐量"><span class="toc-text">处理大量短查询的吞吐量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据的写入性能"><span class="toc-text">数据的写入性能</span></a></li></ol></li></ol>
         
     </div>
 </aside>
