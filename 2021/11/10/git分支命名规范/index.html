@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>python 生成属于自己网站的二维码 | meet you</title>
+<title>git分支命名规范 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="python 生成属于自己网站的二维码">
+        <h1 id="git分支命名规范">
             
-	            python 生成属于自己网站的二维码
+	            git分支命名规范
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title='python'>
-                        python
+                    <a href="/tags/git" title='git'>
+                        git
                     </a>
                 
             
@@ -159,29 +159,24 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/10/01</span>
+            <span class="date-meta">2021/11/10</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>1501</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h3 id="安装Python库-qrcode"><a href="#安装Python库-qrcode" class="headerlink" title="安装Python库 qrcode"></a>安装Python库 qrcode</h3><ul>
-<li><p><code>pip install qrcode</code></p>
-</li>
-<li><p>qrcode 依赖 Image 库  <code>pip  install Image</code></p>
-<p>上代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import qrcode</span><br><span class="line">img = qrcode.make(&apos;https://liuhaiyang.github.io/&apos;)</span><br><span class="line">with open(&apos;ocean.png&apos;, &apos;wb&apos;) as f:</span><br><span class="line">img.save(f)</span><br></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-</ul>
+        <p><img src="https://ae02.alicdn.com/kf/H05aa76df1541470289caf310769afbca3.png" alt="image.png"></p>
+<h3 id="主分支-Master"><a href="#主分支-Master" class="headerlink" title="主分支 Master"></a>主分支 Master</h3><p>代码库应该有一个、且仅有一个主分支。所有提供给用户使用的正式版本，都在这个主分支上发布。<br>主分支必须是可用的、稳定的、可直接发布的版本，不能直接在主分支上开发。</p>
+<h3 id="开发主分支Dev"><a href="#开发主分支Dev" class="headerlink" title="开发主分支Dev"></a>开发主分支Dev</h3><p>Master主分支只用来发布重大版本，日常开发应该在另一个分支上完成，我们把开发用的分支，叫做Dev。<br>这个分支可以用来生成代码的最新隔夜版本（nightly）。<br>如果想正式对外发布，就在Master分支上对Dev分支进行合并（merge）。<br>Dev分支代码永远是最新的，所有新功能以这个分支来创建自己的开发分支，该分支只做合并操作，不能直接在该分支上开发。</p>
+<h3 id="功能分支Feature"><a href="#功能分支Feature" class="headerlink" title="功能分支Feature"></a>功能分支Feature</h3><p>功能分支的名字，可以采用feature-x的形式命名，以自己开发的功能命名。<br>功能分支是分配开发不同的功能用的，从Dev创建功能分支，然后完成相应功能开发后合并回Dev分支并删除该功能分支</p>
+<h3 id="预发布分支Release"><a href="#预发布分支Release" class="headerlink" title="预发布分支Release"></a>预发布分支Release</h3><p>预发布分支名字，可以采用release-x的形式命名<br>预发布分支是指发布正式版本之前（即合并到Master分支之前），我们可能需要有一个预发布的版本进行测试。<br>预发布分支是从Dev分支上分出来的，预发布结束之后（即测试没有问题之后），必须合并进Dev和Master。</p>
+<h3 id="修复预发布分支Release-bug"><a href="#修复预发布分支Release-bug" class="headerlink" title="修复预发布分支Release-bug"></a>修复预发布分支Release-bug</h3><p>修复预发布分支的bug，可以采用release-bug-x的形式命名<br>在预发布版本测试出现bug时，从release分支创建分支进行bug修复，bug修复完成后在合并会release分支</p>
+<h3 id="紧急修补分支Bug"><a href="#紧急修补分支Bug" class="headerlink" title="紧急修补分支Bug"></a>紧急修补分支Bug</h3><p>修补分支的名字，可以采用bugfix-master-x的形式。<br>该分支是为了紧急修复线上的bug。<br>软件正式发布之后，难免会出现bug。这时就需要创建一个分支，进行bug修补。<br>修补bug分支是从Master分支上面分出来的。修补结束之后，再合并进Master和Dev分支。<br>尽量避免线上问题的出现</p>
+<p>注：一个分支尽量开发一个功能模块，不要多个功能模块在一个分支上开发.<br>feature分支申请合并之前，最好先pull一下dev分支下来，看一下有没有冲突，如果有冲突就先解决冲突后再合并回dev</p>
 
     </div>
 
@@ -199,15 +194,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/10/09/（转）应届生求职-葵花宝典/" class="pre-post btn btn-default" title='（转）应届生求职-葵花宝典'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">（转）应届生求职-葵花宝典</span>
-        </a>
     
-    
-        <a href="/2017/09/10/redis-基础/" class="next-post btn btn-default" title='redis 基础'>
+        <a href="/2021/11/09/Java中List的排序整理/" class="next-post btn btn-default" title='Java中List的排序整理'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">redis 基础</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Java中List的排序整理</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -220,7 +210,7 @@
 
 <script>
     var gitment = new Gitment({
-        id: 'Sun Oct 01 2017 21:42:06 GMT+0800',
+        id: 'Wed Nov 10 2021 22:10:07 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -244,7 +234,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Python库-qrcode"><span class="toc-text">安装Python库 qrcode</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主分支-Master"><span class="toc-text">主分支 Master</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发主分支Dev"><span class="toc-text">开发主分支Dev</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#功能分支Feature"><span class="toc-text">功能分支Feature</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预发布分支Release"><span class="toc-text">预发布分支Release</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修复预发布分支Release-bug"><span class="toc-text">修复预发布分支Release-bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#紧急修补分支Bug"><span class="toc-text">紧急修补分支Bug</span></a></li></ol>
         
     </div>
 </aside>
