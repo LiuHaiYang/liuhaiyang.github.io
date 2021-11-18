@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>clickhouse分析 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="clickhouse分析">
+            
+	            clickhouse分析
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title='数据库'>
+                        数据库
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/11/18</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>ClickHouse 是一个用于联机分析 (OLAP) 的列式数据库管理系统 (DBMS)。它具有 ROLAP、在线实时查询、完整的 DBMS 功能支持、列式存储、不需要任何数据预处理、支持批量更<br>新、拥有非常完善的 SQL 支持和函数、支持高可用、不依赖 Hadoop 复杂生态、开箱即用等许多特点。</p>
+<p>clickhouse 缺点：</p>
+<ul>
+<li>没有完整的事务支持</li>
+<li>稀疏索引导致 ClickHouse 不擅长细粒度或者 key-value 类型数据的查询需求</li>
+<li>缺少高频率，低延迟的修改或删除已存在数据的能力。仅能用于批量删除或修改数据</li>
+<li>不擅长 join 操作</li>
+</ul>
+<h2 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h2><h3 id="库"><a href="#库" class="headerlink" title="库"></a>库</h3><p>目前支持5种： 分别是 Ordinary Dictionary Memory Lazy ,Mysql 。其中 Ordinary 是默认库引擎，在此类型库引擎下，可以使用任意类型的表引擎。</p>
+<ul>
+<li><p>Ordinary引擎：默认引擎，如果不指定数据库引擎创建的就是 Ordinary 数据库</p>
+</li>
+<li><p>Dictionary引擎：此数据库会自动为所有数据字典创建表</p>
+</li>
+<li><p>Memory引擎：所有数据只会保存在内存中，服务重启数据消失，该数据库引擎只能够创建 Memory 引擎表</p>
+</li>
+<li><p>MySQL引擎：改引擎会自动拉取远端 MySQL 中的数据，并在该库下创建 MySQL 表引擎的数据表</p>
+</li>
+<li><p>Lazy延时引擎：在距最近一次访问间隔 expiration_time_in_seconds 时间段内，将表保存在内存中，仅适用于 Log 引擎表</p>
+</li>
+</ul>
+<h3 id="表"><a href="#表" class="headerlink" title="表"></a>表</h3><p>ClickHouse 的表引擎提供了四个系列（Log、MergeTree、Integration、Special）大约 28 种表引擎，各有各的用途。</p>
+<ul>
+<li>Log 系列用来做小表数据分析</li>
+<li>MergeTree 系列用来做大数据量分析</li>
+<li>Integration 系列则多用于外表数据集成</li>
+<li>Log、Special、Integration 系列的表引擎相对来说，应用场景有限，功能简单，应用特殊用途</li>
+<li>MergeTree 系列表引擎又和两种特殊表引擎（Replicated，Distributed）正交形成多种具备不同功能的 MergeTree 表引擎</li>
+</ul>
+<p>ClickHouse 的表引擎系列家谱：</p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509202741751.png" alt="image"><br><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509202811242.png" alt="image"></p>
+<h3 id="MergeTree"><a href="#MergeTree" class="headerlink" title="MergeTree"></a>MergeTree</h3><p>作为家族中最基础的表引擎，提供了主键索引、数据分区、数据副本和数据采样等基本能力，而家族中其他的表引擎则在 MergeTree 的基础之上各有所长：</p>
+<p>｜项目｜类别｜基础｜<br>｜—｜—｜—｜<br>｜Replicated支持数据副本｜Replacing SummingAggregating Collapsing VersionedCollapsing Graghite｜MergeTree 基础表引擎｜</p>
+<h3 id="MergeTree-引擎工作机制详解"><a href="#MergeTree-引擎工作机制详解" class="headerlink" title="MergeTree 引擎工作机制详解"></a>MergeTree 引擎工作机制详解</h3><p>MergeTree 系列是官方主推的存储引擎，支持几乎所有 ClickHouse 核心功能。</p>
+<p>该系列中，常用的表引擎有：MergeTree、ReplacingMergeTree、CollapsingMergeTree、VersionedCollapsingMergeTree、SummingMergeTree、AggregatingMergeTree 等。</p>
+<p>学习好 MergeTree 表引擎的工作机制，是应用好 ClickHouse 的最基本基础。</p>
+<p>关于表引擎类型：</p>
+<p>第一：MergeTree 表引擎主要用于海量数据分析，支持数据分区、存储有序、主键索引、稀疏索引、数据 TTL 等。MergeTree 支持所有 ClickHouse<br>SQL 语法，但是有些功能与 MySQL 并不一致，比如在 MergeTree 中主键并不用于去重。</p>
+<p>第二：为了解决 MergeTree 相同主键无法去重的问题，ClickHouse 提供了 ReplacingMergeTree 引擎，用来做去重。ReplacingMergeTree 确保数据<br>最终被去重，但是无法保证查询过程中主键不重复。因为相同主键的数据可能被 shard 到不同的节点，但是 compaction 只能在一个节点中进行，而且<br>optimize 的时机也不确定。</p>
+<p>第三：CollapsingMergeTree 引擎要求在建表语句中指定一个标记列 Sign（插入的时候指定为 1，删除的时候指定为 -1），后台 Compaction 时会将主<br>键相同、Sign 相反的行进行折叠，也即删除。来消除 ReplacingMergeTree 的限制。</p>
+<p>第四：为了解决 CollapsingMergeTree 乱序写入情况下无法正常折叠问题，VersionedCollapsingMergeTree 表引擎在建表语句中新增了一列<br>Version，用于在乱序情况下记录状态行与取消行的对应关系。主键相同，且 Version 相同、Sign 相反的行，在 Compaction 时会被删除。</p>
+<p>第五：ClickHouse 通过 SummingMergeTree 来支持对主键列进行预先聚合。在后台 Compaction 时，会将主键相同的多行进行 sum 求和，然后使用<br>一行数据取而代之，从而大幅度降低存储空间占用，提升聚合计算性能。</p>
+<p>第六：AggregatingMergeTree 也是预先聚合引擎的一种，用于提升聚合计算的性能。与 SummingMergeTree 的区别在于：SummingMergeTree 对<br>非主键列进行 sum 聚合，而 AggregatingMergeTree 则可以指定各种聚合函数。</p>
+<h3 id="MergeTree-的建表语法"><a href="#MergeTree-的建表语法" class="headerlink" title="MergeTree 的建表语法"></a>MergeTree 的建表语法</h3><pre><code>CREATE TABLE [IF NOT EXISTS] [db_name.]table_name (
+    name1 [type] [DEFAULT|MATERIALIZED|ALIAS expr],
+    name2 [type] [DEFAUErEMAMLERLALLIZED|ALIAS expr],
+    省略...
+) ENGINE = MergeTree()
+    [PARTITION BY expr]
+    [ORDER BY expr]
+    [PRIMARY KEY expr]
+    [SAMPLE BY expr]
+    [SETTINGS name=value, 省略...]
+</code></pre><p>关键选项：</p>
+<p>1、PARTITION BY：分区键。指定表数据以何种标准进行分区。分区键既可以是单个列字段，也可以通过元组的形式使用多个列字段，同时它也支持使用列表达式。</p>
+<p>2、ORDER BY：排序键，用于指定在一个数据片段内，数据以何种标准排序。默认情况下主键(PRIMARY KEY)与排序键相同。</p>
+<p>3、PRIMARY KEY：主键。声明后会依照主键字段生成一级索引。默认情况下，主键与排序键(ORDER BY)相同，所以通常直接使用 ORDER BY 代为指定主键。</p>
+<p>4、SETTINGS：index_granularity 选项表示索引的粒度，默认值为 8192。MergeTree 索引在默认情况下，每间隔 8192 行数据才生成一条索引。</p>
+<p>5、SAMPLE BY：抽样表达式，用于声明数据以何种标准进行采样。</p>
+<p>注意 settings 中的重要参数：</p>
+<p>1、index_granularity 默认是 8192</p>
+<p>2、index_granularity_bytes 默认 10M，需要通过 enable_mixed_granularity_parts 来开启</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>ClickHouse 从 OLAP 场景需求出发，定制开发了一套全新的高效列式存储引擎，并且实现了数据有序存储、主键索引、稀疏索引、数据 Sharding、数据 Partitioning、TTL、主备复制等丰富功能。</p>
+<h3 id="数据分区"><a href="#数据分区" class="headerlink" title="数据分区"></a>数据分区</h3><p>关于表分区目录结构：MergeTree 表的分区目录物理结构：</p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203421140.png" alt="image"></p>
+<p>文件的解释：</p>
+<p>1、分区目录：20190710_20190711_1_5_1，一个分区可能会有多个不同的目录，该目录下存储该分区的数据及其他各种形式的数据。后台会执行合并，把相同分区的多个目录合并到一个分区。</p>
+<p>2、checksums.txt：校验文件。使用二进制格式存储。它保存了余下各类文件(primary.idx、count.txt等)的 size 大小及 size 的哈希值，用于快速校验文件的完整性和正确性。</p>
+<p>3、columns.txt：列信息文件，使用明文格式存储。用于保存此数据分区下的列字段信息</p>
+<p>4、count.txt：计数文件，使用明文格式存储。用于记录当前数据分区目录下数据的总行数</p>
+<p>5、primary.idx：一级索引文件，主键索引文件</p>
+<p>6、xxx.bin：数据文件，使用压缩格式存储，默认为 LZ4 压缩格式，用于存储某一列的数据，每一列都对应一个该文件，如列 date 为 date.bin</p>
+<p>7、xxx.mrk2：列字段标记文件，如果使用了自适应大小的索引间隔，则标记文件以 .mrk2 命名，否则以 .mrk 命名。它建立 primary.idx 稀疏索引与 xxx.bin 数据文件之间的映射关系，先通过主键索引找到数据的偏移量，然后去 xxx.bin 数据文件中找到真实数据</p>
+<p>8、还有二级索引 和 分区键相关信息文件等等</p>
+<p>关于表分区命名规则：分区的命名规则：PartitionID_MinBlockNum_MaxBlockNum_Level</p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203531534.png" alt="image"></p>
+<p>该 blocknum 在该表内全局累加，每次创建一个新的分区目录的时候，就会累加 1。Level 是分区被合并过的次数计数，合并一次则加1。</p>
+<p>关于分区的合并规则：</p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203556983.png" alt="image"></p>
+<h3 id="列式存储"><a href="#列式存储" class="headerlink" title="列式存储"></a>列式存储</h3><p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203616793.png" alt="image"></p>
+<p>相比于行式存储，列式存储在分析场景下有着许多优良的特性。</p>
+<ul>
+<li>分析场景中往往需要读大量行但是少数几个列。在行存模式下，数据按行连续存储，所有列的数据都存储在一个block中，不参与计算的列在IO时也要全部读出，读取操作被严重放大。而列存模式下，只需要读取参与计算的列即可，极大的减低了IO cost，加速了查询。</li>
+<li>同一列中的数据属于同一类型，压缩效果显著。列存往往有着高达十倍甚至更高的压缩比，节省了大量的存储空间，降低了存储成本。</li>
+<li>更高的压缩比意味着更小的data size，从磁盘中读取相应数据耗时更短。</li>
+<li>自由的压缩算法选择。不同列的数据具有不同的数据类型，适用的压缩算法也就不尽相同。可以针对不同列类型，选择最合适的压缩算法。</li>
+<li>高压缩比，意味着同等大小的内存能够存放更多数据，系统cache效果更好。</li>
+</ul>
+<h3 id="一级索引"><a href="#一级索引" class="headerlink" title="一级索引"></a>一级索引</h3><p>关于一级索引：MergeTree 的主键使用 PRIMARY KEY 定义，待主键定义之后，MergeTree 会依据 index_granularity 间隔（默认 8192 行），为数据表<br>生成一级索引并保存至 primary.idx 文件内。</p>
+<p>一级索引是稀疏索引，意思就是说：每一段数据生成一条索引记录，而不是每一条数据都生成索引。</p>
+<p>如果是每一条数据都生成索引，则是稠密索引。</p>
+<p>稀疏索引的好处，就是少量的索引标记，就能记录大量的数据区间位置信息，比如不到 24414 条标记信息，就能为 2E 条数据提供索引（算法：200000000 / 8192）。</p>
+<p>在 ClickHouse 中，一级索引常驻内存。总的来说：一级索引和标记文件一一对齐，两个索引标记之间的数据，就是一个数据区间，在数据文件中，这个数据区间的所有数据，生成一个压缩数据块。</p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203734436.png" alt="image"></p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203742460.png" alt="image"></p>
+<p>需要注意的是：ClickHouse 的主键索引与 MySQL 等数据库不同，它并不用于去重，即便 primary key 相同的行，也可以同时存在于数据库中。</p>
+<p>要想实现去重效果，需要结合具体的表引擎 ReplacingMergeTree、CollapsingMergeTree、VersionedCollapsingMergeTree 实现。</p>
+<h3 id="二级索引"><a href="#二级索引" class="headerlink" title="二级索引"></a>二级索引</h3><p>关于二级索引：又称之为跳数索引。</p>
+<p>目的和一级索引一样，是为了减少待搜寻的数据的范围。</p>
+<p>跳数索引的默认是关闭的，需要通过 SET allow_experimental_data_skipping_indices = 1 来开启，索引生成粒度由 granularity 控制，如果生成了二级索引，则会在分区目录下生成额外<br>的：skp_idx_[Column].idx 与 skp_idx_[Column].mrk 文件。</p>
+<p>跳数索引的生成规则：按照特定规则每隔 granularity 个 index_granularity 条数据，就会生成一条跳数索引。</p>
+<p>比如 minmax 跳数索引，生成的是：granularity 个 index_granularity 条数据内的最大值最小值生成一条索引，如果将来需要针对构建二级索引的这个字段求最大值最小值，则可以帮助提高效率。</p>
+<p>跳数索引一共支持四种类型：minmax（最大最小）、set（去重集合）、ngrambf_v1（ngram分词布隆索引） 和 tokenbf_v1（标点符号分词布隆索引），一张数据表支持同时声明多个跳数索引。</p>
+<pre><code>GRANULARITY = 你在创建二级索引索引的指定的
+INDEX_GRANULARITY = 8192
+GRANULARITY * INDEX_GRANULARITY
+
+
+
+CREATE TABLE skip_test(
+    ID String,
+    URL String,
+    Code String,
+    EventTime Date,
+    INDEX a ID TYPE minmax GRANULARITY 5,
+    INDEX b (length(ID) * 8) TYPE set(2) GRANULARITY 5,
+    INDEX c (ID, Code) TYPE ngrambf_v1(3, 256, 2, O) GRANULARITY 5,
+    INDEX d ID TYPE tokenbf_v1(256, 2, 0) GRANULARITY 5
+) ENGINE= MergeTree()
+    order by id;
+</code></pre><p>关于跳数索引支持的多种类型的区别：</p>
+<p>1、minmax：以 index_granularity 为单位，存储指定表达式计算后的 min、max 值；在等值和范围查询中能够帮助快速跳过不满足要求的块，减少IO。</p>
+<p>2、set(max_rows)：以index granularity为单位，存储指定表达式的 distinct value 集合，用于快速判断等值查询是否命中该块，减少IO。</p>
+<p>3、ngrambf_v1(n, size_of_bloom_filter_in_bytes, number_of_hash_functions, random_seed)：将 string 进行 ngram 分词后，构建 bloom filter，能够优化 等值、like、in 等查询条件。</p>
+<p>4、tokenbf_v1(size_of_bloom_filter_in_bytes, number_of_hash_functions, random_seed)：与 ngrambf_v1 类似，区别是不使用 ngram 进行分词，而是通过标点符号进行词语分割。</p>
+<p>5、bloom_filter([false_positive])：对指定列构建 bloom filter，用于加速 等值、like、in 等查询条件的执行。</p>
+<h3 id="数据压缩"><a href="#数据压缩" class="headerlink" title="数据压缩"></a>数据压缩</h3><p>关于数据压缩：ClickHouse 的数据存储文件 column.bin 中存储是一列的数据，由于一列是相同类型的数据，所以方便高效压缩。</p>
+<p>在进行压缩的时候，请注意：一个压缩数据块由头信息和压缩数据两部分组成，头信息固定使用 9 位字节表示，具体由 1 个 UInt8（1字节）整型和 2 个 UInt32（4字节）整型<br>组成，分别代表使用的压缩算法类型、压缩后的数据大小和压缩前的数据大小。每个压缩数据块的体积，按照其压缩前的数据字节大小，都被严格控制在64KB～1MB，其上下限分别由 min_compress_block_size（默认65536=64KB）与 max_compress_block_size（默认1048576=1M）参数指定。</p>
+<p>具体压缩规则：</p>
+<p>原理的说法：每 8192 条记录，其实就是一条一级索引 一个索引区间 压缩成一个数据块。自适应压缩</p>
+<p>如果：</p>
+<pre><code>a = 10kb
+b = 你的一个 8192 条数据的大小
+c = 1M
+</code></pre><p>1、单个批次数据 size &lt; 64KB：如果单个批次数据小于 64KB，则继续获取下一批数据，直至累积到size &gt;= 64KB时，生成下一个压缩数据块。如果平均每条<br>记录小于8byte，多个数据批次压缩成一个数据块</p>
+<p>2、单个批次数据 64KB &lt;= size &lt;= 1MB：如果单个批次数据大小恰好在 64KB 与 1MB 之间，则直接生成下一个压缩数据块。</p>
+<p>3、单个批次数据 size &gt; 1MB：如果单个批次数据直接超过 1MB，则首先按照 1MB大小截断并生成下一个压缩数据块。剩余数据继续依照上述规则执行。此时，会出现一个批次数据生成多个压缩数据块的情况。如果平均每条记录的大小超过 128byte,则会把当前这一个批次的数据压缩成多个数据块。</p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509204117188.png" alt="image"></p>
+<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509204123244.png" alt="image"></p>
+<p>总结：</p>
+<ul>
+<li><p>在一个 xxx.bin 字段存储文件中，并不是一个压缩块对应到一条一级索引！</p>
+</li>
+<li><p>一个 [Column].bin 其实是由一个个的压缩数据块组成的。每个压缩块的大小在：64kb - 1M 之间。</p>
+</li>
+</ul>
+<h3 id="数据标记"><a href="#数据标记" class="headerlink" title="数据标记"></a>数据标记</h3><p>关于数据标记：数据标记文件也与 .bin 文件一一对应。即每一个列字段 [Column].bin 文件都有一个与之对应的 [Column].mrk2 数据标记文件，用于记录数据在 .bin 文件中的偏移量信息。</p>
+<p>一行标记数据使用一个元组表示，元组内包含两个整型数值的偏移量信息。它们分别表示在此段数据区间内，在对应的 .bin 压缩文件中，压缩数据块的起始偏移量；以及将该数据压缩块解压后，其未压缩数据的起始偏移量。</p>
+<p>每一行标记数据都表示了一个片段的数据（默认8192行）在 .bin 压缩文件中的读取位置信息。</p>
+<p>标记数据与一级索引数据不同，它并不能常驻内存，而是使用 LRU（最近最少使用）缓存策略加快其取用速度。</p>
+<p>总结：</p>
+<ul>
+<li><p>数据读取流程：先根据一级索引，找到标记文件中的对应数据压缩块信息（压缩块在 .bin 文件中的起始偏移量和未压缩之前该条数据的是偏移量）然后从 .bin 文件中，把压缩块加载到内存，解压缩之后，执行读取。</p>
+</li>
+<li><p>建立了主键索引到数据文件的映射！</p>
+</li>
+</ul>
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p>  select name from student where date = 201905;</p>
+<p>==&gt; 指定分区<br>==&gt; 指定字段（xxx.bin）<br>==&gt; 根据一级索引(primary.idx)定位到 标记文件(name.mrk2)中的那一条记录<br>==&gt; 扫描对应字段的 mark 标记文件获取两个偏移量信息（当前要查找的数据，处于这个 .bin 数据文件中的那个 压缩数据块，这个压缩数据块在 .bin 文件的偏移量， 这个压缩数据块解压缩<br>出来之后，要找的数据在当前这个压缩数据快的偏移量）<br>==&gt; 根据第一个偏移量去 .bin 文件中定位到一个 压缩数据快<br>==&gt; 读取数据到内存执行解压缩<br>==&gt; 根据第二个偏移量去内存解压缩数据中找到对应的数据</p>
+<p>关于分区 关于一级索引 关于二级索引 关于数据压缩 关于数据标记</p>
+<p>提高数据查询效率的核心原则只有一个：谁做的辅助动作能快速的帮助我们去快速降低待搜寻的数据范围</p>
+<p>分布式系统的核心思想：分而治之，必须提供一套架构方便用户的请求被快速的定位到某个单台服务器去处理。一般来说，这个服务器处理这个请求，都是很快的！</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/11/18/clickhouse索引详解/" class="next-post btn btn-default" title='clickhouse索引详解'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">clickhouse索引详解</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Thu Nov 18 2021 12:14:08 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引擎"><span class="toc-text">引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#库"><span class="toc-text">库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表"><span class="toc-text">表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MergeTree"><span class="toc-text">MergeTree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MergeTree-引擎工作机制详解"><span class="toc-text">MergeTree 引擎工作机制详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MergeTree-的建表语法"><span class="toc-text">MergeTree 的建表语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作原理"><span class="toc-text">工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据分区"><span class="toc-text">数据分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列式存储"><span class="toc-text">列式存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一级索引"><span class="toc-text">一级索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二级索引"><span class="toc-text">二级索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据压缩"><span class="toc-text">数据压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据标记"><span class="toc-text">数据标记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询数据"><span class="toc-text">查询数据</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
