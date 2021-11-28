@@ -199,9 +199,10 @@
 <li>MergeTree 系列表引擎又和两种特殊表引擎（Replicated，Distributed）正交形成多种具备不同功能的 MergeTree 表引擎</li>
 </ul>
 <p>ClickHouse 的表引擎系列家谱：</p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509202741751.png" alt="image"><br><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509202811242.png" alt="image"></p>
+<p><img src="https://ae02.alicdn.com/kf/He336e515b59247f9a689b0e1ec3b915am.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H954f71c740d84ddfa6a4ace11ee3fcb8b.png" alt="image.png"></p>
 <h3 id="MergeTree"><a href="#MergeTree" class="headerlink" title="MergeTree"></a>MergeTree</h3><p>作为家族中最基础的表引擎，提供了主键索引、数据分区、数据副本和数据采样等基本能力，而家族中其他的表引擎则在 MergeTree 的基础之上各有所长：</p>
-<p>｜项目｜类别｜基础｜<br>｜—｜—｜—｜<br>｜Replicated支持数据副本｜Replacing SummingAggregating Collapsing VersionedCollapsing Graghite｜MergeTree 基础表引擎｜</p>
+<p>｜项目｜类别｜基础｜<br>｜—-｜—-｜—-｜<br>｜Replicated支持数据副本｜Replacing SummingAggregating Collapsing VersionedCollapsing Graghite｜MergeTree 基础表引擎｜</p>
 <h3 id="MergeTree-引擎工作机制详解"><a href="#MergeTree-引擎工作机制详解" class="headerlink" title="MergeTree 引擎工作机制详解"></a>MergeTree 引擎工作机制详解</h3><p>MergeTree 系列是官方主推的存储引擎，支持几乎所有 ClickHouse 核心功能。</p>
 <p>该系列中，常用的表引擎有：MergeTree、ReplacingMergeTree、CollapsingMergeTree、VersionedCollapsingMergeTree、SummingMergeTree、AggregatingMergeTree 等。</p>
 <p>学习好 MergeTree 表引擎的工作机制，是应用好 ClickHouse 的最基本基础。</p>
@@ -233,7 +234,7 @@
 <p>2、index_granularity_bytes 默认 10M，需要通过 enable_mixed_granularity_parts 来开启</p>
 <h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>ClickHouse 从 OLAP 场景需求出发，定制开发了一套全新的高效列式存储引擎，并且实现了数据有序存储、主键索引、稀疏索引、数据 Sharding、数据 Partitioning、TTL、主备复制等丰富功能。</p>
 <h3 id="数据分区"><a href="#数据分区" class="headerlink" title="数据分区"></a>数据分区</h3><p>关于表分区目录结构：MergeTree 表的分区目录物理结构：</p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203421140.png" alt="image"></p>
+<p><img src="https://ae03.alicdn.com/kf/Ha43a4010154949cdacdb5d1d7edc3de4j.png" alt="image.png"></p>
 <p>文件的解释：</p>
 <p>1、分区目录：20190710_20190711_1_5_1，一个分区可能会有多个不同的目录，该目录下存储该分区的数据及其他各种形式的数据。后台会执行合并，把相同分区的多个目录合并到一个分区。</p>
 <p>2、checksums.txt：校验文件。使用二进制格式存储。它保存了余下各类文件(primary.idx、count.txt等)的 size 大小及 size 的哈希值，用于快速校验文件的完整性和正确性。</p>
@@ -244,11 +245,11 @@
 <p>7、xxx.mrk2：列字段标记文件，如果使用了自适应大小的索引间隔，则标记文件以 .mrk2 命名，否则以 .mrk 命名。它建立 primary.idx 稀疏索引与 xxx.bin 数据文件之间的映射关系，先通过主键索引找到数据的偏移量，然后去 xxx.bin 数据文件中找到真实数据</p>
 <p>8、还有二级索引 和 分区键相关信息文件等等</p>
 <p>关于表分区命名规则：分区的命名规则：PartitionID_MinBlockNum_MaxBlockNum_Level</p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203531534.png" alt="image"></p>
+<p><img src="https://ae03.alicdn.com/kf/H916c814a18d0452f896eaf549fe50edew.png" alt="image.png"></p>
 <p>该 blocknum 在该表内全局累加，每次创建一个新的分区目录的时候，就会累加 1。Level 是分区被合并过的次数计数，合并一次则加1。</p>
 <p>关于分区的合并规则：</p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203556983.png" alt="image"></p>
-<h3 id="列式存储"><a href="#列式存储" class="headerlink" title="列式存储"></a>列式存储</h3><p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203616793.png" alt="image"></p>
+<p><img src="https://ae04.alicdn.com/kf/He16a4445f08a4b91a1283dd7235fb2c1g.png" alt="image.png"></p>
+<h3 id="列式存储"><a href="#列式存储" class="headerlink" title="列式存储"></a>列式存储</h3><p><img src="https://ae04.alicdn.com/kf/Hc83e10af52534f349f595778e8ce31afV.png" alt="image.png"></p>
 <p>相比于行式存储，列式存储在分析场景下有着许多优良的特性。</p>
 <ul>
 <li>分析场景中往往需要读大量行但是少数几个列。在行存模式下，数据按行连续存储，所有列的数据都存储在一个block中，不参与计算的列在IO时也要全部读出，读取操作被严重放大。而列存模式下，只需要读取参与计算的列即可，极大的减低了IO cost，加速了查询。</li>
@@ -262,8 +263,8 @@
 <p>如果是每一条数据都生成索引，则是稠密索引。</p>
 <p>稀疏索引的好处，就是少量的索引标记，就能记录大量的数据区间位置信息，比如不到 24414 条标记信息，就能为 2E 条数据提供索引（算法：200000000 / 8192）。</p>
 <p>在 ClickHouse 中，一级索引常驻内存。总的来说：一级索引和标记文件一一对齐，两个索引标记之间的数据，就是一个数据区间，在数据文件中，这个数据区间的所有数据，生成一个压缩数据块。</p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203734436.png" alt="image"></p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509203742460.png" alt="image"></p>
+<p><img src="https://ae02.alicdn.com/kf/H3239a63edadc454ea7232da9eb1426183.png" alt="image.png"></p>
+<p><img src="https://ae01.alicdn.com/kf/H1d86b0a7aba24df1a103b59b3b864a7ad.png" alt="image.png"></p>
 <p>需要注意的是：ClickHouse 的主键索引与 MySQL 等数据库不同，它并不用于去重，即便 primary key 相同的行，也可以同时存在于数据库中。</p>
 <p>要想实现去重效果，需要结合具体的表引擎 ReplacingMergeTree、CollapsingMergeTree、VersionedCollapsingMergeTree 实现。</p>
 <h3 id="二级索引"><a href="#二级索引" class="headerlink" title="二级索引"></a>二级索引</h3><p>关于二级索引：又称之为跳数索引。</p>
@@ -306,8 +307,8 @@ c = 1M
 </code></pre><p>1、单个批次数据 size &lt; 64KB：如果单个批次数据小于 64KB，则继续获取下一批数据，直至累积到size &gt;= 64KB时，生成下一个压缩数据块。如果平均每条<br>记录小于8byte，多个数据批次压缩成一个数据块</p>
 <p>2、单个批次数据 64KB &lt;= size &lt;= 1MB：如果单个批次数据大小恰好在 64KB 与 1MB 之间，则直接生成下一个压缩数据块。</p>
 <p>3、单个批次数据 size &gt; 1MB：如果单个批次数据直接超过 1MB，则首先按照 1MB大小截断并生成下一个压缩数据块。剩余数据继续依照上述规则执行。此时，会出现一个批次数据生成多个压缩数据块的情况。如果平均每条记录的大小超过 128byte,则会把当前这一个批次的数据压缩成多个数据块。</p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509204117188.png" alt="image"></p>
-<p><img src="https://note-sh-1304201078.file.myqcloud.com/images/image-20210509204123244.png" alt="image"></p>
+<p><img src="https://ae05.alicdn.com/kf/H339e8d15ca814beca3f39983c197ea33d.png" alt="image.png"></p>
+<p><img src="https://ae02.alicdn.com/kf/H6306b9d19cbd4b11a5448f0030d5f8f5J.png" alt="image.png"></p>
 <p>总结：</p>
 <ul>
 <li><p>在一个 xxx.bin 字段存储文件中，并不是一个压缩块对应到一条一级索引！</p>
