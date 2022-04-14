@@ -170,29 +170,29 @@
     
     <div class="post-body post-content">
         <ul>
-<li>一、<a href="##键名设计" title="标题">键名设计</a><ul>
-<li>1、 <a href="###key名设计" title="标题">key名设计</a></li>
-<li>2、 <a href="###value设计" title="标题">value设计</a></li>
+<li>一、<a href="##键名设计">键名设计</a><ul>
+<li>1、 <a href="###key名设计">key名设计</a></li>
+<li>2、 <a href="###value设计">value设计</a></li>
 </ul>
 </li>
-<li>二、<a href="##命令使用" title="标题">命令使用</a></li>
-<li>三、<a href="##缓存设计" title="标题">缓存设计</a></li>
-<li>四、<a href="##场景实战问题" title="标题">场景实战问题</a><ul>
-<li>1、<a href="###项目redis使用问题" title="标题">项目redis使用问题</a></li>
-<li>2、<a href="###慎用laravel自带的cache功能" title="标题">慎用laravel自带的cache功能</a></li>
-<li>3、<a href="###注意key的过期时间设置" title="标题">注意key的过期时间设置</a></li>
-<li>4、<a href="###小心缓存穿透" title="标题">小心缓存穿透</a></li>
-<li>5、<a href="###慎用缓存层层包裹" title="标题">慎用缓存层层包裹</a></li>
-<li>6、<a href="###慎用将redis做为消息队列" title="标题">慎用将redis做为消息队列</a></li>
+<li>二、<a href="##命令使用">命令使用</a></li>
+<li>三、<a href="##缓存设计">缓存设计</a></li>
+<li>四、<a href="##场景实战问题">场景实战问题</a><ul>
+<li>1、<a href="###项目redis使用问题">项目redis使用问题</a></li>
+<li>2、<a href="###慎用laravel自带的cache功能">慎用laravel自带的cache功能</a></li>
+<li>3、<a href="###注意key的过期时间设置">注意key的过期时间设置</a></li>
+<li>4、<a href="###小心缓存穿透">小心缓存穿透</a></li>
+<li>5、<a href="###慎用缓存层层包裹">慎用缓存层层包裹</a></li>
+<li>6、<a href="###慎用将redis做为消息队列">慎用将redis做为消息队列</a></li>
 </ul>
 </li>
-<li>五、<a href="##查询使用问题" title="标题">查询使用问题</a><ul>
-<li>1、<a href="###线上Redis禁止使用Keys正则匹配操作" title="标题">线上Redis禁止使用Keys正则匹配操作</a></li>
+<li>五、<a href="##查询使用问题">查询使用问题</a><ul>
+<li>1、<a href="###线上Redis禁止使用Keys正则匹配操作">线上Redis禁止使用Keys正则匹配操作</a></li>
 </ul>
 </li>
-<li>六、<a href="##其他" title="标题">其他</a><ul>
-<li>1、<a href="###目标内容" title="标题">redis同步工具</a></li>
-<li>2、<a href="###大key查询" title="标题">大key查询</a></li>
+<li>六、<a href="##其他">其他</a><ul>
+<li>1、<a href="###目标内容">redis同步工具</a></li>
+<li>2、<a href="###大key查询">大key查询</a></li>
 </ul>
 </li>
 </ul>
@@ -222,15 +222,16 @@
 <li>数据按需存储</li>
 </ol>
 <p>不需要的数据千万不要存储在redis，只会浪费内存空间</p>
-<p>‘’’<br>基于 Spring Boot + MyBatis Plus + Vue &amp; Element 实现的后台管理系统 + 用户小程序，支持 RBAC 动态权限、多租户、数据权限、工作流、三方登录、支付、短信、商城等功能。</p>
-<p>项目地址：<a href="http://github.com/YunaiV/ruoyi-vue-pro" target="_blank" rel="noopener">http://github.com/YunaiV/ruoyi-vue-pro</a><br>‘’’</p>
+<p>  基于 Spring Boot + MyBatis Plus + Vue &amp; Element 实现的后台管理系统 + 用户小程序，支持 RBAC 动态权限、多租户、数据权限、工作流、三方登录、支付、短信、商城等功能。</p>
+<p>  项目地址：<a href="http://github.com/YunaiV/ruoyi-vue-pro" target="_blank" rel="noopener">http://github.com/YunaiV/ruoyi-vue-pro</a></p>
 <h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><p>1.禁止使用keys、flushall、hmgetall等命令</p>
 <p>为防止业务研发的误操作，通常可以在交付redis实例之前将默认命令rename掉；而真正需要删除或者遍历key时可以使用scan家族命令</p>
 <p>2.慎用hgetall、lrange、smembers、zrange等命令</p>
 <p>除非业务场景需要，尽量不要使用这些命令。如果没有控制好会导致操作量过大，形成阻塞。</p>
-<p>‘’’<br>基于微服务的思想，构建在 B2C 电商场景下的项目实战。核心技术栈，是 Spring Boot + Dubbo 。未来，会重构成 Spring Cloud Alibaba 。</p>
-<p>项目地址：<a href="http://github.com/YunaiV/onemall" target="_blank" rel="noopener">http://github.com/YunaiV/onemall</a><br>‘’’</p>
-<h2 id="缓存设计"><a href="#缓存设计" class="headerlink" title="缓存设计"></a>缓存设计</h2><ol>
+<pre><code>基于微服务的思想，构建在 B2C 电商场景下的项目实战。核心技术栈，是 Spring Boot + Dubbo 。未来，会重构成 Spring Cloud Alibaba 。
+
+项目地址：http://github.com/YunaiV/onemall
+</code></pre><h2 id="缓存设计"><a href="#缓存设计" class="headerlink" title="缓存设计"></a>缓存设计</h2><ol>
 <li>多个库的使用</li>
 </ol>
 <p>如果应用中会涉及到各种不同的redis数据存储，应该分库存储，最好是一种业务使用一个库</p>
