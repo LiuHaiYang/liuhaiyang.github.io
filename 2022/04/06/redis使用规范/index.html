@@ -222,9 +222,10 @@
 <li>数据按需存储</li>
 </ol>
 <p>不需要的数据千万不要存储在redis，只会浪费内存空间</p>
-<p>  基于 Spring Boot + MyBatis Plus + Vue &amp; Element 实现的后台管理系统 + 用户小程序，支持 RBAC 动态权限、多租户、数据权限、工作流、三方登录、支付、短信、商城等功能。</p>
-<p>  项目地址：<a href="http://github.com/YunaiV/ruoyi-vue-pro" target="_blank" rel="noopener">http://github.com/YunaiV/ruoyi-vue-pro</a></p>
-<h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><p>1.禁止使用keys、flushall、hmgetall等命令</p>
+<pre><code>基于 Spring Boot + MyBatis Plus + Vue &amp; Element 实现的后台管理系统 + 用户小程序，支持 RBAC 动态权限、多租户、数据权限、工作流、三方登录、支付、短信、商城等功能。
+
+项目地址：http://github.com/YunaiV/ruoyi-vue-pro
+</code></pre><h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><p>1.禁止使用keys、flushall、hmgetall等命令</p>
 <p>为防止业务研发的误操作，通常可以在交付redis实例之前将默认命令rename掉；而真正需要删除或者遍历key时可以使用scan家族命令</p>
 <p>2.慎用hgetall、lrange、smembers、zrange等命令</p>
 <p>除非业务场景需要，尽量不要使用这些命令。如果没有控制好会导致操作量过大，形成阻塞。</p>
