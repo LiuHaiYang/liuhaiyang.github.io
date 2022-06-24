@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>mysql监控及配置 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="mysql监控及配置">
+            
+	            mysql监控及配置
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title='数据库'>
+                        数据库
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2022/06/24</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="MySQL-CPU高排障流程"><a href="#MySQL-CPU高排障流程" class="headerlink" title="MySQL CPU高排障流程"></a>MySQL CPU高排障流程</h2><ul>
+<li>实例规格低，无法满足业务发展；现象：从监控看，业务高峰期间cpu高/活跃连接高，简单sql很多进入慢查询。解决方案：需要提升规格（用户在控制台自行操作）。</li>
+<li>业务sql写的有问题，比如走了全表扫描/索引不合理/sql排序结果集大；从监控看，cpu高期间，临时表多/慢查询多/行锁等待高，此时重点看时间段内慢查询明细和慢查询统计，查询列表中出现频繁的sql，或者出现不频繁，但扫描行数大，但返回行数小的sql重点需要优化。 解决方法：让用户优化这些sql；或者参考控制台-&gt;登陆数据库-&gt;管理工具-&gt;慢查询优化，慢查询列表中点击优化按钮，参考智能优化建议。</li>
+<li>有大事务在运行，执行以下语句可以查看执行最长的三个事务：<code>select * from information_schema.innodb_trx order by trx_started asc limit 3;</code> 解决方案：kill事务或者等待事务执行完（用户在控制台-&gt;登陆数据库-&gt;管理工具-&gt;会话 自行kill）。</li>
+</ul>
+<h2 id="MySQL-内存高排障流程"><a href="#MySQL-内存高排障流程" class="headerlink" title="MySQL 内存高排障流程"></a>MySQL 内存高排障流程</h2><p>MySQL的内存由innodb_buffer_pool和连接内存组成，内存高通常是其中一部分高或者两部分都高：</p>
+<ul>
+<li>innodb_buffer_pool高：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">京东云innodb_buffer_pool分配原则如下:</span><br><span class="line">实例内存1G，buffer_pool占用25%</span><br><span class="line">实例内存2G，buffer_pool占用50%</span><br><span class="line">实例内存4G，buffer_pool占用60%</span><br><span class="line">实例内存8G，buffer_pool占用60%</span><br><span class="line">实例内存16G ，buffer_pool占用65%,</span><br><span class="line">实例内存大于16G，实例内存buffer_pool占用75%。</span><br><span class="line">如果用户实例中热点数据较多，buffer_pool使用就会较高，buffer_pool使用增长内存使用也会随之增长，达到buffer_pool分配限额后内存使用会趋于稳定，直至重启实例buffer_pool占用的内存才会释放。从监控看，监控项“InnoDB缓存池读命中率、使用率、脏块率 (%)”的使用率如果较高，则buffer_pool使用就会较高。</span><br><span class="line">解决方案：优化业务访问模式、优化慢sql、重启实例或者升配规格（用户均可自行操作）。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接内存高<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用长连接，内存会涨的快，这是因为执行过程中临时使用的内存是管理在连接对象里面的，这些资源在连接断开后才释放，长期累积，内存可能oom。</span><br><span class="line">解决方法：</span><br><span class="line">定期释放长连接，定期或者大查询后断开重连。</span><br><span class="line">5.7后，大查询后，执行mysql_reset_connection程序初始化连接资源，不需要重新连接和权限验证。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>执行以下命令，查询示例的共享内存分配情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show variables where variable_name in (&apos;innodb_buffer_pool_size&apos;,&apos;innodb_log_buffer_size&apos;,&apos;innodb_additional_mem_pool_size&apos;,&apos;key_buffer_size&apos;,&apos;query_cache_size&apos;);</span><br><span class="line"></span><br><span class="line">innodb_additional_mem_pool_size | 8388608   </span><br><span class="line">innodb_buffer_pool_size         | 524288000</span><br><span class="line">innodb_log_buffer_size          | 67108864  </span><br><span class="line">key_buffer_size                 | 16777216  </span><br><span class="line">query_cache_size                | 0        </span><br><span class="line">注意：5.7版本不支持 innodb_additional_mem_pool_size。</span><br></pre></td></tr></table></figure></p>
+<h3 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h3><ul>
+<li>innodb_buffer_pool_size</li>
+</ul>
+<p>该部分缓存是 Innodb 引擎最重要的缓存区域，是通过内存来弥补物理数据文件的重要手段，在云数据库 MySQL 上会采用实例规格配置的50% - 80%作为该部分大小（上图为1000MB * 0.5 = 500MB）。其中主要包含数据页、索引页、undo 页、insert buffer、自适应哈希索引、锁信息以及数据字典等信息。在进行 SQL 读和写的操作时，首先并不是对物理数据文件操作，而是先对 buffer_pool 进行操作，再通过 checkpoint 等机制写回数据文件。该空间的优点是可以提升数据库的性能、加快 SQL 运行速度，缺点是故障恢复速度较慢。</p>
+<ul>
+<li>innodb_log_buffer_size</li>
+</ul>
+<p>该部分主要存放 redo log 的信息，在云数据库 MySQL 上会设置64MB的大小。InnoDB 会首先将 redo log 写在这里，然后按照一定频率将其刷新回重做日志文件中。该空间不需要太大，因为一般情况下该部分缓存会以较快频率刷新至 redo log（Master Thread 会每秒刷新、事务提交时会刷新、其空间少于1/2时同样会刷新）。</p>
+<ul>
+<li>innodb_additional_mem_pool_size</li>
+</ul>
+<p>该部分主要存放 InnoDB 内的一些数据结构，在云数据库 MySQL 中统一设置为8MB。通常是在 buffer_pool 中申请内存的时候还需要在额外内存中申请空间存储该对象的结构信息。该大小主要与表数量有关，表数量越大需要更大的空间。</p>
+<ul>
+<li>key_buffer_size</li>
+</ul>
+<p>该部分是 MyISAM 表的重要缓存区域，所有实例统一为16M。该部分主要存放 MyISAM 表的键。MyISAM 表不同于 InnoDB 表，其缓存的索引缓存是放在 key_buffer 中的，而数据缓存则存储于操作系统的内存中。云数据库 MySQL 的系统是 MyISAM 引擎的，因此需给予该部分一定量的空间的。</p>
+<ul>
+<li>query_cache_size</li>
+</ul>
+<p>该部分是对查询结果做缓存，以减少解析 SQL 和执行 SQL 的开销，在云数据库 MySQL 上关闭了该部分的缓存。主要适合于读多写少的应用场景，因为它是按照 SQL 语句的 hash 值进行缓存的，当表数据发生变化后即失效。</p>
+<h2 id="私有内存"><a href="#私有内存" class="headerlink" title="私有内存"></a>私有内存</h2><p>执行以下命令，查询示例的 session 私有内存分配情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show variables where variable_name in (&apos;read_buffer_size&apos;,&apos;read_rnd_buffer_size&apos;,&apos;sort_buffer_size&apos;,&apos;join_buffer_size&apos;,&apos;binlog_cache_size&apos;,&apos;tmp_table_size&apos;);</span><br><span class="line"></span><br><span class="line">binlog_cache_size    | 32768    </span><br><span class="line">join_buffer_size     | 262144    </span><br><span class="line">read_buffer_size     | 262144    </span><br><span class="line">read_rnd_buffer_size | 524288    </span><br><span class="line">sort_buffer_size     | 524288  </span><br><span class="line">tmp_table_size       | 209715200</span><br></pre></td></tr></table></figure>
+<h3 id="参数说明：-1"><a href="#参数说明：-1" class="headerlink" title="参数说明："></a>参数说明：</h3><ul>
+<li>read_buffer_size</li>
+</ul>
+<p>分别存放了对顺序扫描的缓存，当 thread 进行顺序扫描数据时会首先扫描该 buffer 空间以避免更多的物理读。</p>
+<ul>
+<li>read_rnd_buffer_size</li>
+</ul>
+<p>分别存放了对随机扫描的缓存，当 thread 进行随机扫描数据时会首先扫描该 buffer 空间以避免更多的物理读。</p>
+<ul>
+<li>sort_buffer_size</li>
+</ul>
+<p>需要执行 order by 和 group by 的 SQL 都会分配 sort_buffer，用于存储排序的中间结果。在排序过程中，若存储量大于 sort_buffer_size，则会在磁盘生成临时表以完成操作。</p>
+<ul>
+<li>join_buffer_size</li>
+</ul>
+<p>MySQL 仅支持 nest loop 的 join 算法，处理逻辑是驱动表的一行和非驱动表联合查找，这时就可以将非驱动表放入 join_buffer，不需要访问拥有并发保护机制的 buffer_pool。</p>
+<ul>
+<li>binlog_cache_size</li>
+</ul>
+<p>该区域用来缓存该 thread 的 binlog 日志，在一个事务还没有 commit 之前会先将其日志存储于 binlog_cache 中，等到事务 commit 后会将其 binlog 刷回磁盘上的 binlog 文件以持久化。</p>
+<ul>
+<li>tmp_table_size</li>
+</ul>
+<p>不同于上面各个 session 级的 buffer，这个参数可以在控制台上修改。该参数是指用户内存临时表的大小，如果该 thread 创建的临时表超过它设置的大小会把临时表转换为磁盘上的一张 MyISAM 临时表。</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2022/06/22/实体类命名/" class="next-post btn btn-default" title='java实体类命名'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">java实体类命名</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Fri Jun 24 2022 17:13:21 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-CPU高排障流程"><span class="toc-text">MySQL CPU高排障流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-内存高排障流程"><span class="toc-text">MySQL 内存高排障流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#共享内存"><span class="toc-text">共享内存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明："><span class="toc-text">参数说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#私有内存"><span class="toc-text">私有内存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明：-1"><span class="toc-text">参数说明：</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
