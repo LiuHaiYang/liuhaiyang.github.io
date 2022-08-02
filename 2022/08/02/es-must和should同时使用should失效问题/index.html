@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Python搜资源神库 | meet you</title>
+<title>es-must和should同时使用should失效问题 | meet you</title>
 
 
     <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
@@ -125,9 +125,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Python搜资源神库">
+        <h1 id="es-must和should同时使用should失效问题">
             
-	            Python搜资源神库
+	            es-must和should同时使用should失效问题
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/python" title='python'>
-                        python
+                    <a href="/tags/es" title='es'>
+                        es
                     </a>
                 
             
@@ -159,28 +159,32 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2017/11/23</span>
+            <span class="date-meta">2022/08/02</span>
         </span>
     
 </div>
 
             
             
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>1713</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre><code>pip install torrent-cli
+        <h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><p>ElasticSearch——bool布尔查询</p>
+<p>1、must (must字段对应的是个列表，也就是说可以有多个并列的查询条件，一个文档满足各个子条件后才最终返回)</p>
+<p>2、should (只要符合其中一个条件就返回)</p>
+<p>3、must_not (与must相反，也就是说可以有多个并列的查询条件，一个文档各个子条件后才最终的结果都不满足)</p>
+<p>4、filter(条件过滤查询，过滤条件的范围用range表示gt表示大于、lt表示小于、gte表示大于等于、lte表示小于等于)</p>
+<h3 id="must和should同时使用should失效问题"><a href="#must和should同时使用should失效问题" class="headerlink" title="must和should同时使用should失效问题"></a>must和should同时使用should失效问题</h3><p>原有查询方式：</p>
+<p>查询条件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（1）must   </span><br><span class="line">        date：（1657152000000, 1657238400000）</span><br><span class="line"></span><br><span class="line">（2）should:</span><br><span class="line">        oneid：147172038204226244</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;query&quot;: &#123; &quot;bool&quot;: &#123; &quot;must&quot;: [ &#123; &quot;range&quot;: &#123; &quot;date&quot;: &#123; &quot;from&quot;: 1657152000000, &quot;to&quot;: 1657238400000, &quot;boost&quot;: 1 &#125; &#125; &#125; ], &quot;should&quot;: [ &#123; &quot;term&quot;: &#123; &quot;oneid.keyword&quot;: &#123; &quot;value&quot;: [ &quot;147172038204226244&quot; ], &quot;boost&quot;: 1 &#125; &#125; &#125; ], &quot;adjust_pure_negative&quot;: true, &quot;boost&quot;: 1 &#125; &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>查询结果&amp;问题：输出时并没有限制oneid字段值，说明should条件失效</p>
+<p><img src="https://storage.jd.com/shendengbucket1/2022-07-29-18-01y22QSJxmWg77IDD.png" alt="image"></p>
+<p>﻿﻿﻿<br>原因：must和should并列组合条件时，参数minimum_should_match 默认为0 (即 should 的条件可以都不满足)。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>方式：将should条件放入must条件之中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;query&quot;: &#123; &quot;bool&quot;: &#123; &quot;must&quot;: [ &#123; &quot;range&quot;: &#123; &quot;date&quot;: &#123; &quot;from&quot;: 1657152000000, &quot;to&quot;: 1657238400000, &quot;include_lower&quot;: true, &quot;include_upper&quot;: true, &quot;boost&quot;: 1 &#125; &#125; &#125;, &#123; &quot;bool&quot;: &#123; &quot;should&quot;: [ &#123; &quot;terms&quot;: &#123; &quot;oneid.keyword&quot;: [ &quot;147164520153375584&quot; ], &quot;boost&quot;: 1 &#125; &#125; ], &quot;adjust_pure_negative&quot;: true, &quot;boost&quot;: 1 &#125; &#125; ], &quot;adjust_pure_negative&quot;: true, &quot;boost&quot;: 1 &#125; &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>查询结果：should条件已生效。</p>
+<p><img src="https://storage.jd.com/shendengbucket1/2022-07-29-18-04g6Lti6Y6YSHtYk7.png" alt="image"></p>
 
-#要安装基础库，requests，lxml，bs4
-</code></pre><h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><p><img src="http://p1.pstatp.com/large/46e600058d27f4090e70" alt></p>
-<h5 id="eg"><a href="#eg" class="headerlink" title="eg:"></a>eg:</h5><pre><code>torrent-cli -k 钢铁侠 
-torrent-cli -k 钢铁侠 -o movie_钢铁侠.csv
-torrent-cli -k 钢铁侠  -p -s 1 -o movie_钢铁侠.csv
-</code></pre>
     </div>
 
     <div class="post-footer">
@@ -197,15 +201,10 @@ torrent-cli -k 钢铁侠  -p -s 1 -o movie_钢铁侠.csv
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/08/12/ElasticSearch入门基础/" class="pre-post btn btn-default" title='ElasticSearch入门基础'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">ElasticSearch入门基础</span>
-        </a>
     
-    
-        <a href="/2017/10/09/（转）应届生求职-葵花宝典/" class="next-post btn btn-default" title='（转）应届生求职-葵花宝典'>
+        <a href="/2022/08/02/如何让Java编译器帮你写代码/" class="next-post btn btn-default" title='如何让Java编译器帮你写代码-转'>
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">（转）应届生求职-葵花宝典</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">如何让Java编译器帮你写代码-转</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -218,7 +217,7 @@ torrent-cli -k 钢铁侠  -p -s 1 -o movie_钢铁侠.csv
 
 <script>
     var gitment = new Gitment({
-        id: 'Thu Nov 23 2017 16:46:05 GMT+0800',
+        id: 'Tue Aug 02 2022 17:09:13 GMT+0800',
         owner:"LiuHaiYang",
         repo:"liuhaiyang.github.io",
         oauth: {
@@ -242,7 +241,7 @@ torrent-cli -k 钢铁侠  -p -s 1 -o movie_钢铁侠.csv
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用法"><span class="toc-text">用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#eg"><span class="toc-text">eg:</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关概念"><span class="toc-text">相关概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#must和should同时使用should失效问题"><span class="toc-text">must和should同时使用should失效问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决"><span class="toc-text">解决</span></a></li></ol>
         
     </div>
 </aside>
