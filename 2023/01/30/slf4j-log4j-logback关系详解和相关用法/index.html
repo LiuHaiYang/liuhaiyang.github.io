@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="meet you">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>slf4j_log4j_logback关系详解和相关用法 | meet you</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="meet you" type="application/atom+xml">
+
+
+    <link rel="icon" href="/img/favicon.ico">
+
+    
+
+
+    <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Ocean'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> Always believe youself. </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">meet you</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/java/"><i class="fa "></i>JAVA</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/生活/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="slf4j_log4j_logback关系详解和相关用法">
+            
+	            slf4j_log4j_logback关系详解和相关用法
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/log" title='log'>
+                        log
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2023/01/30</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>slf4j log4j logback的关系</p>
+<p>笼统的讲就是slf4j是一系列的日志接口，而log4j logback是具体实现了的日志框架。接下来我们跟着官方文档详细的来看一下他们的关系。</p>
+<p>  The Simple Logging Facade for Java (SLF4J) serves as a simple facade or abstraction for various logging frameworks, such as java.util.logging, logback and log4j. SLF4J allows the end-user to plug in the desired logging framework at deployment time. Note that SLF4J-enabling your library/application implies the addition of only a single mandatory dependency, namely slf4j-api-1.7.21.jar.</p>
+<p>官方文档的这一段话已经明确描述了三者的关系。slf4j译为简单日志门面，是日志框架的抽象。而log4j和logback是众多日志框架中的几种。</p>
+<p>这里写了几行简单的代码来验证一下。</p>
+<pre><code>public class Program {
+    public static void main(String[] args) {
+        Logger logger = LoggerFactory.getLogger(Program.class);
+        logger.info(&quot;hello world&quot;);
+    }
+}
+</code></pre><p><img src="https://images2015.cnblogs.com/blog/697102/201608/697102-20160810193849434-474632306.png" alt="image"></p>
+<p>从运行结果可以看到，由于没有给出具体的logger实现，无法在控制台输出日志。也就是说我们在具体开发中，需要绑定一个日志框架，才能正常的使用slf4j。</p>
+<p>log4j和logback呢？</p>
+<p>  而log4j和logback就是两个受欢迎的日志框架。但两者又有不同。</p>
+<pre><code>log4j是apache实现的一个开源日志组件。（Wrapped implementations）
+logback同样是由log4j的作者设计完成的，拥有更好的特性，用来取代log4j的一个日志框架。是slf4j的原生实现。（Native implementations）
+</code></pre><p><img src="http://www.slf4j.org/images/concrete-bindings.png" alt="iamge"></p>
+<p>上图可以看到应用程序对日志框架的调用关系。</p>
+<p>应用程序调用slf4j api，而日志的输出最终是由底层的日志框架来实现的。</p>
+<p>这张图也提现了log4j和logback的不同。</p>
+<p>可以看到logback是直接实现了slf4j的接口，是不消耗内存和计算开销的。而log4j不是对slf4j的原生实现，所以slf4j api在调用log4j时需要一个适配层。</p>
+<p>总结：</p>
+<ol>
+<li>slf4j是java的一个日志门面，实现了日志框架一些通用的api，log4j和logback是具体的日志框架。</li>
+<li>他们可以单独的使用，也可以绑定slf4j一起使用。<br>单独使用。分别调用框架自己的方法来输出日志信息。<br>绑定slf4j一起使用。调用slf4j的api来输入日志信息，具体使用与底层日志框架无关（需要底层框架的配置文件）<br>显然这里我们不推荐单独使用日志框架。假设项目中已经使用了log4j，而我们此时加载了一个类库，而这个类库依赖另一个日志框架。这个时候我们就需要维护两个日志框架，这是一个非常麻烦的事情。而使用了slf4j就不同了，由于应用调用的抽象层的api，与底层日志框架是无关的，因此可以任意更换日志框架。</li>
+</ol>
+<p>使用slf4j绑定日志系统的优势</p>
+<ul>
+<li>软件工程的角度。抽象，解耦，便于维护。可以参考一下上面的例子。</li>
+<li>语法设计角度。slf4j有{}占位符，而log4j需要用“+”来连接字符串，既不利于阅读，同时消耗了内存（heap memory）。<br>详细的描述可以参考：<a href="http://www.importnew.com/7450.html" target="_blank" rel="noopener">http://www.importnew.com/7450.html</a></li>
+</ul>
+<p>log4j与logback</p>
+<p>作为log4j的开发者，对log4j一定不陌生，他是apache的一个开源日志框架。而logback相对于log4j来说，更新一点，是由log4j的作者设计实现的，第一个版本是2011推出的。无论从设计上还是实现上，Logback相对log4j而言有了相对多的改进。但是两者的用法几乎差别不大。下面是logback的优势：</p>
+<ul>
+<li>更快的执行速度</li>
+<li>充分的测试</li>
+<li>logback-classic 非常自然的实现了SLF4J</li>
+<li>丰富的扩展文档</li>
+<li>可以使用使用XML配置文件或者Groovy</li>
+<li>自动重新载入配置文件</li>
+<li>优雅地从I/O错误中恢复</li>
+<li>自动清除旧的日志归档文件</li>
+<li>自动压缩归档日志文件</li>
+<li>更多优点可以参考官方文档。中文版 英文版<br>以上，从性能的角度，可以尽快从log4j迁移到logback上来。</li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ,图片资源转自pexels © <a href="" target="_blank">Ocean</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2023/01/30/slf4j/" class="next-post btn btn-default" title='slf4j'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">slf4j</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+
+<script>
+    var gitment = new Gitment({
+        id: 'Mon Jan 30 2023 14:35:27 GMT+0800',
+        owner:"LiuHaiYang",
+        repo:"liuhaiyang.github.io",
+        oauth: {
+          client_id:"aacf4f5555aee5bf0770",
+          client_secret:"07f91d5b66c30419c14d14349ccadaa91300bc9c"
+        },
+        perPage:"10",
+    });
+    gitment.render('comments');
+</script>
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2019
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Ocean</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
